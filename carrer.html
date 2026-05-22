@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Join 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar customization to keep premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Continuous scrolling marquee animation keyframes */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Custom styling for job filter cards transition */
+        .job-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .job-card.hidden-job {
+            opacity: 0;
+            transform: scale(0.92) translateY(12px);
+            position: absolute;
+            pointer-events: none;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
+            <a href="carrer.html" class="text-fashionBlack border-b-2 border-fashionGold pb-1 font-bold">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <button aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+            </button>
+            <!-- Cart -->
+            <a href="#" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span class="absolute -top-1 -right-1.5 w-4 h-4 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full">3</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN MASTER CONTENT -->
+    <main class="space-y-20 md:space-y-28 lg:space-y-36">
+
+        <!-- ==================== SECTION 1: HERO BLOCK ==================== -->
+        <section class="max-w-7xl mx-auto px-6 pt-12 md:px-12 md:pt-16 lg:pt-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center" aria-label="Hero Career Intro">
+            <!-- Left Info Block -->
+            <div class="space-y-8 md:space-y-10 lg:space-y-12">
+                <div class="space-y-4 md:space-y-6">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        Join Our Creative Collective
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[4rem] font-extrabold tracking-tight text-fashionBlack leading-[1.08] max-w-xl">
+                        Shape the Future of <span class="text-fashionGold">Self-Expression</span>
+                    </h1>
+                    <p class="text-neutral-500 text-sm md:text-[0.92rem] leading-relaxed max-w-md">
+                        At 4F WEARS, we don't just design garments; we build platforms for identity. We are looking for dreamers, innovators, and artisans who want to challenge seasonal paradigms and construct a legacy of style.
+                    </p>
+                </div>
+
+                <!-- See Positions CTA button -->
+                <a href="#open-roles" class="group flex items-center space-x-4 w-fit pt-2">
+                    <div class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-y-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <span class="text-fashionBlack font-bold text-sm md:text-[0.95rem] tracking-tight border-b border-transparent group-hover:border-fashionBlack transition-all">
+                        View Open Positions
+                    </span>
+                </a>
+                
+                <!-- Collaborative Stats -->
+                <div class="pt-8 md:pt-12 border-t border-neutral-100 flex gap-x-12 gap-y-4 items-center">
+                    <div>
+                        <span class="block text-3xl font-extrabold text-fashionBlack">4+</span>
+                        <span class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider">Global Studios</span>
+                    </div>
+                    <div class="w-px h-10 bg-neutral-200"></div>
+                    <div>
+                        <span class="block text-3xl font-extrabold text-fashionBlack">60%</span>
+                        <span class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider">Annual Growth</span>
+                    </div>
+                    <div class="w-px h-10 bg-neutral-200"></div>
+                    <div>
+                        <span class="block text-3xl font-extrabold text-fashionBlack">100%</span>
+                        <span class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider">Carbon Offset</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Editorial Collage Layout -->
+            <div class="relative w-full aspect-[4/3] md:aspect-[1/1] lg:aspect-[4/3] flex items-center justify-center p-2">
+                <!-- Outer decorative golden frame outline -->
+                <div class="absolute inset-0 border border-neutral-100 rounded-3xl -m-2 -z-10"></div>
+                
+                <!-- Background Large Creative Studio Picture -->
+                <div class="w-[82%] h-[82%] rounded-2xl overflow-hidden shadow-lg border border-neutral-200 relative group">
+                    <img 
+                        src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop" 
+                        alt="4F WEARS design showroom apparel racks" 
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    >
+                    <div class="absolute inset-0 bg-black/10"></div>
+                </div>
+
+                <!-- Floating Overlapping Image 1 (Creative Sketching close-up) -->
+                <div class="absolute -bottom-6 -left-6 w-[45%] aspect-[3/4] bg-white p-2.5 rounded-2xl shadow-2xl rotate-[-4deg] border border-neutral-150 transition-transform duration-500 hover:rotate-0 hover:scale-103 z-20">
+                    <img 
+                        src="https://images.unsplash.com/photo-1537874061437-04e0300d890e?q=80&w=400&auto=format&fit=crop" 
+                        alt="Fashion designer sketching and mood boarding" 
+                        class="w-full h-full object-cover rounded-xl"
+                    >
+                </div>
+
+                <!-- Floating Overlapping Image 2 (Streetwear model posing) -->
+                <div class="absolute -top-6 -right-6 w-[40%] aspect-[3/4] bg-white p-2.5 rounded-2xl shadow-2xl rotate-[5deg] border border-neutral-150 transition-transform duration-500 hover:rotate-0 hover:scale-103 z-20">
+                    <img 
+                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=400&auto=format&fit=crop" 
+                        alt="High fashion activewear showcase" 
+                        class="w-full h-full object-cover rounded-xl"
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 2: CULTURE & VALUES GRID ==================== -->
+        <section class="w-full bg-[#f8f9fa] py-20 lg:py-24 relative overflow-hidden" aria-label="Culture and Values">
+            <!-- Rotated 3D Decorative Gold Square Accents -->
+            <div class="w-10 h-10 bg-fashionGold rounded-sm rotate-12 absolute left-12 top-10 shadow-lg hidden md:block"></div>
+            <div class="w-8 h-8 bg-fashionGold rounded-sm rotate-45 absolute bottom-8 right-24 shadow-lg hidden md:block"></div>
+
+            <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 space-y-12 md:space-y-16">
+                <!-- Heading Info -->
+                <div class="text-center max-w-2xl mx-auto space-y-4">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">How We Work</span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-[2.6rem] font-extrabold text-fashionBlack leading-tight tracking-tight">
+                        Built on Passion, Driven by <span class="text-fashionGold">Authenticity</span>
+                    </h2>
+                    <p class="text-neutral-500 text-sm leading-relaxed">
+                        We believe that creative integrity is born from diverse, self-expressed voices collaborating in an environment that values precision, sustainability, and absolute artistry.
+                    </p>
+                </div>
+
+                <!-- 3 Culture Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+                    <!-- Value 1 -->
+                    <div class="bg-white p-8 lg:p-10 rounded-2xl shadow-sm border border-neutral-100 space-y-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 group">
+                        <span class="font-serif italic text-3xl font-extrabold text-fashionGold/30 group-hover:text-fashionGold transition-colors duration-300">01</span>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Authenticity First</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed">
+                            True style is rooted in personal truth. We nurture a workplace where every collaborator is celebrated for bringing their unique narrative and identity to the drawing table.
+                        </p>
+                    </div>
+
+                    <!-- Value 2 -->
+                    <div class="bg-white p-8 lg:p-10 rounded-2xl shadow-sm border border-neutral-100 space-y-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 group">
+                        <span class="font-serif italic text-3xl font-extrabold text-fashionGold/30 group-hover:text-fashionGold transition-colors duration-300">02</span>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Creative Excellence</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed">
+                            We decline mediocrity. We continuously push the frontiers of fabric formulation, silhouettes, and premium online experiences to command high-fashion on a global standard.
+                        </p>
+                    </div>
+
+                    <!-- Value 3 -->
+                    <div class="bg-white p-8 lg:p-10 rounded-2xl shadow-sm border border-neutral-100 space-y-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 group">
+                        <span class="font-serif italic text-3xl font-extrabold text-fashionGold/30 group-hover:text-fashionGold transition-colors duration-300">03</span>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Sustainable Impact</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed">
+                            Fashion must protect. We are committed to fully ethical supply chains, circular textiles, and designing garments of immortal craftsmanship to disrupt seasonal throwaway culture.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3: INTERACTIVE OPEN POSITIONS ==================== -->
+        <section id="open-roles" class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16" aria-label="Open Positions">
+            <!-- Header Block -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        Opportunities
+                    </span>
+                    <h2 class="text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-fashionBlack">
+                        Current Openings
+                    </h2>
+                </div>
+                
+                <div class="flex flex-col space-y-4 md:items-end">
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[325px] md:text-right">
+                        Join our mission to challenge the boundaries of self-expression. Select your department to view open postings.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Filter Buttons Tabs -->
+            <div class="flex flex-wrap gap-3 pb-2 border-b border-neutral-100">
+                <button onclick="filterJobs('all')" id="tab-all" class="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 transition-all duration-300 bg-fashionBlack border-fashionBlack text-white hover:scale-103 shadow-sm">
+                    All Roles (5)
+                </button>
+                <button onclick="filterJobs('design')" id="tab-design" class="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 text-neutral-600 transition-all duration-300 hover:border-fashionBlack hover:text-fashionBlack hover:scale-103">
+                    Design
+                </button>
+                <button onclick="filterJobs('tech')" id="tab-tech" class="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 text-neutral-600 transition-all duration-300 hover:border-fashionBlack hover:text-fashionBlack hover:scale-103">
+                    Tech & Dev
+                </button>
+                <button onclick="filterJobs('marketing')" id="tab-marketing" class="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 text-neutral-600 transition-all duration-300 hover:border-fashionBlack hover:text-fashionBlack hover:scale-103">
+                    Marketing
+                </button>
+                <button onclick="filterJobs('retail')" id="tab-retail" class="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 text-neutral-600 transition-all duration-300 hover:border-fashionBlack hover:text-fashionBlack hover:scale-103">
+                    Retail & Store
+                </button>
+            </div>
+
+            <!-- Jobs Cards Grid -->
+            <div id="jobs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch relative min-h-[400px]">
+                
+                <!-- Job Card 1 (Design) -->
+                <div class="job-card bg-white p-8 rounded-xl border border-neutral-200 flex flex-col justify-between space-y-6 hover:shadow-xl hover:border-neutral-300" data-dept="design">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="px-3.5 py-1 bg-amber-50 text-fashionGold rounded-full text-xs font-bold uppercase tracking-wider">Design</span>
+                            <span class="text-neutral-400 text-xs font-semibold">Milan, IT / Hybrid</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight leading-snug">Lead Apparel Designer</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3">
+                            Direct the conceptual design and raw textile development for our premier high-fashion seasonal drops. Collaborate with artisan weavers to launch sustainable outerwear lines.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-neutral-100 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-semibold text-neutral-400">Salary Range</span>
+                            <span class="font-extrabold text-lg text-fashionBlack">$95k - $125k</span>
+                        </div>
+                        <button onclick="openApplyModal('Lead Apparel Designer', 'Design')" class="group flex items-center space-x-2 text-fashionGold font-extrabold text-sm hover:text-amber-600 transition-colors">
+                            <span>Apply Now</span>
+                            <div class="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center text-fashionBlack transition-all duration-300 group-hover:bg-fashionGold group-hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card 2 (Marketing) -->
+                <div class="job-card bg-white p-8 rounded-xl border border-neutral-200 flex flex-col justify-between space-y-6 hover:shadow-xl hover:border-neutral-300" data-dept="marketing">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="px-3.5 py-1 bg-amber-50 text-fashionGold rounded-full text-xs font-bold uppercase tracking-wider">Marketing</span>
+                            <span class="text-neutral-400 text-xs font-semibold">New York, NY</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight leading-snug">Senior Brand Strategist</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3">
+                            Architect editorial launch campaigns, command global digital initiatives, and manage high-tier publicist relations to expand the digital ecosystem of our seasonal collections.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-neutral-100 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-semibold text-neutral-400">Salary Range</span>
+                            <span class="font-extrabold text-lg text-fashionBlack">$85k - $110k</span>
+                        </div>
+                        <button onclick="openApplyModal('Senior Brand Strategist', 'Marketing')" class="group flex items-center space-x-2 text-fashionGold font-extrabold text-sm hover:text-amber-600 transition-colors">
+                            <span>Apply Now</span>
+                            <div class="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center text-fashionBlack transition-all duration-300 group-hover:bg-fashionGold group-hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card 3 (Tech) -->
+                <div class="job-card bg-white p-8 rounded-xl border border-neutral-200 flex flex-col justify-between space-y-6 hover:shadow-xl hover:border-neutral-300" data-dept="tech">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="px-3.5 py-1 bg-amber-50 text-fashionGold rounded-full text-xs font-bold uppercase tracking-wider">Tech & Dev</span>
+                            <span class="text-neutral-400 text-xs font-semibold">London, UK / Remote</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight leading-snug">Front-End Engineer (E-commerce)</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3">
+                            Develop extremely interactive, glassmorphic interfaces for our global shopping site. Maintain visual layouts, micro-animations, and maximize mobile responsive performance.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-neutral-100 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-semibold text-neutral-400">Salary Range</span>
+                            <span class="font-extrabold text-lg text-fashionBlack">$90k - $120k</span>
+                        </div>
+                        <button onclick="openApplyModal('Front-End Engineer (E-commerce)', 'Tech & Dev')" class="group flex items-center space-x-2 text-fashionGold font-extrabold text-sm hover:text-amber-600 transition-colors">
+                            <span>Apply Now</span>
+                            <div class="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center text-fashionBlack transition-all duration-300 group-hover:bg-fashionGold group-hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card 4 (Retail) -->
+                <div class="job-card bg-white p-8 rounded-xl border border-neutral-200 flex flex-col justify-between space-y-6 hover:shadow-xl hover:border-neutral-300" data-dept="retail">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="px-3.5 py-1 bg-amber-50 text-fashionGold rounded-full text-xs font-bold uppercase tracking-wider">Retail</span>
+                            <span class="text-neutral-400 text-xs font-semibold">Paris, FR</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight leading-snug">Visual Merchandiser</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3">
+                            Direct the visual showroom arrangement and storefront architecture of our flagship Paris store. Translate seasonal apparel themes into sensory retail environments.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-neutral-100 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-semibold text-neutral-400">Salary Range</span>
+                            <span class="font-extrabold text-lg text-fashionBlack">$50k - $65k</span>
+                        </div>
+                        <button onclick="openApplyModal('Visual Merchandiser', 'Retail')" class="group flex items-center space-x-2 text-fashionGold font-extrabold text-sm hover:text-amber-600 transition-colors">
+                            <span>Apply Now</span>
+                            <div class="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center text-fashionBlack transition-all duration-300 group-hover:bg-fashionGold group-hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card 5 (Design) -->
+                <div class="job-card bg-white p-8 rounded-xl border border-neutral-200 flex flex-col justify-between space-y-6 hover:shadow-xl hover:border-neutral-300" data-dept="design">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="px-3.5 py-1 bg-amber-50 text-fashionGold rounded-full text-xs font-bold uppercase tracking-wider">Design</span>
+                            <span class="text-neutral-400 text-xs font-semibold">Milan, IT</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight leading-snug">Textile Sourcing Specialist</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3">
+                            Form relationships with global regenerative wool farmers and organic cotton weavers to construct materials that minimize overall carbon footprint without compromising premium tactile softness.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-neutral-100 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-semibold text-neutral-400">Salary Range</span>
+                            <span class="font-extrabold text-lg text-fashionBlack">$70k - $90k</span>
+                        </div>
+                        <button onclick="openApplyModal('Textile Sourcing Specialist', 'Design')" class="group flex items-center space-x-2 text-fashionGold font-extrabold text-sm hover:text-amber-600 transition-colors">
+                            <span>Apply Now</span>
+                            <div class="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center text-fashionBlack transition-all duration-300 group-hover:bg-fashionGold group-hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4: LIFE AT 4F WEARS (DARK MATTE CHARCOAL) ==================== -->
+        <section class="bg-fashionDarkBg py-20 md:py-24 lg:py-28 text-white w-full" aria-label="Employee Spotlights">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16 md:space-y-20 lg:space-y-24">
+                <!-- Header Block -->
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                    <div class="space-y-3">
+                        <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                            Life at 4F WEARS
+                        </span>
+                        <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                            Meet the Visionaries<br/>Behind the Stitches
+                        </h2>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-4 md:items-end">
+                        <p class="text-neutral-400 text-sm leading-relaxed max-w-[340px] md:text-right">
+                            Our team represents a borderless collective of creatives building the future of apparel design.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Testimonials/Spotlight Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-24 relative">
+                    <!-- Spotlight 1 -->
+                    <div class="space-y-6 md:space-y-8 relative">
+                        <div class="w-14 h-14 bg-white/[0.08] text-white rounded-full flex items-center justify-center font-serif text-3xl select-none" aria-hidden="true">“</div>
+                        <blockquote class="text-neutral-200 text-lg lg:text-[1.3rem] leading-relaxed font-medium tracking-tight">
+                            My journey at 4F WEARS began three years ago, and I have been empowered to redefine how modern activewear looks and feels. Creative freedom isn't just a buzzword here—it's the core of how we build and launch.
+                        </blockquote>
+                        <div class="flex items-center space-x-4 pt-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" 
+                                alt="Marcus Thorne profile photo" 
+                                class="w-12 h-12 rounded-full object-cover filter grayscale contrast-125 border border-white/10"
+                                loading="lazy"
+                            >
+                            <div>
+                                <cite class="not-italic font-bold text-white text-base block">Marcus Thorne</cite>
+                                <span class="text-neutral-500 text-sm font-medium block">Senior Outerwear Designer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spotlight 2 -->
+                    <div class="space-y-6 md:space-y-8 relative">
+                        <div class="w-14 h-14 bg-white/[0.08] text-white rounded-full flex items-center justify-center font-serif text-3xl select-none" aria-hidden="true">“</div>
+                        <blockquote class="text-neutral-200 text-lg lg:text-[1.3rem] leading-relaxed font-medium tracking-tight">
+                            Merging high tech and physical fashion is a complex challenge, but our engineering stack is as cutting-edge as our seasonal lines. Scaling our web platform to millions of global shoppers with flawless design is a dream.
+                        </blockquote>
+                        <div class="flex items-center space-x-4 pt-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" 
+                                alt="Elena Rostova profile photo" 
+                                class="w-12 h-12 rounded-full object-cover filter grayscale contrast-125 border border-white/10"
+                                loading="lazy"
+                            >
+                            <div>
+                                <cite class="not-italic font-bold text-white text-base block">Elena Rostova</cite>
+                                <span class="text-neutral-500 text-sm font-medium block">E-commerce Tech Lead</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5: SCROLLING TICKER BANNER ==================== -->
+        <section class="w-full bg-fashionGold py-5 md:py-7 overflow-hidden relative select-none" aria-hidden="true">
+            <div class="animate-marquee flex items-center whitespace-nowrap text-fashionBlack font-extrabold text-2xl md:text-3xl lg:text-[2.2rem] tracking-widest uppercase gap-8">
+                <span>Shape The Future</span>
+                <span class="text-white">+</span>
+                <span>Join The Wears</span>
+                <span class="text-white">+</span>
+                <span>Shape The Future</span>
+                <span class="text-white">+</span>
+                <span>Join The Wears</span>
+                <span class="text-white">+</span>
+                <!-- Duplicate set for seamless continuous scrolling infinite loop -->
+                <span>Shape The Future</span>
+                <span class="text-white">+</span>
+                <span>Join The Wears</span>
+                <span class="text-white">+</span>
+                <span>Shape The Future</span>
+                <span class="text-white">+</span>
+                <span>Join The Wears</span>
+                <span class="text-white">+</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="index.html#featured" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== DYNAMIC APPLICATION MODAL POPUP ==================== -->
+    <div id="applyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="modalJobTitle">
+        <!-- Inner container -->
+        <div class="bg-white rounded-2xl w-full max-w-lg p-6 md:p-8 shadow-2xl relative border border-neutral-100 transition-all duration-300 transform scale-95 opacity-0 duration-300" id="modalContent">
+            <!-- Close button -->
+            <button onclick="closeApplyModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-fashionBlack transition-colors p-1.5 rounded-full hover:bg-neutral-50" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Pre-submission block -->
+            <div id="modalFormBlock" class="space-y-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-extrabold text-fashionGold uppercase tracking-wider block" id="modalJobDept">Design</span>
+                    <h2 class="text-2xl font-extrabold text-fashionBlack tracking-tight" id="modalJobTitle">Lead Apparel Designer</h2>
+                    <p class="text-xs text-neutral-500">Apply instantly. Our creative recruiters typically review applications within 48 hours.</p>
+                </div>
+
+                <!-- Form -->
+                <form id="jobForm" onsubmit="submitJobForm(event)" class="space-y-4">
+                    <div>
+                        <label for="applicantName" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Full Name *</label>
+                        <input type="text" id="applicantName" required class="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all" placeholder="Esther Howard">
+                    </div>
+
+                    <div>
+                        <label for="applicantEmail" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Email Address *</label>
+                        <input type="email" id="applicantEmail" required class="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all" placeholder="esther.howard@gmail.com">
+                    </div>
+
+                    <div>
+                        <label for="applicantResume" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Resume / LinkedIn Profile URL *</label>
+                        <input type="url" id="applicantResume" required class="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all" placeholder="https://linkedin.com/in/esther-howard">
+                    </div>
+
+                    <div>
+                        <label for="applicantPortfolio" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Portfolio URL (Optional)</label>
+                        <input type="url" id="applicantPortfolio" class="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all" placeholder="https://estherhoward.design">
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row gap-3">
+                        <button type="submit" class="flex-1 px-6 py-3 bg-fashionBlack text-white rounded-xl text-sm font-bold shadow-md hover:bg-fashionGold transition-all duration-300">
+                            Submit Application
+                        </button>
+                        <button type="button" onclick="closeApplyModal()" class="px-6 py-3 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack rounded-xl text-sm font-semibold transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Post-submission success block -->
+            <div id="modalSuccessBlock" class="hidden py-8 text-center space-y-6">
+                <!-- Large Animated Success Circle -->
+                <div class="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-2xl font-extrabold text-fashionBlack tracking-tight">Application Submitted!</h3>
+                    <p class="text-sm text-neutral-500 max-w-sm mx-auto">
+                        Thank you for applying, <span id="successApplicantName" class="font-bold text-fashionBlack">Applicant</span>. We have successfully cataloged your profile details. An invite has been dispatched to your email address: <span id="successApplicantEmail" class="font-bold text-fashionBlack">email</span>.
+                    </p>
+                </div>
+                <div class="pt-4 max-w-xs mx-auto">
+                    <button onclick="closeApplyModal()" class="w-full px-6 py-3 bg-fashionBlack text-white rounded-xl text-sm font-bold shadow-md hover:bg-fashionGold transition-all duration-300">
+                        Return to Listings
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== FRONT-END INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        // --- 1. JOB OPENINGS FILTERING LOGIC ---
+        function filterJobs(category) {
+            // Update active state in tabs
+            const tabs = ['all', 'design', 'tech', 'marketing', 'retail'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}`);
+                if (!btn) return;
+                
+                if (tab === category) {
+                    btn.className = "px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 transition-all duration-300 bg-fashionBlack border-fashionBlack text-white hover:scale-103 shadow-sm";
+                } else {
+                    btn.className = "px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-200 text-neutral-600 transition-all duration-300 hover:border-fashionBlack hover:text-fashionBlack hover:scale-103";
+                }
+            });
+
+            // Toggle card visibilities
+            const cards = document.querySelectorAll('.job-card');
+            let countVisible = 0;
+            
+            cards.forEach(card => {
+                const dept = card.getAttribute('data-dept');
+                if (category === 'all' || dept === category) {
+                    card.classList.remove('hidden-job');
+                    countVisible++;
+                } else {
+                    card.classList.add('hidden-job');
+                }
+            });
+
+            // Update All Roles counter in tab button if all is clicked
+            const allBtn = document.getElementById('tab-all');
+            if (allBtn && category === 'all') {
+                allBtn.innerText = `All Roles (${countVisible})`;
+            }
+        }
+
+        // --- 2. GLASSMORPHIC POPUP MODAL CONTROL ---
+        const modal = document.getElementById('applyModal');
+        const modalContent = document.getElementById('modalContent');
+        const formBlock = document.getElementById('modalFormBlock');
+        const successBlock = document.getElementById('modalSuccessBlock');
+
+        function openApplyModal(jobTitle, jobDept) {
+            // Reset modal states
+            formBlock.classList.remove('hidden');
+            successBlock.classList.add('hidden');
+            document.getElementById('jobForm').reset();
+
+            // Set job content
+            document.getElementById('modalJobTitle').innerText = jobTitle;
+            document.getElementById('modalJobDept').innerText = jobDept;
+
+            // Show Modal with smooth transitions
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            
+            // Scaled content animation
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 50);
+
+            // Block body scroll behind modal
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApplyModal() {
+            // Smoothly collapse inner card first
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+
+            // Hide overlay frame
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('pointer-events-none', 'opacity-0');
+                
+                // Allow body scroll again
+                document.body.style.overflow = '';
+            }, 200);
+        }
+
+        // Close modal when user clicks outside the inner panel box
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeApplyModal();
+            }
+        });
+
+        // --- 3. JOB APPLICATION SUBMISSION LOGIC ---
+        function submitJobForm(event) {
+            event.preventDefault(); // Halt default browser submit
+
+            const applicantName = document.getElementById('applicantName').value;
+            const applicantEmail = document.getElementById('applicantEmail').value;
+
+            // Fill success block placeholders
+            document.getElementById('successApplicantName').innerText = applicantName;
+            document.getElementById('successApplicantEmail').innerText = applicantEmail;
+
+            // Animate form block swap with success block
+            formBlock.classList.add('hidden');
+            successBlock.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
