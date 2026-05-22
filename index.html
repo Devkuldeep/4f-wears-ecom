@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4F WEARS - High Fashion Collections</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar customization to keep premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Continuous scrolling marquee animation keyframes */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Pulsing dual ring halo effect for the video play button */
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+        .play-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            animation: pulseRing 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+        }
+        .play-pulse-delayed {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            animation: pulseRing 2s cubic-bezier(0.215, 0.610, 0.355, 1) 1s infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
+            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="#" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <button aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+            </button>
+            <!-- Cart -->
+            <a href="#" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span class="absolute -top-1 -right-1.5 w-4 h-4 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full">3</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN MASTER CONTENT -->
+    <main class="space-y-20 md:space-y-28 lg:space-y-36">
+
+        <!-- ==================== SECTION 1: HERO BLOCK ==================== -->
+        <section class="max-w-7xl mx-auto px-6 pt-12 md:px-12 md:pt-16 lg:pt-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center" aria-label="Hero Introduction">
+            <!-- Left Info Block -->
+            <div class="space-y-8 md:space-y-10 lg:space-y-12">
+                <div class="space-y-4 md:space-y-6">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        New Spring 2026 Collections
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[4rem] font-extrabold tracking-tight text-fashionBlack leading-[1.08] max-w-lg">
+                        Reflect Who You Are with Our <span class="text-fashionGold">Style</span>
+                    </h1>
+                    <p class="text-neutral-500 text-sm md:text-[0.92rem] leading-relaxed max-w-md">
+                        The search of great style is essential to our collections. We choose textures that maximize your comfort, transform your look and give you a sense of confidence to be truly yourself in any circumstance.
+                    </p>
+                </div>
+
+                <!-- See Collections Circle CTA -->
+                <a href="#" class="group flex items-center space-x-4 w-fit pt-2">
+                    <div class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </div>
+                    <span class="text-fashionBlack font-bold text-sm md:text-[0.95rem] tracking-tight border-b border-transparent group-hover:border-fashionBlack transition-all">
+                        Discover more selections
+                    </span>
+                </a>
+
+                <!-- Monochrome Fashion Partner Logos -->
+                <div class="pt-8 md:pt-12 border-t border-neutral-100 flex flex-wrap gap-x-8 gap-y-4 items-center text-neutral-400">
+                    <span class="font-extrabold tracking-widest text-lg hover:text-fashionBlack transition-colors duration-200">adidas</span>
+                    <span class="font-bold tracking-tight text-sm uppercase hover:text-fashionBlack transition-colors duration-200">Karl Lagerfeld</span>
+                    <span class="font-bold tracking-widest text-md hover:text-fashionBlack transition-colors duration-200">LEVI'S</span>
+                    <span class="font-semibold tracking-tighter text-sm uppercase hover:text-fashionBlack transition-colors duration-200">Calvin Klein</span>
+                </div>
+            </div>
+
+            <!-- Right Photo Grid Puzzle (Mathematical alignment) -->
+            <div class="relative w-full aspect-[1/1] sm:aspect-[4/3] md:aspect-[1/1] lg:aspect-[4/3] grid grid-cols-3 grid-rows-3 gap-3 p-1">
+                <!-- Cell 1 (0,0): Empty Outline -->
+                <div class="border border-neutral-100 rounded-2xl bg-neutral-50/50 flex items-center justify-center relative overflow-hidden">
+                    <!-- Floating abstract gold sphere behind grid -->
+                    <div class="absolute -top-6 -right-6 w-14 h-14 bg-fashionGold/25 rounded-full filter blur-sm"></div>
+                </div>
+                
+                <!-- Cell 2 (0,1): Image Split -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 1" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: -100%; top: 0;"
+                    >
+                </div>
+                
+                <!-- Cell 3 (0,2): Image Split -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 2" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: -200%; top: 0;"
+                    >
+                </div>
+
+                <!-- Cell 4 (1,0): Image Split -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 3" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: 0; top: -100%;"
+                    >
+                </div>
+
+                <!-- Cell 5 (1,1): Image Split -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 4" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: -100%; top: -100%;"
+                    >
+                </div>
+
+                <!-- Cell 6 (1,2): Image Split (Matches orange checkered pattern backdrop perfectly) -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 5" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: -200%; top: -100%;"
+                    >
+                </div>
+
+                <!-- Cell 7 (2,0): Empty Outline -->
+                <div class="border border-neutral-100 rounded-2xl bg-neutral-50/50"></div>
+
+                <!-- Cell 8 (2,1): Image Split -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 6" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: -100%; top: -200%;"
+                    >
+                </div>
+
+                <!-- Cell 9 (2,2): Image Split -->
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-neutral-200">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Grid piece 7" 
+                        class="absolute w-[300%] h-[300%] max-w-none object-cover" 
+                        style="left: -200%; top: -200%;"
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 2: INTRO/IDENTITY BLOCK (FLOATING CARDS) ==================== -->
+        <section class="w-full bg-[#f8f9fa] py-20 lg:py-24 relative overflow-hidden" aria-label="Identity Introduction">
+            <!-- Rotated 3D Decorative Gold Square Accents -->
+            <div class="w-10 h-10 bg-fashionGold rounded-sm rotate-12 absolute left-12 top-10 shadow-lg hidden md:block"></div>
+            <div class="w-12 h-12 bg-fashionGold rounded-sm -rotate-[22deg] absolute right-24 top-6 shadow-lg hidden md:block"></div>
+            <div class="w-8 h-8 bg-fashionGold rounded-sm rotate-45 absolute bottom-8 left-[35%] shadow-lg hidden md:block"></div>
+
+            <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 items-center relative z-10">
+                <!-- Left Floated Fashion Card (Red Dress Model) -->
+                <div class="col-span-1 hidden md:block">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-white rounded-lg shadow-xl p-3 max-w-[210px] transform -translate-y-8 rotate-[-3deg] hover:rotate-0 transition-transform duration-500">
+                        <img 
+                            src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=600&auto=format&fit=crop" 
+                            alt="Identity model in red garment" 
+                            class="w-full h-full object-cover rounded-md"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+
+                <!-- Center Text CTA Block -->
+                <div class="col-span-1 md:col-span-2 text-center flex flex-col items-center space-y-6">
+                    <h2 class="text-3xl sm:text-4xl lg:text-[2.6rem] font-extrabold text-fashionBlack leading-tight tracking-tight max-w-lg">
+                        We Provide The Best Outfit to Help You <span class="text-fashionGold">Express</span> Your Identity
+                    </h2>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[340px]">
+                        The power of apparel is not only to look good, but it is also an art of creating a story that is authentic and represents who you are.
+                    </p>
+                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                        Shop our catalog
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Right Floated Fashion Card (Black Athletic Jacket Model) -->
+                <div class="col-span-1 hidden md:flex justify-end">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-white rounded-lg shadow-xl p-3 max-w-[210px] transform translate-y-8 rotate-[5deg] hover:rotate-0 transition-transform duration-500">
+                        <img 
+                            src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop" 
+                            alt="Identity model in active wear" 
+                            class="w-full h-full object-cover rounded-md"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3: SWEATSHIRT COLLECTIONS ==================== -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 items-stretch" aria-label="Sweatshirt Collections">
+            <!-- Column 1: Info and CTA -->
+            <div class="flex flex-col justify-between py-2 space-y-8 md:space-y-0">
+                <div class="space-y-4 md:space-y-6">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        New Collections
+                    </span>
+                    <h2 class="text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-fashionBlack leading-[1.08] max-w-sm">
+                        Sweatshirt Collections
+                    </h2>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[290px]">
+                        Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening. Check out our new collections!
+                    </p>
+                </div>
+                
+                <a href="#" class="group flex items-center space-x-4 w-fit pt-6 md:pt-0">
+                    <span class="text-fashionBlack font-bold text-base leading-snug tracking-tight">
+                        See More photos<br class="hidden sm:inline" />for this arrival
+                    </span>
+                    <div class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Column 2: Sweatshirt Pink Soda -->
+            <div class="group flex flex-col space-y-4">
+                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                    <img 
+                        src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop" 
+                        alt="Sweatshirt Pink Soda Collections model posing in orange top" 
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="flex justify-between items-start pt-1">
+                    <h3 class="font-bold text-lg text-fashionBlack leading-tight tracking-tight">
+                        Sweatshirt Pink Soda<br/>Collections
+                    </h3>
+                    <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-fashionBlack transition-all duration-300 hover:bg-fashionBlack hover:border-fashionBlack hover:text-white" aria-label="View Sweatshirt Pink Soda Collections">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 3: Adidas Hoodie -->
+            <div class="group flex flex-col space-y-4">
+                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                    <img 
+                        src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop" 
+                        alt="Adidas Hoodie Collections model posing in black sports jacket" 
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="flex justify-between items-start pt-1">
+                    <h3 class="font-bold text-lg text-fashionBlack leading-tight tracking-tight">
+                        Adidas Hoodie<br/>Collections
+                    </h3>
+                    <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-fashionBlack transition-all duration-300 hover:bg-fashionBlack hover:border-fashionBlack hover:text-white" aria-label="View Adidas Hoodie Collections">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4: OUR BESTSELLER ==================== -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 space-y-10 md:space-y-12" aria-label="Bestseller Products">
+            <!-- Header Block -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        New Collections
+                    </span>
+                    <h2 class="text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-fashionBlack">
+                        Our Bestseller
+                    </h2>
+                </div>
+                
+                <div class="flex flex-col space-y-4 md:items-end">
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[325px] md:text-right">
+                        Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening. Check out our new collections!
+                    </p>
+                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                        View all Collections 
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3 Product Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+                <!-- Product 1 -->
+                <div class="group flex flex-col space-y-4">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop" 
+                            alt="Graffiti Boyfriend T-Shirt in vibrant red" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <button class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Graffiti Boyfriend T-Shirt to cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-end pt-1">
+                        <div class="space-y-0.5">
+                            <span class="text-neutral-400 font-semibold text-sm block">T-Shirt</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
+                                Graffiti Boyfriend
+                            </h4>
+                        </div>
+                        <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group flex flex-col space-y-4">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop" 
+                            alt="Badge Boyfriend Hoodie in clean black" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <button class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Badge Boyfriend Hoodie to cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-end pt-1">
+                        <div class="space-y-0.5">
+                            <span class="text-neutral-400 font-semibold text-sm block">Hoodie</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
+                                Badge Boyfriend
+                            </h4>
+                        </div>
+                        <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group flex flex-col space-y-4">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop" 
+                            alt="Adidas Contempo T-Shirt in coral/peach" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <button class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Contempo T-Shirt to cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-end pt-1">
+                        <div class="space-y-0.5">
+                            <span class="text-neutral-400 font-semibold text-sm block">T-Shirt</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
+                                Adidas Contempo
+                            </h4>
+                        </div>
+                        <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5: OUR FEATURED COLLECTIONS ==================== -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16" aria-label="Featured Selections">
+            <!-- Header Layout -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        Our Collections
+                    </span>
+                    <h2 class="text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-fashionBlack leading-[1.08] max-w-md">
+                        Our Featured Collections
+                    </h2>
+                </div>
+                
+                <div class="flex flex-col space-y-4 md:items-end">
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[370px] md:text-right">
+                        Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening. Style is something each of us already has, all we need to do is find it. Check out our new collections!
+                    </p>
+                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                        View all Collections 
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Asymmetric Layout Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch">
+                <!-- Left Card: Hoodie Collection -->
+                <div class="group relative overflow-hidden aspect-[4/5] md:aspect-auto bg-neutral-100 rounded-sm flex flex-col justify-between p-8 lg:p-10">
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Hoodie Collection model posing in street jacket" 
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                    <h2 class="relative z-10 font-extrabold text-3xl lg:text-4xl text-fashionBlack leading-tight tracking-tight">
+                        Hoodie<br/>Collection
+                    </h2>
+                    <div class="relative z-10 flex justify-end items-end w-full">
+                        <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Hoodie Collection">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right horizontal cards -->
+                <div class="flex flex-col gap-8 md:gap-10 lg:gap-12 justify-between">
+                    <!-- Pants Card -->
+                    <div class="group relative overflow-hidden aspect-[16/9] md:aspect-auto md:flex-1 bg-neutral-100 rounded-sm flex flex-col justify-between p-8 lg:p-10">
+                        <img 
+                            src="https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                            alt="Pants Collections close up" 
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="relative z-10 flex justify-end w-full">
+                            <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Pants Collections">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
+                        <h2 class="relative z-10 font-extrabold text-3xl lg:text-4xl text-fashionBlack leading-tight tracking-tight">
+                            Pants<br/>Collections
+                        </h2>
+                    </div>
+
+                    <!-- Shoes Card -->
+                    <div class="group relative overflow-hidden aspect-[16/9] md:aspect-auto md:flex-1 bg-neutral-100 rounded-sm flex flex-col justify-between p-8 lg:p-10">
+                        <img 
+                            src="https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                            alt="Shoes Collections sneaker" 
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="relative z-10 flex justify-end w-full">
+                            <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Shoes Collections">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
+                        <h2 class="relative z-10 font-extrabold text-3xl lg:text-4xl text-fashionBlack leading-tight tracking-tight text-right w-full self-end">
+                            Shoes<br/>Collections
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 6: CUSTOMER TESTIMONIALS (DARK THEME) ==================== -->
+        <section class="bg-fashionDarkBg py-20 md:py-24 lg:py-28 text-white w-full" aria-label="Customer Reviews">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16 md:space-y-20 lg:space-y-24">
+                <!-- Header Block -->
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                    <div class="space-y-3">
+                        <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                            Our Testimony
+                        </span>
+                        <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                            Our Satisfied<br/>Customer Review
+                        </h2>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-4 md:items-end">
+                        <p class="text-neutral-400 text-sm leading-relaxed max-w-[340px] md:text-right">
+                            Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening.
+                        </p>
+                        <a href="#" class="group flex items-center text-white font-bold text-sm border-b border-white pb-0.5 w-fit hover:text-fashionGold hover:border-fashionGold transition-all duration-200">
+                            Learn More 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Testimonials Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-24 relative">
+                    <!-- Column 1 -->
+                    <div class="space-y-6 md:space-y-8 relative">
+                        <div class="w-14 h-14 bg-white/[0.08] text-white rounded-full flex items-center justify-center font-serif text-3xl select-none" aria-hidden="true">“</div>
+                        <blockquote class="text-neutral-200 text-lg lg:text-[1.3rem] leading-relaxed font-medium tracking-tight">
+                            Super fast delivery, great material, and I am simply loving it!!! Looking forward to make my next purchase :)
+                        </blockquote>
+                        <div class="flex items-center space-x-4 pt-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" 
+                                alt="Esther Howard profile photo" 
+                                class="w-12 h-12 rounded-full object-cover filter grayscale contrast-125 border border-white/10"
+                                loading="lazy"
+                            >
+                            <div>
+                                <cite class="not-italic font-bold text-white text-base block">Esther Howard</cite>
+                                <span class="text-neutral-500 text-sm font-medium block">CEO BuySell Start Up Agency</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="space-y-6 md:space-y-8 relative">
+                        <div class="w-14 h-14 bg-white/[0.08] text-white rounded-full flex items-center justify-center font-serif text-3xl select-none" aria-hidden="true">“</div>
+                        <blockquote class="text-neutral-200 text-lg lg:text-[1.3rem] leading-relaxed font-medium tracking-tight">
+                            I love this sweater! I have not washed it yet so I am not sure how it is going to hold up but for now, I'm happy!
+                        </blockquote>
+                        <div class="flex items-center space-x-4 pt-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" 
+                                alt="Jane Cooper profile photo" 
+                                class="w-12 h-12 rounded-full object-cover filter grayscale contrast-125 border border-white/10"
+                                loading="lazy"
+                            >
+                            <div>
+                                <cite class="not-italic font-bold text-white text-base block">Jane Cooper</cite>
+                                <span class="text-neutral-500 text-sm font-medium block">Loyal Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider arrows -->
+                <div class="flex justify-end items-center space-x-4 pt-6">
+                    <button class="w-12 h-12 rounded-full border border-neutral-700 text-neutral-400 flex items-center justify-center transition-all duration-300 hover:text-white hover:border-white" aria-label="Previous review">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <button class="w-12 h-12 rounded-full bg-white text-fashionBlack flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-fashionGold hover:text-white hover:scale-105" aria-label="Next review">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 7: GET TO KNOW MORE ABOUT US (VIDEO BLOCK) ==================== -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16" aria-label="About Us Video Details">
+            <!-- Header Block -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        Our Story
+                    </span>
+                    <h2 class="text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-fashionBlack leading-[1.08] max-w-sm">
+                        Get to Know More About Us
+                    </h2>
+                </div>
+                
+                <div class="flex flex-col space-y-4 md:items-end">
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[430px] md:text-right">
+                        Our balance is useful for your protection in this beautiful collection, without compromise on convenience. We choose custom elements to offer a seamless style that fits you, we want you to have total control of your fashion. Check out our video summary to read more!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Large Video Player Frame with pulsing play button overlay -->
+            <div class="group relative aspect-[16/8] w-full bg-neutral-100 rounded-lg overflow-hidden shadow-2xl">
+                <!-- Video Cover Image representing model crouching near railings -->
+                <img 
+                    src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop" 
+                    alt="Introductory video frame showing model in black athletic street jacket" 
+                    class="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-103"
+                    loading="lazy"
+                >
+                
+                <!-- Semi-transparent overlay mask -->
+                <div class="absolute inset-0 bg-black/15 group-hover:bg-black/25 transition-all duration-300"></div>
+
+                <!-- Centered Pulsing Play Button overlay -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <button class="relative w-20 h-20 bg-white text-fashionBlack rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 hover:scale-115 hover:bg-fashionGold hover:text-white" aria-label="Play introductory video">
+                        <!-- Dual pulsing rings -->
+                        <div class="play-pulse"></div>
+                        <div class="play-pulse-delayed"></div>
+                        
+                        <!-- Inline Play triangle -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 relative z-10 translate-x-0.5">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 8: INFINITE SCROLLING TICKER ==================== -->
+        <section class="w-full bg-fashionBlack py-5 md:py-7 overflow-hidden relative select-none" aria-hidden="true">
+            <div class="animate-marquee flex items-center whitespace-nowrap text-white font-extrabold text-2xl md:text-3xl lg:text-[2.2rem] tracking-widest uppercase gap-8">
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <!-- Duplicate set for seamless continuous scrolling infinite loop -->
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+                <span>Join Our Newsletter</span>
+                <span class="text-fashionGold">+</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="#" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+</html>

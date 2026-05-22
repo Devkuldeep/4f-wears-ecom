@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Perfect Featured Collections & Testimonials</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar customization to keep premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white">
+
+    <!-- MAIN WRAPPER -->
+    <main class="space-y-24 md:space-y-36 pb-24 md:pb-36">
+
+        <!-- ==================== SECTION 1: OUR FEATURED COLLECTIONS (LIGHT THEME) ==================== -->
+        <section class="max-w-7xl mx-auto px-6 pt-12 md:px-12 md:pt-20 lg:pt-24 space-y-12 md:space-y-16" aria-label="Featured Collections">
+            
+            <!-- HEADER LAYOUT -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        Our Collections
+                    </span>
+                    <h1 class="text-4xl lg:text-5xl xl:text-[3.25rem] font-extrabold tracking-tight text-fashionBlack leading-[1.08] max-w-md">
+                        Our Featured Collections
+                    </h1>
+                </div>
+                
+                <div class="flex flex-col space-y-4 md:items-end">
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-[370px] md:text-right">
+                        Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening. Style is something each of us already has, all we need to do is find it. Check out our new collections!
+                    </p>
+                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                        View all Collections 
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ASYMMETRIC GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch">
+                
+                <!-- LEFT CARD: HOODIE COLLECTION (Full aspect height) -->
+                <div class="group relative overflow-hidden aspect-[4/5] md:aspect-auto bg-neutral-100 rounded-sm flex flex-col justify-between p-8 lg:p-10">
+                    <!-- Background image with subtle hover zoom -->
+                    <img 
+                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Hoodie Collection featuring a street style bright orange hoodie" 
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="eager"
+                    >
+                    
+                    <!-- Overlay Top-Left Header -->
+                    <h2 class="relative z-10 font-extrabold text-3xl lg:text-4xl text-fashionBlack leading-tight tracking-tight">
+                        Hoodie<br/>Collection
+                    </h2>
+                    
+                    <!-- Overlay Bottom-Right Button -->
+                    <div class="relative z-10 flex justify-end items-end w-full">
+                        <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Hoodie Collection">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: SPLIT HORIZONTALLY INTO 2 CARDS -->
+                <div class="flex flex-col gap-8 md:gap-10 lg:gap-12 justify-between">
+                    
+                    <!-- RIGHT TOP CARD: PANTS COLLECTIONS -->
+                    <div class="group relative overflow-hidden aspect-[16/9] md:aspect-auto md:flex-1 bg-neutral-100 rounded-sm flex flex-col justify-between p-8 lg:p-10">
+                        <img 
+                            src="https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                            alt="Pants Collections close up of black sporty activewear shorts" 
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="eager"
+                        >
+                        
+                        <!-- Floating Circle Button Top-Right -->
+                        <div class="relative z-10 flex justify-end w-full">
+                            <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Pants Collections">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
+                        
+                        <!-- Floating Text Bottom-Left -->
+                        <h2 class="relative z-10 font-extrabold text-3xl lg:text-4xl text-fashionBlack leading-tight tracking-tight">
+                            Pants<br/>Collections
+                        </h2>
+                    </div>
+
+                    <!-- RIGHT BOTTOM CARD: SHOES COLLECTIONS -->
+                    <div class="group relative overflow-hidden aspect-[16/9] md:aspect-auto md:flex-1 bg-neutral-100 rounded-sm flex flex-col justify-between p-8 lg:p-10">
+                        <img 
+                            src="https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                            alt="Shoes Collections macro close up of modern white and orange sneakers" 
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        
+                        <!-- Floating Circle Button Top-Right -->
+                        <div class="relative z-10 flex justify-end w-full">
+                            <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Shoes Collections">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
+                        
+                        <!-- Floating Text Bottom-Right -->
+                        <h2 class="relative z-10 font-extrabold text-3xl lg:text-4xl text-fashionBlack leading-tight tracking-tight text-right w-full self-end">
+                            Shoes<br/>Collections
+                        </h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==================== SECTION 2: CUSTOMER TESTIMONIALS (DARK THEME) ==================== -->
+        <section class="bg-fashionDarkBg py-16 md:py-24 lg:py-28 text-white w-full" aria-label="Testimonials">
+            
+            <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16 md:space-y-24">
+                
+                <!-- HEADER BLOCK -->
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                    <div class="space-y-3">
+                        <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                            Our Testimony
+                        </span>
+                        <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                            Our Satisfied<br/>Customer Review
+                        </h2>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-4 md:items-end">
+                        <p class="text-neutral-400 text-sm leading-relaxed max-w-[340px] md:text-right">
+                            Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening.
+                        </p>
+                        <a href="#" class="group flex items-center text-white font-bold text-sm border-b border-white pb-0.5 w-fit hover:text-fashionGold hover:border-fashionGold transition-all duration-200">
+                            Learn More 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TESTIMONIALS GRID (2 COLUMN) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-24 relative">
+                    
+                    <!-- COLUMN 1: ESTHER HOWARD -->
+                    <div class="space-y-6 md:space-y-8 relative">
+                        <!-- Translucent quote bubble icon -->
+                        <div class="w-14 h-14 bg-white/[0.08] text-white rounded-full flex items-center justify-center font-serif text-3xl select-none" aria-hidden="true">
+                            “
+                        </div>
+                        <blockquote class="text-neutral-200 text-lg lg:text-[1.3rem] leading-relaxed font-medium tracking-tight">
+                            Super fast delivery, great material, and I am simply loving it!!! Looking forward to make my next purchase :)
+                        </blockquote>
+                        <!-- User profile details -->
+                        <div class="flex items-center space-x-4 pt-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" 
+                                alt="Esther Howard profile photo" 
+                                class="w-12 h-12 rounded-full object-cover filter grayscale contrast-125 border border-white/10"
+                                loading="lazy"
+                            >
+                            <div>
+                                <cite class="not-italic font-bold text-white text-base block">Esther Howard</cite>
+                                <span class="text-neutral-500 text-sm font-medium block">CEO BuySell Start Up Agency</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 2: JANE COOPER -->
+                    <div class="space-y-6 md:space-y-8 relative">
+                        <!-- Translucent quote bubble icon -->
+                        <div class="w-14 h-14 bg-white/[0.08] text-white rounded-full flex items-center justify-center font-serif text-3xl select-none" aria-hidden="true">
+                            “
+                        </div>
+                        <blockquote class="text-neutral-200 text-lg lg:text-[1.3rem] leading-relaxed font-medium tracking-tight">
+                            I love this sweater! I have not washed it yet so I am not sure how it is going to hold up but for now, I'm happy!
+                        </blockquote>
+                        <!-- User profile details -->
+                        <div class="flex items-center space-x-4 pt-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" 
+                                alt="Jane Cooper profile photo" 
+                                class="w-12 h-12 rounded-full object-cover filter grayscale contrast-125 border border-white/10"
+                                loading="lazy"
+                            >
+                            <div>
+                                <cite class="not-italic font-bold text-white text-base block">Jane Cooper</cite>
+                                <span class="text-neutral-500 text-sm font-medium block">Loyal Customer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SLIDER CONTROLS (BOTTOM-RIGHT ALIGNED) -->
+                <div class="flex justify-end items-center space-x-4 pt-6 md:pt-10">
+                    <!-- Left Button (Inactive state, bordered) -->
+                    <button class="w-12 h-12 rounded-full border border-neutral-700 text-neutral-400 flex items-center justify-center transition-all duration-300 hover:text-white hover:border-white" aria-label="Previous review">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <!-- Right Button (Active state, solid white) -->
+                    <button class="w-12 h-12 rounded-full bg-white text-fashionBlack flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-fashionGold hover:text-white hover:scale-105" aria-label="Next review">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
