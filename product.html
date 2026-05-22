@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graffiti Boyfriend Oversized Hoodie - 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar customization to keep premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Image Zoom / Detail hover effect */
+        .zoom-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .zoom-container img {
+            transition: transform 0.5s ease;
+        }
+        .zoom-container:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Continuous scrolling marquee animation keyframes */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="index.html#bestseller" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="product.html" class="text-fashionBlack border-b-2 border-fashionGold pb-1 font-bold">Product</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <button aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+            </button>
+            <!-- Cart Icon with dynamic badge -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">3</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="py-10 md:py-16 space-y-20 md:space-y-28 lg:space-y-36">
+
+        <!-- ==================== PRODUCT DETAIL CONTAINER ==================== -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start" aria-label="Product Showcase and Customization">
+            
+            <!-- LEFT: IMAGES VIEW & CAROUSEL THUMBNAILS -->
+            <div class="space-y-4 relative">
+                <!-- Promo banner sticker -->
+                <span class="absolute top-4 left-4 z-10 px-3.5 py-1.5 bg-fashionGold text-white text-xs font-extrabold uppercase tracking-wider rounded-md shadow-md">
+                    Bestseller
+                </span>
+                
+                <!-- Main showcase container -->
+                <div class="zoom-container aspect-[3/4] w-full bg-neutral-50 rounded-xl border border-neutral-100 shadow-sm relative">
+                    <img 
+                        id="mainProductImage"
+                        src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop" 
+                        alt="Graffiti Boyfriend Oversized Hoodie in premium Red" 
+                        class="w-full h-full object-cover rounded-xl"
+                    >
+                </div>
+                
+                <!-- Thumbnails Horizontal Slider -->
+                <div class="grid grid-cols-4 gap-3">
+                    <button onclick="switchImage(this, 'https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop')" class="thumbnail-btn aspect-[3/4] rounded-lg overflow-hidden border-2 border-fashionGold relative transition-all bg-neutral-50">
+                        <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop" alt="Front close-up details" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop')" class="thumbnail-btn aspect-[3/4] rounded-lg overflow-hidden border-2 border-transparent hover:border-neutral-300 relative transition-all bg-neutral-50">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=200&auto=format&fit=crop" alt="Back style angles" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop')" class="thumbnail-btn aspect-[3/4] rounded-lg overflow-hidden border-2 border-transparent hover:border-neutral-300 relative transition-all bg-neutral-50">
+                        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=200&auto=format&fit=crop" alt="Alternative streetwear styling" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop')" class="thumbnail-btn aspect-[3/4] rounded-lg overflow-hidden border-2 border-transparent hover:border-neutral-300 relative transition-all bg-neutral-50">
+                        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=200&auto=format&fit=crop" alt="Street model perspective" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: DETAILS, CUSTOMIZERS & CTAS -->
+            <div class="space-y-8">
+                <!-- Header product stats -->
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">
+                        Graffiti Signature Drop
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-fashionBlack leading-tight">
+                        Graffiti Boyfriend Oversized Hoodie
+                    </h1>
+                    
+                    <!-- Star ratings summary -->
+                    <div class="flex items-center space-x-3.5">
+                        <div class="flex items-center text-fashionGold font-bold text-sm">
+                            <span class="mr-1 text-base">★★★★★</span>
+                            <span class="text-xs text-neutral-500 font-semibold">(142 Customer Reviews)</span>
+                        </div>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-200"></span>
+                        <a href="#reviews-section" class="text-xs font-bold border-b border-fashionBlack pb-0.5 hover:text-fashionGold hover:border-fashionGold transition-all">
+                            Write a Review
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Price and savings badges -->
+                <div class="p-5 bg-neutral-50 rounded-2xl border border-neutral-100 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <span class="text-xs text-neutral-400 font-bold block uppercase tracking-wider">Special Retail Price</span>
+                        <div class="flex items-baseline space-x-3">
+                            <span id="displayPrice" class="text-3xl font-extrabold text-fashionBlack transition-colors duration-300">$24.00</span>
+                            <span id="originalPrice" class="text-base text-neutral-400 font-bold line-through">$48.00</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end space-y-1.5">
+                        <span class="px-2.5 py-1 bg-[#10b981] text-white text-xs font-extrabold rounded-md shadow-sm">
+                            SAVE 50% OFF
+                        </span>
+                        <span class="text-[10px] text-neutral-400 font-semibold">Ends this Sunday</span>
+                    </div>
+                </div>
+
+                <!-- Product Summary -->
+                <p class="text-neutral-500 text-sm leading-relaxed">
+                    Constructed with ultra-dense 480gsm organic cotton loopback fleece, this oversized silhouette features drops shoulders, a double-layered structured drawstring hood, and custom signature raw-edge graffiti embroidery details for an effortless urban streetwear profile.
+                </p>
+
+                <!-- Color selector swatches -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-neutral-500">
+                        <span>Color: <span id="colorNameLabel" class="text-fashionBlack font-extrabold">Red Graffiti</span></span>
+                    </div>
+                    <div class="flex items-center space-x-3.5">
+                        <!-- Pink/Red -->
+                        <button onclick="selectColor(this, 'Red Graffiti', '#db2777')" class="color-swatch w-9 h-9 rounded-full bg-pink-600 border-2 border-fashionGold flex items-center justify-center shadow-md relative transition-transform hover:scale-105" aria-label="Red Graffiti"></button>
+                        <!-- Matte Charcoal -->
+                        <button onclick="selectColor(this, 'Matte Charcoal', '#1c1c1e')" class="color-swatch w-9 h-9 rounded-full bg-fashionDarkBg border-2 border-transparent flex items-center justify-center shadow-md relative transition-transform hover:scale-105" aria-label="Matte Charcoal"></button>
+                        <!-- Coral Peach -->
+                        <button onclick="selectColor(this, 'Peach Coral', '#fca5a5')" class="color-swatch w-9 h-9 rounded-full bg-rose-300 border-2 border-transparent flex items-center justify-center shadow-md relative transition-transform hover:scale-105" aria-label="Peach Coral"></button>
+                        <!-- Sage Green -->
+                        <button onclick="selectColor(this, 'Sage Green', '#86efac')" class="color-swatch w-9 h-9 rounded-full bg-emerald-100 border-2 border-transparent flex items-center justify-center shadow-md relative transition-transform hover:scale-105" aria-label="Sage Green"></button>
+                    </div>
+                </div>
+
+                <!-- Size selector selector -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-neutral-500">
+                        <span>Select Size</span>
+                        <button onclick="toggleSizeGuide()" class="text-xs text-fashionGold border-b border-transparent hover:border-fashionGold transition-all lowercase italic">
+                            Sizing Chart
+                        </button>
+                    </div>
+                    <!-- Sizes Grid -->
+                    <div class="grid grid-cols-6 gap-2">
+                        <!-- XS (Out of Stock) -->
+                        <button disabled class="py-2.5 rounded-lg border border-neutral-100 bg-neutral-50/50 text-neutral-300 text-xs font-extrabold relative overflow-hidden cursor-not-allowed group" aria-label="XS out of stock">
+                            XS
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-neutral-300/40 to-transparent rotate-[18deg]"></div>
+                        </button>
+                        <button onclick="selectSize(this, 'S')" class="size-btn py-2.5 rounded-lg border border-neutral-200 text-xs font-extrabold transition-all duration-300 hover:border-fashionBlack active:scale-95 bg-white text-fashionBlack">S</button>
+                        <button onclick="selectSize(this, 'M')" class="size-btn py-2.5 rounded-lg border border-neutral-200 text-xs font-extrabold transition-all duration-300 hover:border-fashionBlack active:scale-95 bg-white text-fashionBlack">M</button>
+                        <button onclick="selectSize(this, 'L')" class="size-btn py-2.5 rounded-lg border border-neutral-200 text-xs font-extrabold transition-all duration-300 hover:border-fashionBlack active:scale-95 bg-white text-fashionBlack">L</button>
+                        <button onclick="selectSize(this, 'XL')" class="size-btn py-2.5 rounded-lg border border-neutral-200 text-xs font-extrabold transition-all duration-300 hover:border-fashionBlack active:scale-95 bg-white text-fashionBlack">XL</button>
+                        <!-- XXL (Out of stock example) -->
+                        <button disabled class="py-2.5 rounded-lg border border-neutral-100 bg-neutral-50/50 text-neutral-300 text-xs font-extrabold relative overflow-hidden cursor-not-allowed" aria-label="XXL out of stock">
+                            XXL
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-neutral-300/40 to-transparent rotate-[18deg]"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Promotional Coupon Field -->
+                <div class="p-5 bg-neutral-50 border border-neutral-150 rounded-2xl space-y-4">
+                    <div class="space-y-1">
+                        <label for="couponInput" class="block text-xs font-bold uppercase tracking-wider text-neutral-500">Apply Promo Coupon</label>
+                        <span class="text-[10px] text-neutral-400 font-semibold block">Try 'WELCOME20' for 20% off or 'DOUBLEFASHION' for 10% off</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input 
+                            type="text" 
+                            id="couponInput"
+                            placeholder="ENTER CODE" 
+                            class="flex-1 px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-bold uppercase placeholder:normal-case placeholder:font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white"
+                        >
+                        <button onclick="applyPromoCode()" class="px-6 py-2.5 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-xl shadow-sm transition-all active:scale-97">
+                            Apply
+                        </button>
+                    </div>
+                    <!-- Validation message alerts -->
+                    <div id="couponStatusMessage" class="hidden text-xs font-semibold"></div>
+                </div>
+
+                <!-- Purchase Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button onclick="handleAddToCart('Graffiti Boyfriend Oversized Hoodie', 24)" class="flex-1 px-8 py-3.5 border-2 border-fashionBlack bg-white text-fashionBlack hover:bg-fashionBlack hover:text-white rounded-xl text-sm font-extrabold shadow-md transition-all duration-300 active:scale-97 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+                        </svg>
+                        <span>Add To Bag</span>
+                    </button>
+                    <button onclick="handleBuyNow()" class="flex-1 px-8 py-4 bg-fashionBlack text-white hover:bg-fashionGold rounded-xl text-sm font-extrabold shadow-lg transition-all duration-300 active:scale-97">
+                        Buy It Now
+                    </button>
+                </div>
+
+                <!-- Collapsible Specifications & Accordion -->
+                <div class="border-t border-neutral-100 pt-4 space-y-3">
+                    <!-- Item 1 -->
+                    <div class="border-b border-neutral-100 pb-3">
+                        <button onclick="toggleAccordion('acc-fit')" class="w-full flex justify-between items-center text-sm font-extrabold text-fashionBlack py-1">
+                            <span>Features & Silhouette Fit</span>
+                            <span id="icon-acc-fit" class="text-lg font-bold text-neutral-400 transition-transform duration-200">+</span>
+                        </button>
+                        <div id="content-acc-fit" class="hidden pt-2 text-xs text-neutral-500 leading-relaxed space-y-1.5">
+                            <p>• Heavyweight 480gsm organic loopback fleece construction.</p>
+                            <p>• Engineered slouchy dropped shoulders for true streetwear fit.</p>
+                            <p>• Kangaroo pouch pocket & high-density ribbed hem cuffs.</p>
+                            <p>• Heavy cotton drawstrings finished with brand custom gold aglets.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="border-b border-neutral-100 pb-3">
+                        <button onclick="toggleAccordion('acc-care')" class="w-full flex justify-between items-center text-sm font-extrabold text-fashionBlack py-1">
+                            <span>Material Formula & Wash Care</span>
+                            <span id="icon-acc-care" class="text-lg font-bold text-neutral-400 transition-transform duration-200">+</span>
+                        </button>
+                        <div id="content-acc-care" class="hidden pt-2 text-xs text-neutral-500 leading-relaxed space-y-1.5">
+                            <p>• 100% Organic Sourced Cotton loopback structure.</p>
+                            <p>• Machine wash cold on a delicate, slow spin cycle.</p>
+                            <p>• Always wash inside-out with like color tones.</p>
+                            <p>• Lay flat on drying racks. Do not bleach or tumble dry.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="border-b border-neutral-100 pb-3">
+                        <button onclick="toggleAccordion('acc-ship')" class="w-full flex justify-between items-center text-sm font-extrabold text-fashionBlack py-1">
+                            <span>Sourcing, Shipping & Returns</span>
+                            <span id="icon-acc-ship" class="text-lg font-bold text-neutral-400 transition-transform duration-200">+</span>
+                        </button>
+                        <div id="content-acc-ship" class="hidden pt-2 text-xs text-neutral-500 leading-relaxed space-y-1.5">
+                            <p>• **Shipping**: Free tracked courier shipping on all purchases above $50. Dispatch in 24 hours.</p>
+                            <p>• **Returns**: Standard 30-day hassle-free structural return policy. Prepaid return parcel label included.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== CUSTOMER REVIEWS SECTION ==================== -->
+        <section id="reviews-section" class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16" aria-label="Customer Testimonials and Star Breakdown">
+            <div class="border-t border-neutral-100 pt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                
+                <!-- Review metrics summary column -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-xs font-bold text-fashionGold uppercase tracking-wider block">Real Verified Testimony</span>
+                        <h2 class="text-3xl font-extrabold text-fashionBlack tracking-tight">Verified Buyer Reviews</h2>
+                    </div>
+                    
+                    <div class="p-6 bg-neutral-50 border border-neutral-100 rounded-2xl text-center space-y-4">
+                        <span class="block text-6xl font-extrabold text-fashionBlack leading-none">4.8</span>
+                        <div class="flex justify-center text-fashionGold text-lg">★★★★★</div>
+                        <span class="block text-xs font-bold text-neutral-400 uppercase tracking-wider">Based on 142 Global Ratings</span>
+                    </div>
+
+                    <!-- Distribution score bars -->
+                    <div class="space-y-3.5">
+                        <!-- 5 Star -->
+                        <div class="flex items-center space-x-3 text-xs font-semibold text-neutral-600">
+                            <span class="w-10">5 Star</span>
+                            <div class="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-fashionGold rounded-full" style="width: 78%;"></div>
+                            </div>
+                            <span class="w-8 text-right font-bold">78%</span>
+                        </div>
+                        <!-- 4 Star -->
+                        <div class="flex items-center space-x-3 text-xs font-semibold text-neutral-600">
+                            <span class="w-10">4 Star</span>
+                            <div class="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-fashionGold rounded-full" style="width: 15%;"></div>
+                            </div>
+                            <span class="w-8 text-right font-bold">15%</span>
+                        </div>
+                        <!-- 3 Star -->
+                        <div class="flex items-center space-x-3 text-xs font-semibold text-neutral-600">
+                            <span class="w-10">3 Star</span>
+                            <div class="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-fashionGold rounded-full" style="width: 5%;"></div>
+                            </div>
+                            <span class="w-8 text-right font-bold">5%</span>
+                        </div>
+                        <!-- 2 Star -->
+                        <div class="flex items-center space-x-3 text-xs font-semibold text-neutral-600">
+                            <span class="w-10">2 Star</span>
+                            <div class="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-fashionGold rounded-full" style="width: 1%;"></div>
+                            </div>
+                            <span class="w-8 text-right font-bold">1%</span>
+                        </div>
+                        <!-- 1 Star -->
+                        <div class="flex items-center space-x-3 text-xs font-semibold text-neutral-600">
+                            <span class="w-10">1 Star</span>
+                            <div class="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-fashionGold rounded-full" style="width: 1%;"></div>
+                            </div>
+                            <span class="w-8 text-right font-bold">1%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structured reviews details list column -->
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- Review 1 -->
+                    <div class="p-6 md:p-8 bg-neutral-50 rounded-2xl border border-neutral-100 space-y-5">
+                        <div class="flex justify-between items-start flex-wrap gap-3">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="Esther Howard" class="w-11 h-11 rounded-full object-cover grayscale contrast-125">
+                                <div>
+                                    <cite class="not-italic text-sm font-extrabold text-fashionBlack block">Esther Howard</cite>
+                                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded text-[9px] font-bold uppercase tracking-wider">Verified Purchase</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-fashionGold text-sm font-bold">★★★★★</div>
+                                <span class="text-[10px] text-neutral-400 font-semibold block">May 12, 2026</span>
+                            </div>
+                        </div>
+                        <blockquote class="text-neutral-500 text-sm leading-relaxed font-medium">
+                            "This hoodie is everything! The 480gsm weight is heavy but highly breathable. It holds its oversized shape beautifully even after washing. Definitely buying the Charcoal color too."
+                        </blockquote>
+                        <div class="flex items-center space-x-4 pt-1 text-xs">
+                            <span class="text-neutral-400 font-semibold">Was this review helpful?</span>
+                            <button onclick="voteHelpful(this)" class="px-3.5 py-1 bg-white border border-neutral-200 rounded-md font-bold text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack transition-all flex items-center space-x-1 active:scale-95">
+                                <span>👍 Yes</span>
+                                <span class="count text-neutral-400">(24)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="p-6 md:p-8 bg-neutral-50 rounded-2xl border border-neutral-100 space-y-5">
+                        <div class="flex justify-between items-start flex-wrap gap-3">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" alt="Jane Cooper" class="w-11 h-11 rounded-full object-cover grayscale contrast-125">
+                                <div>
+                                    <cite class="not-italic text-sm font-extrabold text-fashionBlack block">Jane Cooper</cite>
+                                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded text-[9px] font-bold uppercase tracking-wider">Verified Purchase</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-fashionGold text-sm font-bold">★★★★★</div>
+                                <span class="text-[10px] text-neutral-400 font-semibold block">April 28, 2026</span>
+                            </div>
+                        </div>
+                        <blockquote class="text-neutral-500 text-sm leading-relaxed font-medium">
+                            "Beautiful red tone, very vibrant. Fits perfectly oversized. Highly recommend sizing down if you want a more standard silhouette, but the drop-shoulders are amazing."
+                        </blockquote>
+                        <div class="flex items-center space-x-4 pt-1 text-xs">
+                            <span class="text-neutral-400 font-semibold">Was this review helpful?</span>
+                            <button onclick="voteHelpful(this)" class="px-3.5 py-1 bg-white border border-neutral-200 rounded-md font-bold text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack transition-all flex items-center space-x-1 active:scale-95">
+                                <span>👍 Yes</span>
+                                <span class="count text-neutral-400">(12)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== RELATED PRODUCTS CARDS ==================== -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 space-y-10 md:space-y-12" aria-label="Related Product Suggestions">
+            <!-- Header Block -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-12 pb-2">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">
+                        Complete The Look
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-fashionBlack">
+                        You May Also Like
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Grid 3 items -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+                <!-- Related Product 1 -->
+                <div class="group flex flex-col space-y-4">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop" 
+                            alt="Adidas Hoodie Collections model posing in black sports jacket" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <button onclick="handleAddToCart('Adidas Hoodie Collections', 24)" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Hoodie Collections to cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-end pt-1">
+                        <div class="space-y-0.5">
+                            <span class="text-neutral-400 font-semibold text-sm block">Hoodie</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
+                                Adidas Hoodie
+                            </h4>
+                        </div>
+                        <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
+                    </div>
+                </div>
+
+                <!-- Related Product 2 -->
+                <div class="group flex flex-col space-y-4">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop" 
+                            alt="Sweatshirt Pink Soda Collections model posing in orange top" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <button onclick="handleAddToCart('Sweatshirt Pink Soda', 24)" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Sweatshirt Pink Soda to cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-end pt-1">
+                        <div class="space-y-0.5">
+                            <span class="text-neutral-400 font-semibold text-sm block">Sweater</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
+                                Sweatshirt Pink Soda
+                            </h4>
+                        </div>
+                        <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
+                    </div>
+                </div>
+
+                <!-- Related Product 3 -->
+                <div class="group flex flex-col space-y-4">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop" 
+                            alt="Adidas Contempo T-Shirt in coral/peach" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <button onclick="handleAddToCart('Adidas Contempo T-Shirt', 24)" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Contempo to cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-end pt-1">
+                        <div class="space-y-0.5">
+                            <span class="text-neutral-400 font-semibold text-sm block">T-Shirt</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
+                                Adidas Contempo
+                            </h4>
+                        </div>
+                        <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== RUNWAY MARQUEE TICKER ==================== -->
+        <section class="w-full bg-fashionDarkBg py-5 md:py-7 overflow-hidden relative select-none" aria-hidden="true">
+            <div class="animate-marquee flex items-center whitespace-nowrap text-white font-extrabold text-2xl md:text-3xl lg:text-[2.2rem] tracking-widest uppercase gap-8">
+                <span>Free Worldwide Sourcing Shipping</span>
+                <span class="text-fashionGold">+</span>
+                <span>Immortal Apparel Craft</span>
+                <span class="text-fashionGold">+</span>
+                <span>Free Worldwide Sourcing Shipping</span>
+                <span class="text-fashionGold">+</span>
+                <span>Immortal Apparel Craft</span>
+                <span class="text-fashionGold">+</span>
+                <!-- Duplicate set for seamless continuous scrolling infinite loop -->
+                <span>Free Worldwide Sourcing Shipping</span>
+                <span class="text-fashionGold">+</span>
+                <span>Immortal Apparel Craft</span>
+                <span class="text-fashionGold">+</span>
+                <span>Free Worldwide Sourcing Shipping</span>
+                <span class="text-fashionGold">+</span>
+                <span>Immortal Apparel Craft</span>
+                <span class="text-fashionGold">+</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="index.html#bestseller" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="index.html#featured" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== INTERACTIVE GLASSMORPHIC CHECKOUT DRAWER ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <!-- Header -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Selected Items List -->
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Added Cart Item -->
+                    <div class="flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative">
+                        <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                            <img id="cartItemImage" src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop" alt="Active Hoodie Item" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 space-y-1">
+                            <h4 id="cartItemTitle" class="text-sm font-extrabold text-fashionBlack leading-tight">Graffiti Boyfriend Oversized Hoodie</h4>
+                            <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                                <p>Color: <span id="cartItemColor" class="text-neutral-600 font-bold">Red Graffiti</span></p>
+                                <p>Size: <span id="cartItemSize" class="text-neutral-600 font-bold">M</span></p>
+                            </div>
+                            <div class="flex justify-between items-center pt-1.5">
+                                <span id="cartItemPrice" class="font-extrabold text-sm text-fashionGold">$24.00</span>
+                                <span class="text-xs text-neutral-400 font-semibold">Qty: 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer summary block -->
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$24.00</span>
+                    </div>
+                    <div id="bagCouponRow" class="hidden flex justify-between text-xs font-semibold text-[#10b981] uppercase tracking-wider">
+                        <span>Coupon Discount Applied</span>
+                        <span id="bagCouponVal" class="font-bold">-$4.80</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$24.00</span>
+                    </div>
+                </div>
+
+                <!-- Drawer buttons -->
+                <div class="space-y-3">
+                    <button onclick="triggerCheckoutSuccess()" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE FLOATING CART SUCCESS TOAST ==================== -->
+    <div id="cartToast" class="fixed top-6 right-6 z-50 max-w-sm w-full bg-white/95 backdrop-blur-md rounded-2xl border border-emerald-100 shadow-2xl p-4 flex gap-3.5 items-center transform translate-y-[-120%] opacity-0 pointer-events-none transition-all duration-500">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        <div class="flex-1 space-y-0.5">
+            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Added to Bag!</h4>
+            <p class="text-xs text-neutral-500">Item cataloged in checkout drawer.</p>
+        </div>
+        <button onclick="hideCartToast()" class="text-neutral-400 hover:text-fashionBlack p-0.5" aria-label="Close alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- ==================== INTERACTIVE SIZING CHART GUIDE MODAL ==================== -->
+    <div id="sizeGuideModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="sizeModalTitle">
+        <div id="sizeModalContent" class="bg-white rounded-2xl w-full max-w-lg p-6 md:p-8 shadow-2xl relative border border-neutral-100 transform scale-95 opacity-0 transition-all duration-300">
+            <button onclick="toggleSizeGuide()" class="absolute top-4 right-4 text-neutral-400 hover:text-fashionBlack transition-colors p-1.5 rounded-full hover:bg-neutral-50" aria-label="Close sizes">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="space-y-6">
+                <div class="space-y-1">
+                    <span class="text-xs font-extrabold text-fashionGold uppercase tracking-wider block">Sizing Guide</span>
+                    <h3 id="sizeModalTitle" class="text-2xl font-extrabold text-fashionBlack tracking-tight">Oversized Hoodie Measurements</h3>
+                    <p class="text-xs text-neutral-500">Measured in inches. Fits slouchy with dropped shoulders. Order standard size or downsize for standard fit.</p>
+                </div>
+
+                <!-- Measurements table -->
+                <div class="overflow-x-auto rounded-xl border border-neutral-150">
+                    <table class="w-full text-left border-collapse text-xs font-medium">
+                        <thead>
+                            <tr class="bg-neutral-50 border-b border-neutral-150 font-extrabold text-neutral-500 uppercase tracking-wider">
+                                <th class="p-3.5">Size</th>
+                                <th class="p-3.5">Chest Width</th>
+                                <th class="p-3.5">Body Length</th>
+                                <th class="p-3.5">Sleeve Length</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-100 text-neutral-600 font-semibold">
+                            <tr>
+                                <td class="p-3.5 font-bold text-fashionBlack bg-neutral-50/30">XS</td>
+                                <td class="p-3.5">23.0"</td>
+                                <td class="p-3.5">26.5"</td>
+                                <td class="p-3.5">22.0"</td>
+                            </tr>
+                            <tr class="bg-neutral-50/10">
+                                <td class="p-3.5 font-bold text-fashionBlack bg-neutral-50/30">S</td>
+                                <td class="p-3.5">24.5"</td>
+                                <td class="p-3.5">27.0"</td>
+                                <td class="p-3.5">22.5"</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-fashionBlack bg-neutral-50/30">M</td>
+                                <td class="p-3.5">26.0"</td>
+                                <td class="p-3.5">28.0"</td>
+                                <td class="p-3.5">23.0"</td>
+                            </tr>
+                            <tr class="bg-neutral-50/10">
+                                <td class="p-3.5 font-bold text-fashionBlack bg-neutral-50/30">L</td>
+                                <td class="p-3.5">27.5"</td>
+                                <td class="p-3.5">29.0"</td>
+                                <td class="p-3.5">23.5"</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-fashionBlack bg-neutral-50/30">XL</td>
+                                <td class="p-3.5">29.0"</td>
+                                <td class="p-3.5">30.0"</td>
+                                <td class="p-3.5">24.0"</td>
+                            </tr>
+                            <tr class="bg-neutral-50/10">
+                                <td class="p-3.5 font-bold text-fashionBlack bg-neutral-50/30">XXL</td>
+                                <td class="p-3.5">30.5"</td>
+                                <td class="p-3.5">30.5"</td>
+                                <td class="p-3.5">24.5"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="toggleSizeGuide()" class="w-full py-3 bg-fashionBlack text-white hover:bg-fashionGold rounded-xl text-xs font-extrabold uppercase shadow-sm transition-all">
+                        Close Sizing Chart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FRONT-END INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        // Global variables for checkout state
+        let currentPrice = 24.00;
+        let discountPercent = 0;
+        let discountCouponCode = "";
+        let selectedColor = "Red Graffiti";
+        let selectedSize = "M"; // default selection
+        let selectedImageUrl = "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop";
+        let cartItemCount = 3;
+
+        // --- 1. IMAGE CAROUSEL SWITCHING ---
+        function switchImage(button, imageUrl) {
+            // Update active state frame borders
+            const thumbnails = document.querySelectorAll('.thumbnail-btn');
+            thumbnails.forEach(thumb => {
+                thumb.className = "thumbnail-btn aspect-[3/4] rounded-lg overflow-hidden border-2 border-transparent hover:border-neutral-300 relative transition-all bg-neutral-50";
+            });
+            button.className = "thumbnail-btn aspect-[3/4] rounded-lg overflow-hidden border-2 border-fashionGold relative transition-all bg-neutral-50";
+
+            // Update main showcase image
+            const mainImg = document.getElementById('mainProductImage');
+            mainImg.style.opacity = '0.3';
+            setTimeout(() => {
+                mainImg.src = imageUrl;
+                selectedImageUrl = imageUrl;
+                mainImg.style.opacity = '1';
+            }, 150);
+        }
+
+        // --- 2. COLOR SWATCH SELECTION ---
+        function selectColor(button, colorName, colorHex) {
+            const swatches = document.querySelectorAll('.color-swatch');
+            swatches.forEach(sw => {
+                sw.className = "color-swatch w-9 h-9 rounded-full border-2 border-transparent flex items-center justify-center shadow-md relative transition-transform hover:scale-105";
+            });
+            button.className = "color-swatch w-9 h-9 rounded-full border-2 border-fashionGold flex items-center justify-center shadow-md relative transition-transform hover:scale-105";
+            
+            document.getElementById('colorNameLabel').innerText = colorName;
+            selectedColor = colorName;
+        }
+
+        // --- 3. SIZE BUTTON SELECTION ---
+        function selectSize(button, sizeCode) {
+            const sizeBtns = document.querySelectorAll('.size-btn');
+            sizeBtns.forEach(btn => {
+                btn.className = "size-btn py-2.5 rounded-lg border border-neutral-200 text-xs font-extrabold transition-all duration-300 hover:border-fashionBlack active:scale-95 bg-white text-fashionBlack";
+            });
+            button.className = "size-btn py-2.5 rounded-lg border border-fashionBlack text-xs font-extrabold transition-all duration-300 active:scale-95 bg-fashionBlack text-white";
+            selectedSize = sizeCode;
+        }
+
+        // --- 4. ACCORDION DETAILS COLLAPSE CONTROL ---
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            if (!content || !icon) return;
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.innerText = "-";
+                icon.className = "text-lg font-bold text-fashionGold transition-transform duration-200";
+            } else {
+                content.classList.add('hidden');
+                icon.innerText = "+";
+                icon.className = "text-lg font-bold text-neutral-400 transition-transform duration-200";
+            }
+        }
+
+        // --- 5. HELP STATS REVIEW VOTING ---
+        function voteHelpful(btn) {
+            if (btn.classList.contains('voted')) return;
+            btn.classList.add('voted');
+            btn.className = "px-3.5 py-1 bg-neutral-100 border border-neutral-300 rounded-md font-bold text-neutral-500 transition-all flex items-center space-x-1 cursor-default";
+            
+            const countSpan = btn.querySelector('.count');
+            let votes = parseInt(countSpan.innerText.replace(/[()]/g, ''));
+            votes++;
+            countSpan.innerText = `(${votes})`;
+        }
+
+        // --- 6. INTERACTIVE SIZING MODAL DIALOG ---
+        const sizeModal = document.getElementById('sizeGuideModal');
+        const sizeModalContent = document.getElementById('sizeModalContent');
+
+        function toggleSizeGuide() {
+            if (sizeModal.classList.contains('pointer-events-none')) {
+                // Open
+                sizeModal.classList.remove('pointer-events-none', 'opacity-0');
+                sizeModal.classList.add('opacity-100');
+                setTimeout(() => {
+                    sizeModalContent.classList.remove('scale-95', 'opacity-0');
+                    sizeModalContent.classList.add('scale-100', 'opacity-100');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Close
+                sizeModalContent.classList.remove('scale-100', 'opacity-100');
+                sizeModalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    sizeModal.classList.remove('opacity-100');
+                    sizeModal.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        // --- 7. DYNAMIC LIVE COUPON ENGINE ---
+        function applyPromoCode() {
+            const input = document.getElementById('couponInput').value.trim().toUpperCase();
+            const statusMsg = document.getElementById('couponStatusMessage');
+            
+            statusMsg.classList.remove('hidden', 'text-emerald-500', 'text-rose-500');
+
+            if (input === 'WELCOME20') {
+                discountPercent = 20;
+                discountCouponCode = input;
+                statusMsg.innerText = "Success! 'WELCOME20' coupon applied: 20% discount applied to your product.";
+                statusMsg.classList.add('text-emerald-500');
+            } else if (input === 'DOUBLEFASHION') {
+                discountPercent = 10;
+                discountCouponCode = input;
+                statusMsg.innerText = "Success! 'DOUBLEFASHION' coupon applied: 10% discount applied to your product.";
+                statusMsg.classList.add('text-emerald-500');
+            } else {
+                discountPercent = 0;
+                discountCouponCode = "";
+                statusMsg.innerText = "Error: Invalid or expired coupon code details.";
+                statusMsg.classList.add('text-rose-500');
+            }
+
+            statusMsg.classList.remove('hidden');
+            recalculatePrice();
+        }
+
+        function recalculatePrice() {
+            const subtotal = 24.00;
+            const savings = subtotal * (discountPercent / 100);
+            const total = subtotal - savings;
+
+            // Update product page display price
+            document.getElementById('displayPrice').innerText = `$${total.toFixed(2)}`;
+
+            // Sync with checkout drawer subtotal values
+            document.getElementById('bagSubtotal').innerText = `$${subtotal.toFixed(2)}`;
+            if (discountPercent > 0) {
+                document.getElementById('bagCouponRow').classList.remove('hidden');
+                document.getElementById('bagCouponVal').innerText = `-$${savings.toFixed(2)}`;
+            } else {
+                document.getElementById('bagCouponRow').classList.add('hidden');
+            }
+            document.getElementById('bagTotal').innerText = `$${total.toFixed(2)}`;
+        }
+
+        // --- 8. CART TOAST AND SECURE DRAWER CONTROLS ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+        const toast = document.getElementById('cartToast');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                // Recalculate price prior to slide-in drawer representation
+                recalculatePrice();
+                
+                // Sync current customizations inside item view cards
+                document.getElementById('cartItemImage').src = selectedImageUrl;
+                document.getElementById('cartItemColor').innerText = selectedColor;
+                document.getElementById('cartItemSize').innerText = selectedSize;
+
+                // Toggle Open
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Close
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function handleAddToCart(name, price) {
+            // Slide in success toast overlay
+            toast.classList.remove('pointer-events-none', 'opacity-0');
+            toast.style.transform = 'translateY(0)';
+            
+            // Increment header dynamic cart count badge
+            cartItemCount++;
+            const badge = document.getElementById('cartCountBadge');
+            badge.innerText = cartItemCount;
+            badge.classList.add('scale-125');
+            setTimeout(() => {
+                badge.classList.remove('scale-125');
+            }, 300);
+
+            // Auto-hide alert after 3.5 seconds
+            setTimeout(() => {
+                hideCartToast();
+            }, 3500);
+        }
+
+        function hideCartToast() {
+            toast.style.transform = 'translateY(-120%)';
+            toast.classList.add('pointer-events-none', 'opacity-0');
+        }
+
+        function handleBuyNow() {
+            toggleCheckoutDrawer();
+        }
+
+        function triggerCheckoutSuccess() {
+            alert("Checkout complete! We have received your order simulation details.");
+            toggleCheckoutDrawer();
+        }
+    </script>
+</body>
+</html>
