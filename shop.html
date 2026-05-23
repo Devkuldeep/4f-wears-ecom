@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>Shop Collections - 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar customization to keep premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Continuous scrolling marquee animation keyframes */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Styling for the custom slider track */
+        input[type="range"]::-webkit-slider-runnable-track {
+            background: #e5e5e5;
+            height: 4px;
+            border-radius: 2px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background: #f18a00;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-top: -6px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
+    <div class="bg-fashionBlack text-white text-xs py-2.5 px-6 md:px-12 flex flex-col sm:flex-row justify-between items-center gap-2 border-b border-neutral-800">
+        <div class="flex items-center space-x-2 text-neutral-400 font-semibold">
+            <span>Call Us: +123-456-789</span>
+        </div>
+        <div class="font-bold tracking-wide text-center">
+            Sign up and <span class="text-fashionGold">GET 20% OFF</span> for your first order. <a href="#" class="underline hover:text-fashionGold transition-colors ml-1">Sign up now</a>
+        </div>
+        <div class="hidden sm:flex items-center space-x-4 text-neutral-400">
+            <a href="#" class="hover:text-white transition-colors" aria-label="Facebook">FB</a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="Instagram">IG</a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="Twitter">TW</a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="Pinterest">PIN</a>
+        </div>
+    </div>
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="shop.html" class="text-fashionBlack border-b-2 border-fashionGold pb-1 font-bold">Shop</a>
+            <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
+            <!-- Cart -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">3</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== BREADCRUMBS & HERO TITLE ==================== -->
+    <div class="bg-neutral-50 border-b border-neutral-100 py-10 md:py-14">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center text-center space-y-3">
+            <nav class="text-xs md:text-sm font-semibold text-neutral-400 space-x-2">
+                <a href="index.html" class="hover:text-fashionBlack transition-colors">Home</a>
+                <span>/</span>
+                <span class="text-fashionBlack font-bold">Shop</span>
+            </nav>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-fashionBlack">Shop Collections</h1>
+            <p class="text-neutral-500 text-sm md:text-base max-w-lg leading-relaxed">
+                Discover apparel that elevates your identity. Filter through our curated collections of hoodies, sweatshirts, and essentials.
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN PRODUCT CATALOG WRAPPER -->
+    <main class="max-w-7xl mx-auto px-6 py-12 md:px-12 md:py-20 lg:py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 items-start">
+            
+            <!-- ==================== LEFT FILTER SIDEBAR ==================== -->
+            <aside class="space-y-8 lg:sticky lg:top-28">
+                <div>
+                    <h2 class="text-lg font-extrabold text-fashionBlack border-b border-neutral-100 pb-3 mb-5 uppercase tracking-wider">Filter Options</h2>
+                </div>
+
+                <!-- Filter: Categories -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">By Categories</h3>
+                    <div class="flex flex-col space-y-2 text-sm font-semibold text-neutral-600">
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="Hoodie" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">Hoodies</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-Hoodie">0</span>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="Sweatshirt" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">Sweatshirts</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-Sweatshirt">0</span>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="T-Shirt" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">T-Shirts</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-T-Shirt">0</span>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="Pants" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">Pants</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-Pants">0</span>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="Shoes" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">Shoes</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-Shoes">0</span>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="Jackets" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">Jackets</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-Jackets">0</span>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="flex items-center space-x-2.5">
+                                <input type="checkbox" name="category" value="Accessories" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                                <span class="group-hover:text-fashionBlack transition-colors">Accessories</span>
+                            </span>
+                            <span class="text-xs text-neutral-400 font-bold bg-neutral-50 px-2 py-0.5 rounded" id="cnt-Accessories">0</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Filter: Silhouette Fit -->
+                <div class="space-y-3 border-t border-neutral-100 pt-5">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">By Silhouette Fit</h3>
+                    <div class="flex flex-col space-y-2 text-sm font-semibold text-neutral-600">
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="fit" value="Oversized" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">Oversized Silhouette</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="fit" value="Regular" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">Regular Fit</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="fit" value="Relaxed" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">Relaxed Fit</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="fit" value="Athletic" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">Athletic Fit</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Filter: Price Range -->
+                <div class="space-y-3 border-t border-neutral-100 pt-5">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Price</h3>
+                        <span id="priceDisplay" class="text-xs font-extrabold text-fashionGold">$10.00 - $100.00</span>
+                    </div>
+                    <div class="relative pt-2">
+                        <input type="range" id="priceRange" min="10" max="100" value="100" class="w-full h-1 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-fashionGold" oninput="updatePriceValue(this.value)">
+                    </div>
+                </div>
+
+                <!-- Filter: Customer Reviews -->
+                <div class="space-y-3 border-t border-neutral-100 pt-5">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Review</h3>
+                    <div class="flex flex-col space-y-2 text-sm font-semibold text-neutral-600">
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="rating" value="5" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="text-fashionGold text-xs font-bold tracking-tight">★★★★★</span>
+                            <span class="text-xs text-neutral-400 font-medium">5 Star</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="rating" value="4" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="text-neutral-300 text-xs font-bold tracking-tight"><span class="text-fashionGold">★★★★</span>★</span>
+                            <span class="text-xs text-neutral-400 font-medium">4 Star & Up</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="rating" value="3" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="text-neutral-300 text-xs font-bold tracking-tight"><span class="text-fashionGold">★★★</span>★★</span>
+                            <span class="text-xs text-neutral-400 font-medium">3 Star & Up</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Filter: Promotions -->
+                <div class="space-y-3 border-t border-neutral-100 pt-5">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">By Promotions</h3>
+                    <div class="flex flex-col space-y-2 text-sm font-semibold text-neutral-600">
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="promotion" value="New Arrival" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">New Arrivals</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="promotion" value="Best Seller" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">Best Sellers</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="promotion" value="On Sale" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">On Sale</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Filter: Availability -->
+                <div class="space-y-3 border-t border-neutral-100 pt-5">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Availability</h3>
+                    <div class="flex flex-col space-y-2 text-sm font-semibold text-neutral-600">
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="availability" value="true" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">In Stock</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 cursor-pointer group">
+                            <input type="checkbox" name="availability" value="false" class="w-4.5 h-4.5 accent-fashionGold rounded border-neutral-300 focus:ring-0 focus:ring-offset-0" onchange="applyFilters()">
+                            <span class="group-hover:text-fashionBlack transition-colors">Out of Stock</span>
+                        </label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- ==================== RIGHT PRODUCT LISTINGS AREA ==================== -->
+            <div class="lg:col-span-3 space-y-8">
+                
+                <!-- TOP UTILITY FILTER STATUS & SORT BAR -->
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 pb-4 border-b border-neutral-100">
+                    <div class="text-sm text-neutral-500 font-semibold">
+                        Showing <span id="visibleCount" class="font-extrabold text-fashionBlack">12</span> of <span id="totalCount" class="font-extrabold text-fashionBlack">12</span> results
+                    </div>
+                    
+                    <div class="flex items-center space-x-2 text-sm">
+                        <label for="sortBy" class="text-neutral-500 font-semibold whitespace-nowrap">Sort by :</label>
+                        <select id="sortBy" onchange="applySort()" class="bg-white border border-neutral-200 text-fashionBlack font-bold rounded-lg px-3 py-1.5 focus:outline-none focus:border-fashionBlack transition-colors cursor-pointer text-xs uppercase tracking-wider">
+                            <option value="default">Default Sorting</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Average Rating</option>
+                            <option value="name">Alphabetical</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ACTIVE FILTERS BADGES WRAPPER -->
+                <div id="activeFiltersContainer" class="flex flex-wrap gap-2 items-center text-xs font-bold">
+                    <!-- Dynamic active filter chips will go here -->
+                </div>
+
+                <!-- DYNAMIC PRODUCTS GRID -->
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
+                    <!-- Dynamic Product Cards will be rendered here via JS -->
+                </div>
+
+                <!-- NO PRODUCTS FOUND FALLBACK -->
+                <div id="noProductsFallback" class="hidden py-16 text-center space-y-4 max-w-sm mx-auto">
+                    <div class="w-16 h-16 bg-neutral-50 rounded-full flex items-center justify-center text-neutral-400 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-fashionBlack tracking-tight">No Products Found</h3>
+                    <p class="text-neutral-500 text-xs leading-relaxed">
+                        We couldn't find any items matching your selected criteria. Try adjusting your parameters or clearing active selections.
+                    </p>
+                    <button onclick="clearAllFilters()" class="px-5 py-2.5 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-lg shadow-sm transition-all duration-300">
+                        Reset All Filters
+                    </button>
+                </div>
+
+                <!-- BOTTOM PAGINATION -->
+                <div id="paginationBlock" class="flex justify-center items-center space-x-2 pt-10 border-t border-neutral-100">
+                    <button class="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-400 hover:border-fashionBlack hover:text-fashionBlack transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <button class="w-10 h-10 rounded-full bg-fashionBlack text-white font-extrabold flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-sm">1</button>
+                    <button class="w-10 h-10 rounded-full border border-neutral-200 text-fashionBlack font-bold flex items-center justify-center hover:border-fashionBlack hover:bg-neutral-50 transition-colors duration-300">2</button>
+                    <button class="w-10 h-10 rounded-full border border-neutral-200 text-fashionBlack font-bold flex items-center justify-center hover:border-fashionBlack hover:bg-neutral-50 transition-colors duration-300">3</button>
+                    <span class="text-neutral-400 font-bold px-1">...</span>
+                    <button class="w-10 h-10 rounded-full border border-neutral-200 text-fashionBlack font-bold flex items-center justify-center hover:border-fashionBlack hover:bg-neutral-50 transition-colors duration-300">10</button>
+                    <button class="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-450 hover:border-fashionBlack hover:text-fashionBlack transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== RUNWAY MARQUEE TICKER ==================== -->
+    <section class="w-full bg-fashionDarkBg py-5 md:py-7 overflow-hidden relative select-none" aria-hidden="true">
+        <div class="animate-marquee flex items-center whitespace-nowrap text-white font-extrabold text-2xl md:text-3xl lg:text-[2.2rem] tracking-widest uppercase gap-8">
+            <span>Free Worldwide Sourcing Shipping</span>
+            <span class="text-fashionGold">+</span>
+            <span>Immortal Apparel Craft</span>
+            <span class="text-fashionGold">+</span>
+            <span>Free Worldwide Sourcing Shipping</span>
+            <span class="text-fashionGold">+</span>
+            <span>Immortal Apparel Craft</span>
+            <span class="text-fashionGold">+</span>
+            <!-- Duplicate set for seamless continuous scrolling infinite loop -->
+            <span>Free Worldwide Sourcing Shipping</span>
+            <span class="text-fashionGold">+</span>
+            <span>Immortal Apparel Craft</span>
+            <span class="text-fashionGold">+</span>
+            <span>Free Worldwide Sourcing Shipping</span>
+            <span class="text-fashionGold">+</span>
+            <span>Immortal Apparel Craft</span>
+            <span class="text-fashionGold">+</span>
+        </div>
+    </section>
+
+    <!-- ==================== BOTTOM FEATURES BANNER ==================== -->
+    <section class="border-t border-b border-neutral-100 py-12 md:py-16 bg-neutral-50/50">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            <!-- Free Shipping -->
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-full bg-amber-50 text-fashionGold flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125a1.125 1.125 0 001.125-1.125V9.75M8.25 18.75a1.5 1.5 0 01-3 0M4.5 9.75V4.875c0-.621.504-1.125 1.125-1.125h9.75c.621 0 1.125.504 1.125 1.125V9.75M3.75 9.75h16.5M12 3.75v6m-9.75 4.5H18" />
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-sm text-fashionBlack uppercase tracking-wider">Free Shipping</h4>
+                    <p class="text-neutral-500 text-xs mt-0.5 font-medium">Free courier shipping for orders above $50</p>
+                </div>
+            </div>
+            <!-- Flexible Payment -->
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-full bg-amber-50 text-fashionGold flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-sm text-fashionBlack uppercase tracking-wider">Flexible Payment</h4>
+                    <p class="text-neutral-500 text-xs mt-0.5 font-medium">Multiple secure checkout options available</p>
+                </div>
+            </div>
+            <!-- 24x7 Support -->
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-full bg-amber-50 text-fashionGold flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0l4.5-4.5M9.75 14.25v4.5m0-4.5H5.25m4.5 0l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-sm text-fashionBlack uppercase tracking-wider">24x7 Support</h4>
+                    <p class="text-neutral-500 text-xs mt-0.5 font-medium">Get in touch with support round the clock</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="index.html#featured" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== INTERACTIVE GLASSMORPHIC CHECKOUT DRAWER ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <!-- Header -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Selected Items List -->
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items list -->
+                </div>
+            </div>
+
+            <!-- Footer summary block -->
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- Drawer buttons -->
+                <div class="space-y-3">
+                    <button onclick="window.location.href='checkout.html'" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE FLOATING CART SUCCESS TOAST ==================== -->
+    <div id="cartToast" class="fixed top-6 right-6 z-50 max-w-sm w-full bg-white/95 backdrop-blur-md rounded-2xl border border-emerald-100 shadow-2xl p-4 flex gap-3.5 items-center transform translate-y-[-120%] opacity-0 pointer-events-none transition-all duration-500">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        <div class="flex-1 space-y-0.5">
+            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Added to Bag!</h4>
+            <p class="text-xs text-neutral-500">Item cataloged in checkout drawer.</p>
+        </div>
+        <button onclick="hideCartToast()" class="text-neutral-400 hover:text-fashionBlack p-0.5" aria-label="Close alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- ==================== INTERACTIVE JAVASCRIPT FOR DYNAMIC DATA AND FILTERING ==================== -->
+    <script>
+        // --- 1. PRODUCT DATABASE ---
+        const ALL_PRODUCTS = [
+            {
+                id: 1,
+                title: "Graffiti Boyfriend Oversized Hoodie",
+                category: "Hoodie",
+                price: 24.00,
+                originalPrice: 48.00,
+                rating: 5.0,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop",
+                fit: "Oversized",
+                promotions: ["Best Seller"],
+                inStock: true
+            },
+            {
+                id: 2,
+                title: "Sweatshirt Pink Soda Signature",
+                category: "Sweatshirt",
+                price: 35.00,
+                originalPrice: 70.00,
+                rating: 4.9,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop",
+                fit: "Regular",
+                promotions: ["New Arrival"],
+                inStock: true
+            },
+            {
+                id: 3,
+                title: "Adidas Sport Hoodie Contempo",
+                category: "Hoodie",
+                price: 48.00,
+                originalPrice: 60.00,
+                rating: 4.8,
+                badge: "20% off",
+                image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop",
+                fit: "Athletic",
+                promotions: ["Best Seller"],
+                inStock: true
+            },
+            {
+                id: 4,
+                title: "Adidas Contempo Coral Tee",
+                category: "T-Shirt",
+                price: 24.00,
+                originalPrice: 48.00,
+                rating: 5.0,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop",
+                fit: "Relaxed",
+                promotions: ["On Sale"],
+                inStock: true
+            },
+            {
+                id: 5,
+                title: "Urban Cargo Tapered Joggers",
+                category: "Pants",
+                price: 45.00,
+                originalPrice: 90.00,
+                rating: 4.7,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?q=80&w=800&auto=format&fit=crop",
+                fit: "Relaxed",
+                promotions: ["Best Seller"],
+                inStock: true
+            },
+            {
+                id: 6,
+                title: "Raw Denim High-Style Jacket",
+                category: "Jackets",
+                price: 65.00,
+                originalPrice: 130.00,
+                rating: 4.9,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800&auto=format&fit=crop",
+                fit: "Regular",
+                promotions: ["New Arrival"],
+                inStock: true
+            },
+            {
+                id: 7,
+                title: "Retro Court Orange Sneakers",
+                category: "Shoes",
+                price: 80.00,
+                originalPrice: 160.00,
+                rating: 5.0,
+                badge: "50% off",
+                image: "https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=800",
+                fit: "Regular",
+                promotions: ["Best Seller"],
+                inStock: true
+            },
+            {
+                id: 8,
+                title: "Matte Charcoal Cargo Shorts",
+                category: "Pants",
+                price: 30.00,
+                originalPrice: 60.00,
+                rating: 4.6,
+                badge: "50% off",
+                image: "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+                fit: "Oversized",
+                promotions: ["On Sale"],
+                inStock: true
+            },
+            {
+                id: 9,
+                title: "Badge Boyfriend Black Hoodie",
+                category: "Hoodie",
+                price: 24.00,
+                originalPrice: 48.00,
+                rating: 4.8,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop",
+                fit: "Oversized",
+                promotions: ["New Arrival"],
+                inStock: true
+            },
+            {
+                id: 10,
+                title: "Comfy Loungewear Crew Sweatshirt",
+                category: "Sweatshirt",
+                price: 40.00,
+                originalPrice: 80.00,
+                rating: 4.7,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop",
+                fit: "Relaxed",
+                promotions: ["On Sale"],
+                inStock: false
+            },
+            {
+                id: 11,
+                title: "Streetwear Tech Windbreaker",
+                category: "Jackets",
+                price: 55.00,
+                originalPrice: 110.00,
+                rating: 4.9,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?q=80&w=800&auto=format&fit=crop",
+                fit: "Athletic",
+                promotions: ["New Arrival"],
+                inStock: true
+            },
+            {
+                id: 12,
+                title: "Minimalist Full Leather Belt",
+                category: "Accessories",
+                price: 15.00,
+                originalPrice: 30.00,
+                rating: 4.5,
+                badge: "50% off",
+                image: "https://images.unsplash.com/photo-1624222247344-550fb8ecf7db?q=80&w=800&auto=format&fit=crop",
+                fit: "Regular",
+                promotions: ["On Sale"],
+                inStock: true
+            }
+        ];
+
+        let cartItemCount = 3;
+
+        // --- Initialize Category Counts ---
+        function updateCategoryCounts() {
+            const categories = ["Hoodie", "Sweatshirt", "T-Shirt", "Pants", "Shoes", "Jackets", "Accessories"];
+            categories.forEach(cat => {
+                const count = ALL_PRODUCTS.filter(p => p.category === cat).length;
+                const element = document.getElementById(`cnt-${cat}`);
+                if (element) element.innerText = count;
+            });
+        }
+
+        // --- 2. FILTERING ENGINE ---
+        let selectedCategories = [];
+        let selectedFits = [];
+        let selectedRatings = [];
+        let selectedPromotions = [];
+        let selectedAvailability = [];
+        let maxPrice = 100;
+
+        function updatePriceValue(val) {
+            maxPrice = parseInt(val);
+            document.getElementById('priceDisplay').innerText = `$10.00 - $${maxPrice.toFixed(2)}`;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            // Get selected categories
+            selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(el => el.value);
+            // Get selected fits
+            selectedFits = Array.from(document.querySelectorAll('input[name="fit"]:checked')).map(el => el.value);
+            // Get selected ratings
+            selectedRatings = Array.from(document.querySelectorAll('input[name="rating"]:checked')).map(el => parseInt(el.value));
+            // Get selected promotions
+            selectedPromotions = Array.from(document.querySelectorAll('input[name="promotion"]:checked')).map(el => el.value);
+            // Get selected availability
+            selectedAvailability = Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(el => el.value === "true");
+
+            // Filter products
+            let filteredProducts = ALL_PRODUCTS.filter(product => {
+                // Category match
+                if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) return false;
+                // Fit match
+                if (selectedFits.length > 0 && !selectedFits.includes(product.fit)) return false;
+                // Rating match (rating >= lowest selected rating)
+                if (selectedRatings.length > 0) {
+                    const minSelectedRating = Math.min(...selectedRatings);
+                    if (product.rating < minSelectedRating) return false;
+                }
+                // Promotion match (any matching promotion)
+                if (selectedPromotions.length > 0) {
+                    const hasPromo = product.promotions.some(promo => selectedPromotions.includes(promo));
+                    if (!hasPromo) return false;
+                }
+                // Availability match
+                if (selectedAvailability.length > 0 && !selectedAvailability.includes(product.inStock)) return false;
+                // Price match
+                if (product.price > maxPrice) return false;
+
+                return true;
+            });
+
+            // Sort products
+            const sortBy = document.getElementById('sortBy').value;
+            if (sortBy === "price-low") {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (sortBy === "price-high") {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            } else if (sortBy === "rating") {
+                filteredProducts.sort((a, b) => b.rating - a.rating);
+            } else if (sortBy === "name") {
+                filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            renderProducts(filteredProducts);
+            renderActiveFilterChips();
+        }
+
+        // --- 3. RENDERING LOGIC ---
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            const fallback = document.getElementById('noProductsFallback');
+            const pagination = document.getElementById('paginationBlock');
+
+            // Reset view
+            grid.innerHTML = "";
+            
+            document.getElementById('visibleCount').innerText = products.length;
+            document.getElementById('totalCount').innerText = ALL_PRODUCTS.length;
+
+            if (products.length === 0) {
+                grid.classList.add('hidden');
+                fallback.classList.remove('hidden');
+                pagination.classList.add('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            fallback.classList.add('hidden');
+            pagination.classList.remove('hidden');
+
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "group flex flex-col space-y-4";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                        <img 
+                            src="${p.image}" 
+                            alt="${p.title}" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <!-- Discount Badge -->
+                        ${p.badge ? `<span class="absolute top-4 left-4 z-10 px-2 py-1 bg-fashionGold text-white text-[10px] font-extrabold uppercase rounded shadow-sm">${p.badge}</span>` : ""}
+                        
+                        <!-- Overlay utility buttons -->
+                        <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
+                            <!-- Add to Wishlist -->
+                            <button class="w-10 h-10 bg-white hover:bg-fashionGold hover:text-white rounded-full flex items-center justify-center text-fashionBlack shadow-md transition-all active:scale-90" aria-label="Add to wishlist">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            </button>
+                            <!-- Quick View / Details -->
+                            <a href="product.html" class="w-10 h-10 bg-white hover:bg-fashionGold hover:text-white rounded-full flex items-center justify-center text-fashionBlack shadow-md transition-all active:scale-90" aria-label="View product detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </a>
+                        </div>
+
+                        <!-- Main add to cart button -->
+                        <button onclick="handleAddToCart('${p.title}', ${p.price}, '${p.image}')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md ${!p.inStock ? 'opacity-50 cursor-not-allowed' : ''}" aria-label="Add ${p.title} to bag" ${!p.inStock ? 'disabled' : ''}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between items-start pt-1">
+                        <div class="space-y-0.5">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-neutral-400 font-semibold text-xs uppercase tracking-wider block">${p.category}</span>
+                            </div>
+                            <h3 class="font-extrabold text-base text-fashionBlack leading-tight tracking-tight max-w-[180px]">
+                                ${p.title}
+                            </h3>
+                        </div>
+                        <div class="flex flex-col items-end space-y-1">
+                            <span class="text-fashionGold font-bold text-[11px] flex items-center">
+                                <span class="text-amber-500 mr-0.5">★</span> ${p.rating.toFixed(1)}
+                            </span>
+                            <div class="flex items-baseline space-x-1.5">
+                                <span class="text-fashionGold font-extrabold text-lg leading-none">$${p.price.toFixed(2)}</span>
+                                ${p.originalPrice ? `<span class="text-xs text-neutral-450 font-semibold line-through text-neutral-400">$${p.originalPrice.toFixed(2)}</span>` : ""}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- 4. ACTIVE FILTERS MANAGEMENT ---
+        function renderActiveFilterChips() {
+            const container = document.getElementById('activeFiltersContainer');
+            container.innerHTML = "";
+
+            let chipsCount = 0;
+
+            // Categories
+            selectedCategories.forEach(cat => {
+                addChip(cat, () => {
+                    const checkbox = document.querySelector(`input[name="category"][value="${cat}"]`);
+                    if (checkbox) checkbox.checked = false;
+                    applyFilters();
+                });
+                chipsCount++;
+            });
+
+            // Fits
+            selectedFits.forEach(fit => {
+                addChip(`${fit} Fit`, () => {
+                    const checkbox = document.querySelector(`input[name="fit"][value="${fit}"]`);
+                    if (checkbox) checkbox.checked = false;
+                    applyFilters();
+                });
+                chipsCount++;
+            });
+
+            // Ratings
+            selectedRatings.forEach(rating => {
+                addChip(`${rating} Star & Up`, () => {
+                    const checkbox = document.querySelector(`input[name="rating"][value="${rating}"]`);
+                    if (checkbox) checkbox.checked = false;
+                    applyFilters();
+                });
+                chipsCount++;
+            });
+
+            // Promotions
+            selectedPromotions.forEach(promo => {
+                addChip(promo, () => {
+                    const checkbox = document.querySelector(`input[name="promotion"][value="${promo}"]`);
+                    if (checkbox) checkbox.checked = false;
+                    applyFilters();
+                });
+                chipsCount++;
+            });
+
+            // Availability
+            selectedAvailability.forEach(avail => {
+                addChip(avail ? "In Stock" : "Out of Stock", () => {
+                    const checkbox = document.querySelector(`input[name="availability"][value="${avail}"]`);
+                    if (checkbox) checkbox.checked = false;
+                    applyFilters();
+                });
+                chipsCount++;
+            });
+
+            // Price filter active chip (if modified from $100)
+            if (maxPrice < 100) {
+                addChip(`Price: Under $${maxPrice}`, () => {
+                    const slider = document.getElementById('priceRange');
+                    if (slider) slider.value = 100;
+                    updatePriceValue(100);
+                });
+                chipsCount++;
+            }
+
+            // Render "Clear All" link if there are active chips
+            if (chipsCount > 0) {
+                const clearBtn = document.createElement('button');
+                clearBtn.className = "text-xs font-extrabold text-neutral-400 hover:text-fashionGold hover:underline transition-all ml-1";
+                clearBtn.innerText = "Clear All";
+                clearBtn.onclick = clearAllFilters;
+                container.appendChild(clearBtn);
+            }
+        }
+
+        function addChip(label, removeCallback) {
+            const container = document.getElementById('activeFiltersContainer');
+            const chip = document.createElement('div');
+            chip.className = "flex items-center space-x-1.5 bg-neutral-50 border border-neutral-200 text-neutral-600 px-3 py-1.5 rounded-full select-none";
+            chip.innerHTML = `
+                <span>${label}</span>
+                <button class="hover:text-fashionGold p-0.5" aria-label="Remove filter">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            `;
+            chip.querySelector('button').onclick = removeCallback;
+            container.appendChild(chip);
+        }
+
+        function clearAllFilters() {
+            // Uncheck checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+            // Reset price slider
+            const slider = document.getElementById('priceRange');
+            if (slider) slider.value = 100;
+            maxPrice = 100;
+            document.getElementById('priceDisplay').innerText = "$10.00 - $100.00";
+            
+            applyFilters();
+        }
+
+        function applySort() {
+            applyFilters();
+        }
+
+        // --- 5. CART AND TOAST FUNCTIONALITY ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+        const toast = document.getElementById('cartToast');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function loadCartItems() {
+            let cart = localStorage.getItem('cartItems');
+            if (!cart) {
+                cart = [
+                    {
+                        name: "Graffiti Boyfriend Oversized Hoodie",
+                        price: 24.00,
+                        image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop",
+                        qty: 1,
+                        color: "Red Graffiti",
+                        size: "M"
+                    }
+                ];
+                localStorage.setItem('cartItems', JSON.stringify(cart));
+            } else {
+                cart = JSON.parse(cart);
+            }
+            return cart;
+        }
+
+        function renderCartDrawer() {
+            const cart = loadCartItems();
+            const selectedItemsContainer = drawer.querySelector('.space-y-4.max-h-\\[50vh\\]');
+            const badge = document.getElementById('cartCountBadge');
+            const subtotalEl = document.getElementById('bagSubtotal');
+            const totalEl = document.getElementById('bagTotal');
+
+            if (badge) {
+                let count = 0;
+                cart.forEach(item => count += item.qty);
+                badge.innerText = count;
+            }
+
+            if (!selectedItemsContainer) return;
+
+            selectedItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                const newCartItem = document.createElement('div');
+                newCartItem.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                newCartItem.innerHTML = `
+                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                            <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                            <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                        </div>
+                        <div class="flex justify-between items-center pt-1.5">
+                            <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                selectedItemsContainer.appendChild(newCartItem);
+            });
+
+            if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+            if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = loadCartItems();
+            cart.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+        }
+
+        function handleAddToCart(name, price, image) {
+            const cart = loadCartItems();
+            const existingIndex = cart.findIndex(item => item.name === name);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    qty: 1,
+                    color: "Standard",
+                    size: "M"
+                });
+            }
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+
+            // Toast slide-in feedback
+            if (toast) {
+                toast.classList.remove('pointer-events-none', 'opacity-0');
+                toast.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    hideCartToast();
+                }, 3500);
+            }
+        }
+
+        function hideCartToast() {
+            if (toast) {
+                toast.style.transform = 'translateY(-120%)';
+                toast.classList.add('pointer-events-none', 'opacity-0');
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.reload();
+        }
+
+        function checkUserAuthSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn) {
+                    const link = document.getElementById('profileHeaderLink');
+                    const dropdown = document.getElementById('profileDropdown');
+                    const dropdownName = document.getElementById('dropdownUserName');
+
+                    if (link && dropdown && dropdownName) {
+                        // Change profile href to void so it toggles menu instead of redirecting
+                        link.href = "javascript:void(0)";
+                        link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none">${session.initials}</div>`;
+                        dropdownName.innerText = session.name;
+                        
+                        // Toggle menu on click
+                        link.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        // Close menu on clicking outside
+                        document.addEventListener('click', () => {
+                            dropdown.classList.add('hidden');
+                        });
+                    }
+                }
+            }
+        }
+
+        // --- On Page Load ---
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCategoryCounts();
+            applyFilters();
+            checkUserAuthSession();
+            renderCartDrawer();
+        });
+    </script>
+</body>
+</html>

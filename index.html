@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
     <title>4F WEARS - High Fashion Collections</title>
     
     <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
@@ -95,14 +96,14 @@
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
         <!-- Brand Navigation Links -->
         <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
-            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
-            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
-            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
-            <a href="#" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+            <a href="index.html" class="text-fashionBlack border-b-2 border-fashionGold pb-1 font-bold">Home</a>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <!-- <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Product</a> -->
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
         </nav>
 
         <!-- Centered Logo -->
-        <a href="#" class="flex items-center space-x-1 group">
+        <a href="index.html" class="flex items-center space-x-1 group">
             <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
             <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
         </a>
@@ -116,17 +117,31 @@
                 </svg>
             </button>
             <!-- Profile -->
-            <button aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                </svg>
-            </button>
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
             <!-- Cart -->
-            <a href="#" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
-                <span class="absolute -top-1 -right-1.5 w-4 h-4 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full">3</span>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">0</span>
             </a>
         </div>
     </header>
@@ -151,7 +166,7 @@
                 </div>
 
                 <!-- See Collections Circle CTA -->
-                <a href="#" class="group flex items-center space-x-4 w-fit pt-2">
+                <a href="shop.html" class="group flex items-center space-x-4 w-fit pt-2">
                     <div class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -282,7 +297,7 @@
                     <p class="text-neutral-500 text-sm leading-relaxed max-w-[340px]">
                         The power of apparel is not only to look good, but it is also an art of creating a story that is authentic and represents who you are.
                     </p>
-                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                    <a href="shop.html" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
                         Shop our catalog
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -320,7 +335,7 @@
                     </p>
                 </div>
                 
-                <a href="#" class="group flex items-center space-x-4 w-fit pt-6 md:pt-0">
+                <a href="shop.html" class="group flex items-center space-x-4 w-fit pt-6 md:pt-0">
                     <span class="text-fashionBlack font-bold text-base leading-snug tracking-tight">
                         See More photos<br class="hidden sm:inline" />for this arrival
                     </span>
@@ -394,7 +409,7 @@
                     <p class="text-neutral-500 text-sm leading-relaxed max-w-[325px] md:text-right">
                         Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening. Check out our new collections!
                     </p>
-                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                    <a href="shop.html" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
                         View all Collections 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -414,7 +429,7 @@
                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                             loading="lazy"
                         >
-                        <button class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Graffiti Boyfriend T-Shirt to cart">
+                        <button onclick="handleAddToCart('Graffiti Boyfriend T-Shirt', 24, 'https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Graffiti Boyfriend T-Shirt to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -440,7 +455,7 @@
                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                             loading="lazy"
                         >
-                        <button class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Badge Boyfriend Hoodie to cart">
+                        <button onclick="handleAddToCart('Badge Boyfriend Hoodie', 24, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Badge Boyfriend Hoodie to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -466,7 +481,7 @@
                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                             loading="lazy"
                         >
-                        <button class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Contempo T-Shirt to cart">
+                        <button onclick="handleAddToCart('Adidas Contempo T-Shirt', 24, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Contempo T-Shirt to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -502,7 +517,7 @@
                     <p class="text-neutral-500 text-sm leading-relaxed max-w-[370px] md:text-right">
                         Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening. Style is something each of us already has, all we need to do is find it. Check out our new collections!
                     </p>
-                    <a href="#" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
+                    <a href="shop.html" class="group flex items-center text-fashionGold font-bold text-sm hover:text-amber-600 transition-colors duration-200">
                         View all Collections 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -525,7 +540,7 @@
                         Hoodie<br/>Collection
                     </h2>
                     <div class="relative z-10 flex justify-end items-end w-full">
-                        <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Hoodie Collection">
+                        <a href="shop.html" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Hoodie Collection">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                             </svg>
@@ -544,7 +559,7 @@
                             loading="lazy"
                         >
                         <div class="relative z-10 flex justify-end w-full">
-                            <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Pants Collections">
+                            <a href="shop.html" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Pants Collections">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                                 </svg>
@@ -564,7 +579,7 @@
                             loading="lazy"
                         >
                         <div class="relative z-10 flex justify-end w-full">
-                            <a href="#" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Shoes Collections">
+                            <a href="shop.html" class="w-12 h-12 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-fashionGold shadow-lg" aria-label="Explore Shoes Collections">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                                 </svg>
@@ -747,7 +762,7 @@
                 
                 <!-- Left Description Column -->
                 <div class="col-span-1 md:col-span-6 space-y-6">
-                    <a href="#" class="flex items-center space-x-1 group w-fit">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
                         <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
                         <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
                     </a>
@@ -763,8 +778,8 @@
                     <div class="space-y-3">
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
                         </ul>
                     </div>
 
@@ -772,8 +787,8 @@
                     <div class="space-y-3">
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
                         </ul>
                     </div>
 
@@ -781,8 +796,8 @@
                     <div class="space-y-3">
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
                         </ul>
                     </div>
 
@@ -790,8 +805,8 @@
                     <div class="space-y-3">
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
-                            <li><a href="#" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
                         </ul>
                     </div>
 
@@ -811,5 +826,256 @@
         </div>
     </footer>
 
+    <!-- ==================== INTERACTIVE GLASSMORPHIC CHECKOUT DRAWER ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <!-- Header -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Selected Items List -->
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items list -->
+                </div>
+            </div>
+
+            <!-- Footer summary block -->
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- Drawer buttons -->
+                <div class="space-y-3">
+                    <button onclick="window.location.href='checkout.html'" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE FLOATING CART SUCCESS TOAST ==================== -->
+    <div id="cartToast" class="fixed top-6 right-6 z-50 max-w-sm w-full bg-white/95 backdrop-blur-md rounded-2xl border border-emerald-100 shadow-2xl p-4 flex gap-3.5 items-center transform translate-y-[-120%] opacity-0 pointer-events-none transition-all duration-500">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        <div class="flex-1 space-y-0.5">
+            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Added to Bag!</h4>
+            <p class="text-xs text-neutral-500">Item cataloged in checkout drawer.</p>
+        </div>
+        <button onclick="hideCartToast()" class="text-neutral-400 hover:text-fashionBlack p-0.5" aria-label="Close alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- ==================== FRONT-END INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        function checkUserAuthSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn) {
+                    const link = document.getElementById('profileHeaderLink');
+                    const dropdown = document.getElementById('profileDropdown');
+                    const dropdownName = document.getElementById('dropdownUserName');
+
+                    if (link && dropdown && dropdownName) {
+                        // Change profile href to void so it toggles menu instead of redirecting
+                        link.href = "javascript:void(0)";
+                        link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none">${session.initials}</div>`;
+                        dropdownName.innerText = session.name;
+                        
+                        // Toggle menu on click
+                        link.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        // Close menu on clicking outside
+                        document.addEventListener('click', () => {
+                            dropdown.classList.add('hidden');
+                        });
+                    }
+                }
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.reload();
+        }
+
+        // --- CART DRAWER CONTROLLERS ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+        const toast = document.getElementById('cartToast');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function loadCartItems() {
+            let cart = localStorage.getItem('cartItems');
+            if (!cart) {
+                cart = [
+                    {
+                        name: "Graffiti Boyfriend Oversized Hoodie",
+                        price: 24.00,
+                        image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop",
+                        qty: 1,
+                        color: "Red Graffiti",
+                        size: "M"
+                    }
+                ];
+                localStorage.setItem('cartItems', JSON.stringify(cart));
+            } else {
+                cart = JSON.parse(cart);
+            }
+            return cart;
+        }
+
+        function renderCartDrawer() {
+            const cart = loadCartItems();
+            const selectedItemsContainer = drawer.querySelector('.space-y-4.max-h-\\[50vh\\]');
+            const badge = document.getElementById('cartCountBadge');
+            const subtotalEl = document.getElementById('bagSubtotal');
+            const totalEl = document.getElementById('bagTotal');
+
+            if (badge) {
+                let count = 0;
+                cart.forEach(item => count += item.qty);
+                badge.innerText = count;
+            }
+
+            if (!selectedItemsContainer) return;
+
+            selectedItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                const newCartItem = document.createElement('div');
+                newCartItem.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                newCartItem.innerHTML = `
+                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                            <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                            <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                        </div>
+                        <div class="flex justify-between items-center pt-1.5">
+                            <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                selectedItemsContainer.appendChild(newCartItem);
+            });
+
+            if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+            if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = loadCartItems();
+            cart.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+        }
+
+        function handleAddToCart(name, price, image) {
+            const cart = loadCartItems();
+            const existingIndex = cart.findIndex(item => item.name === name);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    qty: 1,
+                    color: "Standard",
+                    size: "M"
+                });
+            }
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+
+            // Toast slide-in feedback
+            if (toast) {
+                toast.classList.remove('pointer-events-none', 'opacity-0');
+                toast.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    hideCartToast();
+                }, 3500);
+            }
+        }
+
+        function hideCartToast() {
+            if (toast) {
+                toast.style.transform = 'translateY(-120%)';
+                toast.classList.add('pointer-events-none', 'opacity-0');
+            }
+        }
+
+        // --- DOM INITIALIZER ---
+        window.addEventListener('DOMContentLoaded', () => {
+            checkUserAuthSession();
+            renderCartDrawer();
+        });
+    </script>
 </body>
 </html>

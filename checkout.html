@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>Checkout Securely | 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
+            <!-- Cart -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">1</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== BREADCRUMBS ==================== -->
+    <div class="bg-neutral-50 border-b border-neutral-100 py-6">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center space-x-2 text-xs font-semibold text-neutral-400">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors">Home</a>
+            <span>/</span>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors">Shop</a>
+            <span>/</span>
+            <span class="text-fashionBlack font-bold">Secure Checkout</span>
+        </div>
+    </div>
+
+    <!-- MAIN CHECKOUT CONTENT -->
+    <main class="max-w-7xl mx-auto px-6 py-12 md:px-12 md:py-20 lg:py-24">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-fashionBlack tracking-tight mb-10 md:mb-12">Secure Checkout</h1>
+        
+        <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- LEFT COLUMN: Shipping & Payment Info -->
+                <div class="lg:col-span-7 space-y-10">
+                    
+                    <!-- Section 1: Customer & Shipping Details -->
+                    <div class="space-y-6">
+                        <div class="border-b border-neutral-100 pb-3 flex justify-between items-center">
+                            <h2 class="text-lg font-extrabold text-fashionBlack tracking-tight uppercase tracking-wider">1. Shipping Address</h2>
+                            <span id="guestBadge" class="text-[10px] font-extrabold bg-neutral-100 text-neutral-500 border border-neutral-200 px-2.5 py-1 rounded-md uppercase tracking-wider">Guest Checkout</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="space-y-1.5">
+                                <label for="firstName" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">First Name *</label>
+                                <input type="text" id="firstName" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-250 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="John">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label for="lastName" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Last Name *</label>
+                                <input type="text" id="lastName" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-250 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="Doe">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="space-y-1.5">
+                                <label for="email" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Email Address *</label>
+                                <input type="email" id="email" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-250 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="john.doe@example.com">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label for="phone" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Phone Number *</label>
+                                <input type="tel" id="phone" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-250 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="+1 (555) 019-2834">
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label for="address" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Street Address *</label>
+                            <input type="text" id="address" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-255 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="128 Fashion Plaza, Apt 4F">
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="space-y-1.5">
+                                <label for="city" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">City *</label>
+                                <input type="text" id="city" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="New York">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label for="state" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">State / Prov *</label>
+                                <input type="text" id="state" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="NY">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label for="zipCode" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Zip / Postal Code *</label>
+                                <input type="text" id="zipCode" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="10001">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label for="country" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Country *</label>
+                                <input type="text" id="country" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="United States">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Payment Method Selector -->
+                    <div class="space-y-6">
+                        <div class="border-b border-neutral-100 pb-3">
+                            <h2 class="text-lg font-extrabold text-fashionBlack tracking-tight uppercase tracking-wider">2. Payment Method</h2>
+                        </div>
+                        
+                        <!-- Toggle Buttons -->
+                        <div class="grid grid-cols-3 gap-3 md:gap-4">
+                            <!-- Card Selector -->
+                            <label class="cursor-pointer">
+                                <input type="radio" name="paymentType" value="card" checked class="sr-only peer" onclick="switchPaymentMethod('card')">
+                                <div class="p-4 border border-neutral-200 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-fashionBlack transition-all peer-checked:border-fashionBlack peer-checked:bg-neutral-50 h-full text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6 text-neutral-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                                    </svg>
+                                    <span class="text-[11px] font-extrabold uppercase tracking-wide">Credit Card</span>
+                                </div>
+                            </label>
+                            <!-- PayPal Selector -->
+                            <label class="cursor-pointer">
+                                <input type="radio" name="paymentType" value="paypal" class="sr-only peer" onclick="switchPaymentMethod('paypal')">
+                                <div class="p-4 border border-neutral-200 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-fashionBlack transition-all peer-checked:border-fashionBlack peer-checked:bg-neutral-50 h-full text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6 text-neutral-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3" />
+                                    </svg>
+                                    <span class="text-[11px] font-extrabold uppercase tracking-wide">PayPal</span>
+                                </div>
+                            </label>
+                            <!-- COD Selector -->
+                            <label class="cursor-pointer">
+                                <input type="radio" name="paymentType" value="cod" class="sr-only peer" onclick="switchPaymentMethod('cod')">
+                                <div class="p-4 border border-neutral-200 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-fashionBlack transition-all peer-checked:border-fashionBlack peer-checked:bg-neutral-50 h-full text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6 text-neutral-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.12-1.014L1.5 6.071a1.125 1.125 0 011.12-1.014h18.75a1.125 1.125 0 011.12 1.014l-.655 11.665a1.125 1.125 0 01-1.12 1.014H8.25zm.002-12.75h7.5M8.25 9.75h7.5M8.25 12.75h7.5" />
+                                    </svg>
+                                    <span class="text-[11px] font-extrabold uppercase tracking-wide text-ellipsis overflow-hidden whitespace-nowrap w-full">Cash on Delivery</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Payment Sub-Sections -->
+                        <div class="bg-neutral-50 border border-neutral-150 rounded-2xl p-5 md:p-6 min-h-[120px]">
+                            
+                            <!-- Credit Card Fields -->
+                            <div id="payment-card" class="space-y-4">
+                                <div class="space-y-1.5">
+                                    <label for="cardName" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Name on Card *</label>
+                                    <input type="text" id="cardName" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="John Doe">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label for="cardNumber" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Card Number *</label>
+                                    <div class="relative">
+                                        <input type="text" id="cardNumber" maxlength="19" class="w-full pl-4 pr-12 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="4000 1234 5678 9010" oninput="formatCardNumber(this)">
+                                        <div class="absolute right-4 top-1/2 -translate-y-1/2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="space-y-1.5">
+                                        <label for="cardExpiry" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Expiration Date *</label>
+                                        <input type="text" id="cardExpiry" maxlength="5" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="MM/YY" oninput="formatExpiry(this)">
+                                    </div>
+                                    <div class="space-y-1.5">
+                                        <label for="cardCvv" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">CVV / CVC *</label>
+                                        <input type="password" id="cardCvv" maxlength="4" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="•••">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PayPal Panel -->
+                            <div id="payment-paypal" class="hidden flex flex-col items-center justify-center py-6 text-center space-y-4">
+                                <p class="text-xs text-neutral-500 max-w-sm">
+                                    You will be redirected to PayPal's secure gateway to finalize your order simulation after clicking "Place Order".
+                                </p>
+                                <button type="button" class="px-6 py-2.5 bg-[#ffc439] hover:bg-[#f2ba36] text-[#003087] text-xs font-extrabold uppercase tracking-wider rounded-xl shadow flex items-center gap-2 transition-all">
+                                    <span class="italic font-bold">PayPal</span>
+                                    <span>Fast Checkout</span>
+                                </button>
+                            </div>
+
+                            <!-- Cash on Delivery Panel -->
+                            <div id="payment-cod" class="hidden flex flex-col items-center justify-center py-6 text-center space-y-3">
+                                <div class="w-10 h-10 bg-fashionGold/10 rounded-full flex items-center justify-center text-fashionGold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.403 1.052 3.837 1.052 5.24 0L16.5 15M12 6c-2.4 0-4.3 2-4.3 4.5s1.9 4.5 4.3 4.5 4.3-2 4.3-4.5S14.4 6 12 6z" />
+                                    </svg>
+                                </div>
+                                <p class="text-xs text-neutral-500 max-w-sm">
+                                    Pay with cash upon delivery. Standard shipping fee applies. A small COD service surcharge may occur.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Order Summary -->
+                <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+                    <div class="bg-white border border-neutral-150 rounded-2xl shadow-sm p-6 space-y-6">
+                        <h2 class="text-lg font-extrabold text-fashionBlack tracking-tight uppercase tracking-wider border-b border-neutral-100 pb-3">Order Summary</h2>
+                        
+                        <!-- Alert empty bag fallback -->
+                        <div id="cartEmptyAlert" class="hidden p-3 bg-amber-50 border border-amber-100 rounded-xl text-[11px] text-amber-700 font-semibold leading-relaxed">
+                            Your shopping bag was empty. Displaying standard preview.
+                        </div>
+
+                        <!-- Product List in Cart -->
+                        <div id="checkoutProductList" class="divide-y divide-neutral-100 max-h-[30vh] overflow-y-auto pr-1 space-y-4">
+                            <!-- Items populated dynamically -->
+                        </div>
+
+                        <!-- Coupon Code Block -->
+                        <div class="pt-4 border-t border-neutral-100 space-y-3">
+                            <label for="couponCode" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-400">Promo / Gift Coupon Code</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="couponCode" class="flex-1 px-4 py-2 border border-neutral-250 rounded-xl text-xs font-semibold focus:outline-none focus:border-fashionBlack uppercase placeholder-neutral-300" placeholder="WELCOME20">
+                                <button type="button" onclick="applyCoupon()" class="px-5 py-2 bg-fashionBlack hover:bg-fashionGold text-white text-xs font-extrabold uppercase rounded-xl transition-all shadow-sm">
+                                    Apply
+                                </button>
+                            </div>
+                            <!-- Success or failure alerts -->
+                            <div id="couponFeedback" class="hidden text-[10px] font-extrabold leading-tight"></div>
+                        </div>
+
+                        <!-- Price summary lines -->
+                        <div class="pt-4 border-t border-neutral-100 space-y-2 text-xs font-semibold text-neutral-500">
+                            <div class="flex justify-between">
+                                <span>Subtotal</span>
+                                <span id="summarySubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                            </div>
+                            <div id="discountRow" class="flex justify-between text-emerald-600 hidden">
+                                <span id="discountLabel">Discount</span>
+                                <span id="summaryDiscount" class="font-extrabold">-$0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Estimated Shipping</span>
+                                <span id="summaryShipping" class="font-bold text-fashionBlack">$0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Estimated Tax (8%)</span>
+                                <span id="summaryTax" class="font-bold text-fashionBlack">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-3 border-t border-neutral-100">
+                                <span>Estimated Total</span>
+                                <span id="summaryTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Place Order CTAs -->
+                        <button type="submit" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97 flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                            </svg>
+                            Place Order Securely
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== PREMIUM SUCCESS MODAL OVERLAY ==================== -->
+    <div id="successModal" class="fixed inset-0 z-50 bg-fashionBlack/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500 flex items-center justify-center p-6">
+        <div class="w-full max-w-lg bg-white rounded-3xl p-8 md:p-10 shadow-2xl text-center transform scale-95 opacity-0 transition-all duration-500 space-y-6 border border-neutral-100">
+            <!-- Animated Success Icon -->
+            <div class="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-sm animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-10 h-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 class="text-2xl font-extrabold text-fashionBlack tracking-tight">Order Placed Successfully!</h3>
+                <p class="text-xs text-neutral-400 font-semibold max-w-sm mx-auto">
+                    Thank you for shopping with 4F WEARS. We have logged your simulated order details.
+                </p>
+            </div>
+
+            <!-- Tracking Card -->
+            <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-150 space-y-3.5 text-left text-xs font-semibold text-neutral-500">
+                <div class="flex justify-between items-center pb-2.5 border-b border-neutral-200">
+                    <span>Order Tracking ID</span>
+                    <span id="modalTrackingId" class="font-extrabold text-fashionBlack uppercase font-mono tracking-wider">#4F-38491-0329</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span>Estimated Delivery</span>
+                    <span id="modalDeliveryDate" class="font-bold text-fashionBlack">June 1, 2026</span>
+                </div>
+                <div class="flex justify-between items-center pt-2.5 border-t border-neutral-200">
+                    <span class="text-neutral-400">Total Charged</span>
+                    <span id="modalTotalCharged" class="text-base text-fashionGold font-extrabold">$24.00</span>
+                </div>
+            </div>
+
+            <!-- Button actions -->
+            <button onclick="closeSuccessModal()" class="w-full py-4 bg-fashionBlack hover:bg-fashionGold text-white text-sm font-extrabold uppercase rounded-xl transition-all shadow-md">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== GLASSMORPHIC CHECKOUT DRAWER (FOR STANDARD UTILITY) ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <!-- Header -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Selected Items List -->
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items list -->
+                </div>
+            </div>
+
+            <!-- Footer summary block -->
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- Drawer buttons -->
+                <div class="space-y-3">
+                    <button onclick="window.location.reload()" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FRONT-END INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        let cartItems = [];
+        let appliedDiscount = 0.00;
+        let appliedCouponCode = "";
+        let paymentMethod = "card";
+
+        // Predefined coupons
+        const VALID_COUPONS = {
+            "WELCOME20": 0.20,
+            "DOUBLEFASHION": 0.10
+        };
+
+        // Fallback placeholder items
+        const PREVIEW_ITEMS = [
+            {
+                name: "Graffiti Boyfriend Oversized Hoodie",
+                price: 24.00,
+                image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop",
+                qty: 1,
+                color: "Red Graffiti",
+                size: "M"
+            }
+        ];
+
+        // --- 1. SESSION MANAGEMENT & PRE-POPULATION ---
+        function loadSessionData() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn) {
+                    // Update Header dropdown
+                    const link = document.getElementById('profileHeaderLink');
+                    const dropdown = document.getElementById('profileDropdown');
+                    const dropdownName = document.getElementById('dropdownUserName');
+
+                    if (link && dropdown && dropdownName) {
+                        link.href = "javascript:void(0)";
+                        link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none border border-white/20">${session.initials}</div>`;
+                        dropdownName.innerText = session.name;
+                        
+                        link.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        document.addEventListener('click', () => {
+                            dropdown.classList.add('hidden');
+                        });
+                    }
+
+                    // Update Guest Badge to Customer
+                    const guestBadge = document.getElementById('guestBadge');
+                    if (guestBadge) {
+                        guestBadge.innerText = "Member Checkout";
+                        guestBadge.className = "text-[10px] font-extrabold bg-emerald-50 text-emerald-600 border border-emerald-100 px-2.5 py-1 rounded-md uppercase tracking-wider";
+                    }
+
+                    // Pre-populate Address fields
+                    const nameParts = (session.name || "").split(" ");
+                    document.getElementById('firstName').value = nameParts[0] || "";
+                    document.getElementById('lastName').value = nameParts.slice(1).join(" ") || "";
+                    document.getElementById('email').value = session.email || "";
+                    
+                    if (session.phone) document.getElementById('phone').value = session.phone;
+                    if (session.street) document.getElementById('address').value = session.street;
+                    if (session.city) document.getElementById('city').value = session.city;
+                    if (session.state) document.getElementById('state').value = session.state;
+                    if (session.zip) document.getElementById('zipCode').value = session.zip;
+                    if (session.country) document.getElementById('country').value = session.country;
+                }
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.replace("index.html");
+        }
+
+        // --- 2. CART RETRIEVAL & PRICING COMPUTATION ---
+        function getCartItems() {
+            const saved = localStorage.getItem('cartItems');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed.length > 0) {
+                    document.getElementById('cartEmptyAlert').classList.add('hidden');
+                    return parsed;
+                }
+            }
+            // Show preview fallback indicator
+            document.getElementById('cartEmptyAlert').classList.remove('hidden');
+            return PREVIEW_ITEMS;
+        }
+
+        function syncCartBadge() {
+            const currentBadge = document.getElementById('cartCountBadge');
+            const drawerBadge = document.getElementById('bagSubtotal');
+            const drawerTotal = document.getElementById('bagTotal');
+            
+            const saved = localStorage.getItem('cartItems');
+            let count = 0;
+            let subtotal = 0;
+            
+            const container = document.querySelector('#checkoutDrawer .space-y-4.max-h-\\[50vh\\]');
+            if (container) container.innerHTML = '';
+            
+            const cart = saved ? JSON.parse(saved) : [];
+            cart.forEach((item, idx) => {
+                count += item.qty;
+                subtotal += item.price * item.qty;
+                
+                if (container) {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                    itemEl.innerHTML = `
+                        <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 space-y-1">
+                            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                            <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                                <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                                <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                            </div>
+                            <div class="flex justify-between items-center pt-1.5">
+                                <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                                <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeCartItem(${idx})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    `;
+                    container.appendChild(itemEl);
+                }
+            });
+
+            if (currentBadge) currentBadge.innerText = count;
+            if (drawerBadge) drawerBadge.innerText = `$${subtotal.toFixed(2)}`;
+            if (drawerTotal) drawerTotal.innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const saved = localStorage.getItem('cartItems');
+            if (saved) {
+                const cart = JSON.parse(saved);
+                cart.splice(index, 1);
+                localStorage.setItem('cartItems', JSON.stringify(cart));
+                syncCartBadge();
+                renderSummaryProducts();
+                recalculatePrices();
+            }
+        }
+
+        function renderSummaryProducts() {
+            const container = document.getElementById('checkoutProductList');
+            container.innerHTML = '';
+            cartItems = getCartItems();
+
+            cartItems.forEach((item) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "flex gap-4 items-center py-4 first:pt-0";
+                itemDiv.innerHTML = `
+                    <div class="w-14 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200 flex-shrink-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-xs font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[10px] text-neutral-400 font-semibold">
+                            <span>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></span>
+                            <span class="mx-1.5">•</span>
+                            <span>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></span>
+                        </div>
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="font-extrabold text-xs text-fashionGold">$${(item.price * item.qty).toFixed(2)}</span>
+                            <span class="text-[10px] text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function recalculatePrices() {
+            // Compute Subtotal
+            let subtotal = 0;
+            cartItems.forEach(item => {
+                subtotal += item.price * item.qty;
+            });
+            document.getElementById('summarySubtotal').innerText = `$${subtotal.toFixed(2)}`;
+
+            // Coupon Discount
+            if (appliedCouponCode && VALID_COUPONS[appliedCouponCode]) {
+                appliedDiscount = subtotal * VALID_COUPONS[appliedCouponCode];
+                document.getElementById('discountRow').classList.remove('hidden');
+                document.getElementById('discountLabel').innerText = `Discount (${appliedCouponCode})`;
+                document.getElementById('summaryDiscount').innerText = `-$${appliedDiscount.toFixed(2)}`;
+            } else {
+                appliedDiscount = 0;
+                document.getElementById('discountRow').classList.add('hidden');
+            }
+
+            // Shipping Computation
+            let shippingFee = 0;
+            if (paymentMethod === "cod") {
+                shippingFee = 7.00; // COD Handling fee
+            } else {
+                shippingFee = (subtotal - appliedDiscount >= 75) ? 0.00 : 5.00; // Free shipping over $75 threshold
+            }
+            document.getElementById('summaryShipping').innerText = shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`;
+
+            // Tax
+            const taxableAmount = Math.max(0, subtotal - appliedDiscount);
+            const estTax = taxableAmount * 0.08;
+            document.getElementById('summaryTax').innerText = `$${estTax.toFixed(2)}`;
+
+            // Final Total
+            const finalTotal = taxableAmount + shippingFee + estTax;
+            document.getElementById('summaryTotal').innerText = `$${finalTotal.toFixed(2)}`;
+        }
+
+        // --- 3. COUPON CODE INTERACTION ---
+        function applyCoupon() {
+            const input = document.getElementById('couponCode');
+            const code = input.value.trim().toUpperCase();
+            const feedback = document.getElementById('couponFeedback');
+            
+            if (!code) {
+                feedback.className = "text-[10px] font-extrabold leading-tight text-rose-500";
+                feedback.innerText = "Please enter a valid coupon code.";
+                feedback.classList.remove('hidden');
+                return;
+            }
+
+            if (VALID_COUPONS[code] !== undefined) {
+                appliedCouponCode = code;
+                feedback.className = "text-[10px] font-extrabold leading-tight text-emerald-600";
+                feedback.innerText = `Coupon code "${code}" applied successfully! Saved ${(VALID_COUPONS[code]*100)}%`;
+                feedback.classList.remove('hidden');
+                recalculatePrices();
+            } else {
+                appliedCouponCode = "";
+                feedback.className = "text-[10px] font-extrabold leading-tight text-rose-500";
+                feedback.innerText = "Invalid coupon code. Try 'WELCOME20' or 'DOUBLEFASHION'.";
+                feedback.classList.remove('hidden');
+                recalculatePrices();
+            }
+        }
+
+        // --- 4. PAYMENT FORM TOGGLE & FORMATTING ---
+        function switchPaymentMethod(method) {
+            paymentMethod = method;
+            
+            // Hide all sub-sections
+            document.getElementById('payment-card').classList.add('hidden');
+            document.getElementById('payment-paypal').classList.add('hidden');
+            document.getElementById('payment-cod').classList.add('hidden');
+
+            // Show selected sub-section
+            document.getElementById(`payment-${method}`).classList.remove('hidden');
+
+            // Add/Remove required fields constraint dynamically
+            const cardName = document.getElementById('cardName');
+            const cardNumber = document.getElementById('cardNumber');
+            const cardExpiry = document.getElementById('cardExpiry');
+            const cardCvv = document.getElementById('cardCvv');
+
+            if (method === "card") {
+                cardName.setAttribute('required', 'true');
+                cardNumber.setAttribute('required', 'true');
+                cardExpiry.setAttribute('required', 'true');
+                cardCvv.setAttribute('required', 'true');
+            } else {
+                cardName.removeAttribute('required');
+                cardNumber.removeAttribute('required');
+                cardExpiry.removeAttribute('required');
+                cardCvv.removeAttribute('required');
+            }
+
+            // Recalculate Shipping fees as COD changes standard shipping fees
+            recalculatePrices();
+        }
+
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            let formatted = value.match(/.{1,4}/g);
+            input.value = formatted ? formatted.join(' ') : '';
+        }
+
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                input.value = value.substring(0,2) + '/' + value.substring(2,4);
+            } else {
+                input.value = value;
+            }
+        }
+
+        // --- 5. DRAWER TOGGLE CONTROL ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        // --- 6. PLACE ORDER & SIMULATE SUCCESS ---
+        function handlePlaceOrder(event) {
+            event.preventDefault();
+
+            // Simple Card validation check
+            if (paymentMethod === "card") {
+                const cardNum = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+                const expiry = document.getElementById('cardExpiry').value;
+                const cvv = document.getElementById('cardCvv').value;
+
+                if (cardNum.length < 16) {
+                    alert("Invalid Card Number. Please input a complete 16-digit card number.");
+                    document.getElementById('cardNumber').focus();
+                    return;
+                }
+                if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+                    alert("Invalid Expiration Date format. Use MM/YY.");
+                    document.getElementById('cardExpiry').focus();
+                    return;
+                }
+                if (cvv.length < 3) {
+                    alert("Invalid CVV. Please input at least 3 digits.");
+                    document.getElementById('cardCvv').focus();
+                    return;
+                }
+            }
+
+            // If valid: Generate Success Modal info
+            const generatedId = "#4F-" + Math.floor(10000 + Math.random() * 90000) + "-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('modalTrackingId').innerText = generatedId;
+
+            // Delivery Date (3-5 days from today)
+            const deliveryDate = new Date();
+            deliveryDate.setDate(deliveryDate.getDate() + 4);
+            const options = { month: 'long', day: 'numeric', year: 'numeric' };
+            document.getElementById('modalDeliveryDate').innerText = deliveryDate.toLocaleDateString('en-US', options);
+
+            // Total price charged
+            const finalCharged = document.getElementById('summaryTotal').innerText;
+            document.getElementById('modalTotalCharged').innerText = finalCharged;
+
+            // Construct new order object and save to localStorage
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeStr = dateStr + ", " + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const addr = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const zip = document.getElementById('zipCode').value.trim();
+            const country = document.getElementById('country').value.trim();
+            const fullAddress = `${addr}, ${city}, ${state}, ${zip}, ${country}`;
+
+            const orderTotal = parseFloat(finalCharged.replace('$', ''));
+
+            const newOrder = {
+                orderId: generatedId,
+                date: dateStr,
+                total: orderTotal,
+                status: "Processing",
+                shippingAddress: fullAddress,
+                items: cartItems.map(item => ({
+                    name: item.name,
+                    price: item.price,
+                    qty: item.qty,
+                    color: item.color || "Standard",
+                    size: item.size || "M",
+                    image: item.image
+                })),
+                logs: [
+                    { time: timeStr, msg: "Order placed successfully. Payment authorized." }
+                ]
+            };
+
+            let ordersList = localStorage.getItem('ordersList');
+            if (ordersList) {
+                ordersList = JSON.parse(ordersList);
+            } else {
+                ordersList = [
+                    {
+                        orderId: "#4F-12894",
+                        date: "May 15, 2026",
+                        total: 24.00,
+                        status: "Delivered",
+                        shippingAddress: "128 Fashion Plaza, New York, NY, 10001",
+                        items: [
+                            {
+                                name: "Graffiti Boyfriend Oversized Hoodie",
+                                price: 24.00,
+                                qty: 1,
+                                color: "Red Graffiti",
+                                size: "M",
+                                image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop"
+                            }
+                        ],
+                        logs: [
+                            { time: "May 15, 2026, 09:30 AM", msg: "Order placed successfully" },
+                            { time: "May 15, 2026, 02:15 PM", msg: "Package handed over to FedEx carrier" },
+                            { time: "May 16, 2026, 11:00 AM", msg: "Departed FedEx sorting facility" },
+                            { time: "May 18, 2026, 04:30 PM", msg: "Delivered - Package left near front porch" }
+                        ]
+                    },
+                    {
+                        orderId: "#4F-11024",
+                        date: "April 20, 2026",
+                        total: 59.00,
+                        status: "In Transit",
+                        shippingAddress: "128 Fashion Plaza, New York, NY, 10001",
+                        items: [
+                            {
+                                name: "Sweatshirt Pink Soda Signature",
+                                price: 35.00,
+                                qty: 1,
+                                color: "Pink Standard",
+                                size: "M",
+                                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=200&auto=format&fit=crop"
+                            },
+                            {
+                                name: "Adidas Contempo Coral Tee",
+                                price: 24.00,
+                                qty: 1,
+                                color: "Coral Peach",
+                                size: "M",
+                                image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=200&auto=format&fit=crop"
+                            }
+                        ],
+                        logs: [
+                            { time: "April 20, 2026, 11:00 AM", msg: "Order placed successfully" },
+                            { time: "April 20, 2026, 05:40 PM", msg: "Carrier accepted package" },
+                            { time: "April 22, 2026, 08:15 AM", msg: "In Transit - In transit to destination country sorting hub" }
+                        ]
+                    }
+                ];
+            }
+            ordersList.unshift(newOrder);
+            localStorage.setItem('ordersList', JSON.stringify(ordersList));
+
+            // Show Modal
+            const successOverlay = document.getElementById('successModal');
+            const modalContent = successOverlay.firstElementChild;
+            
+            successOverlay.classList.remove('pointer-events-none', 'opacity-0');
+            successOverlay.classList.add('opacity-100');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+
+        function closeSuccessModal() {
+            // Clear shopping bag
+            localStorage.removeItem('cartItems');
+
+            // Close success overlay
+            const successOverlay = document.getElementById('successModal');
+            const modalContent = successOverlay.firstElementChild;
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                successOverlay.classList.remove('opacity-100');
+                successOverlay.classList.add('pointer-events-none', 'opacity-0');
+                
+                // Redirect to orders page
+                window.location.replace("orders.html");
+            }, 300);
+        }
+
+        // --- DOM INITIALIZER ---
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSessionData();
+            syncCartBadge();
+            renderSummaryProducts();
+            recalculatePrices();
+            
+            // Validate card requirements at launch
+            switchPaymentMethod('card');
+        });
+    </script>
+</body>
+</html>

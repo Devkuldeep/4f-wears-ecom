@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>My Profile - 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar customization to keep premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+    </style>
+    
+    <!-- ==================== SECURITY AUTHENTICATION SHIELD ==================== -->
+    <script>
+        // Immediately enforce session authentication prior to DOM rendering
+        const sessionStr = localStorage.getItem('userSession');
+        if (!sessionStr) {
+            window.location.replace("login.html");
+        } else {
+            const session = JSON.parse(sessionStr);
+            if (!session.loggedIn) {
+                window.location.replace("login.html");
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
+    <div class="bg-fashionBlack text-white text-xs py-2.5 px-6 md:px-12 flex flex-col sm:flex-row justify-between items-center gap-2 border-b border-neutral-800">
+        <div class="flex items-center space-x-2 text-neutral-400 font-semibold">
+            <span>Call Us: +123-456-789</span>
+        </div>
+        <div class="font-bold tracking-wide text-center">
+            Sign up and <span class="text-fashionGold">GET 20% OFF</span> for your first order. <a href="#" class="underline hover:text-fashionGold transition-colors ml-1">Sign up now</a>
+        </div>
+        <div class="hidden sm:flex items-center space-x-4 text-neutral-400">
+            <a href="#" class="hover:text-white transition-colors" aria-label="Facebook">FB</a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="Instagram">IG</a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="Twitter">TW</a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="Pinterest">PIN</a>
+        </div>
+    </div>
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
+            <!-- Cart -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">3</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== BREADCRUMBS & USER SUMMARY HEADER ==================== -->
+    <div class="bg-neutral-50 border-b border-neutral-100 py-10 md:py-14">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <!-- Welcome Initials Avatar Block -->
+            <div class="flex items-center space-x-5">
+                <div id="largeInitialsAvatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-fashionGold text-white font-extrabold text-2xl sm:text-3xl flex items-center justify-center shadow-md select-none border-2 border-white">
+                    JD
+                </div>
+                <div class="space-y-1 text-center md:text-left">
+                    <h1 id="welcomeUserTitle" class="text-xl sm:text-3xl font-extrabold tracking-tight text-fashionBlack">John Doe</h1>
+                    <div class="flex items-center justify-center md:justify-start space-x-2 text-xs font-semibold text-neutral-400">
+                        <span id="welcomeUserEmail">john.doe@gmail.com</span>
+                        <span>•</span>
+                        <span>Member since May 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Session Details Badge -->
+            <div class="px-4 py-2 bg-white rounded-xl border border-neutral-150 shadow-sm flex items-center space-x-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-neutral-500 uppercase tracking-wider">Account Active</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN PROFILE WORKSPACE -->
+    <main class="max-w-7xl mx-auto px-6 py-12 md:px-12 md:py-20 lg:py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 items-start">
+            
+            <!-- ==================== LEFT TABS BAR ==================== -->
+            <aside class="space-y-2 lg:sticky lg:top-28">
+                <button onclick="switchTab('account')" id="btn-account" class="tab-btn w-full text-left px-5 py-3.5 rounded-xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 bg-fashionBlack text-white shadow-md flex items-center justify-between">
+                    <span>Account Info</span>
+                    <span class="text-neutral-400 text-xs">➔</span>
+                </button>
+                <button onclick="switchTab('orders')" id="btn-orders" class="tab-btn w-full text-left px-5 py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between">
+                    <span>Order History</span>
+                    <span class="text-neutral-350 text-xs">➔</span>
+                </button>
+                <button onclick="switchTab('wishlist')" id="btn-wishlist" class="tab-btn w-full text-left px-5 py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between">
+                    <span>Saved Wishlist</span>
+                    <span class="text-neutral-350 text-xs">➔</span>
+                </button>
+                <button onclick="switchTab('settings')" id="btn-settings" class="tab-btn w-full text-left px-5 py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between">
+                    <span>Settings & Security</span>
+                    <span class="text-neutral-350 text-xs">➔</span>
+                </button>
+            </aside>
+
+            <!-- ==================== RIGHT PANELS WRAPPER ==================== -->
+            <div class="lg:col-span-3">
+                
+                <!-- SUCCESS TOAST FEEDBACK FOR SAVE EVENTS -->
+                <div id="saveFeedback" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-xl text-xs font-semibold">
+                    Changes saved successfully! Your profile details have been updated.
+                </div>
+
+                <!-- ==================== TAB 1: ACCOUNT DETAILS ==================== -->
+                <section id="panel-account" class="tab-panel space-y-8">
+                    <div class="border-b border-neutral-100 pb-3">
+                        <h2 class="text-xl font-extrabold text-fashionBlack tracking-tight uppercase tracking-wide">Personal Details</h2>
+                    </div>
+
+                    <form onsubmit="handleAccountSave(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Display Name -->
+                            <div class="space-y-1.5">
+                                <label for="profileNameInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Display Name</label>
+                                <input type="text" id="profileNameInput" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="John Doe">
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="space-y-1.5">
+                                <label for="profileEmailInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Email Address *</label>
+                                <input type="email" id="profileEmailInput" required class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="john.doe@gmail.com">
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="space-y-1.5">
+                                <label for="profilePhoneInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Phone Number</label>
+                                <input type="tel" id="profilePhoneInput" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="+1 (555) 019-2834">
+                            </div>
+                        </div>
+
+                        <!-- Shipping Address Column -->
+                        <div class="border-t border-neutral-100 pt-6 space-y-4">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Default Shipping Address</h3>
+                            
+                            <div class="space-y-1.5">
+                                <label for="profileStreetInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Street Address</label>
+                                <input type="text" id="profileStreetInput" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="128 Fashion Plaza, Apt 4F">
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="space-y-1.5">
+                                    <label for="profileCityInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">City</label>
+                                    <input type="text" id="profileCityInput" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="New York">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label for="profileStateInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">State / Prov</label>
+                                    <input type="text" id="profileStateInput" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="NY">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label for="profileZipInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Zip / Postal Code</label>
+                                    <input type="text" id="profileZipInput" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="10001">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label for="profileCountryInput" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Country</label>
+                                    <input type="text" id="profileCountryInput" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack focus:ring-1 focus:ring-fashionBlack transition-all bg-white" placeholder="United States">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="pt-4 border-t border-neutral-100 flex justify-end">
+                            <button type="submit" class="px-8 py-3 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-xl shadow-md transition-all duration-300">
+                                Save Profile Changes
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- ==================== TAB 2: ORDER HISTORY ==================== -->
+                <section id="panel-orders" class="tab-panel space-y-8 hidden">
+                    <div class="border-b border-neutral-100 pb-3 flex justify-between items-center">
+                        <h2 class="text-xl font-extrabold text-fashionBlack tracking-tight uppercase tracking-wide">Purchase History</h2>
+                        <span class="text-xs font-bold text-neutral-450">2 Completed Orders</span>
+                    </div>
+
+                    <!-- Orders Stack -->
+                    <div class="space-y-6">
+                        <!-- Order 1 -->
+                        <div class="border border-neutral-150 rounded-2xl bg-white shadow-sm overflow-hidden">
+                            <!-- Card Header info -->
+                            <div class="p-5 bg-neutral-50 border-b border-neutral-150 flex flex-wrap justify-between items-center gap-4 text-xs font-semibold text-neutral-500">
+                                <div class="flex space-x-6">
+                                    <div>
+                                        <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Date Placed</span>
+                                        <span class="font-bold text-fashionBlack">May 15, 2026</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Order Total</span>
+                                        <span class="font-extrabold text-fashionGold">$24.00</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Ship To</span>
+                                        <span class="font-bold text-fashionBlack" id="ordShipTo1">John Doe</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Order ID</span>
+                                    <span class="font-bold text-neutral-600">#4F-12894</span>
+                                </div>
+                            </div>
+                            <!-- Card Body products -->
+                            <div class="p-5 flex gap-4 items-center">
+                                <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                                    <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop" alt="Hoodie Front" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1 space-y-1">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Graffiti Boyfriend Oversized Hoodie</h4>
+                                        <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-md text-[9px] font-extrabold uppercase tracking-wider">Delivered</span>
+                                    </div>
+                                    <div class="text-[10px] text-neutral-400 font-semibold space-y-0.5">
+                                        <p>Color: <span class="text-neutral-600">Red Graffiti</span></p>
+                                        <p>Size: <span class="text-neutral-600">M</span></p>
+                                        <p>Qty: 1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order 2 -->
+                        <div class="border border-neutral-150 rounded-2xl bg-white shadow-sm overflow-hidden">
+                            <!-- Card Header info -->
+                            <div class="p-5 bg-neutral-50 border-b border-neutral-150 flex flex-wrap justify-between items-center gap-4 text-xs font-semibold text-neutral-500">
+                                <div class="flex space-x-6">
+                                    <div>
+                                        <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Date Placed</span>
+                                        <span class="font-bold text-fashionBlack">April 20, 2026</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Order Total</span>
+                                        <span class="font-extrabold text-fashionGold">$59.00</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Ship To</span>
+                                        <span class="font-bold text-fashionBlack" id="ordShipTo2">John Doe</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-[10px] uppercase text-neutral-400 tracking-wider">Order ID</span>
+                                    <span class="font-bold text-neutral-600">#4F-11024</span>
+                                </div>
+                            </div>
+                            <!-- Card Body products -->
+                            <div class="p-5 divide-y divide-neutral-100 space-y-4">
+                                <!-- Product 1 -->
+                                <div class="flex gap-4 items-center">
+                                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=200&auto=format&fit=crop" alt="Sweatshirt" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1 space-y-1">
+                                        <div class="flex justify-between items-start">
+                                            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Sweatshirt Pink Soda Signature</h4>
+                                            <span class="px-2.5 py-1 bg-amber-50 text-amber-600 border border-amber-100 rounded-md text-[9px] font-extrabold uppercase tracking-wider">In Transit</span>
+                                        </div>
+                                        <div class="text-[10px] text-neutral-400 font-semibold space-y-0.5">
+                                            <p>Color: <span class="text-neutral-600">Standard</span></p>
+                                            <p>Size: <span class="text-neutral-600">M</span></p>
+                                            <p>Qty: 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product 2 -->
+                                <div class="flex gap-4 items-center pt-4">
+                                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                                        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=200&auto=format&fit=crop" alt="T-Shirt" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1 space-y-1">
+                                        <div class="flex justify-between items-start">
+                                            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Adidas Contempo Coral Tee</h4>
+                                            <span class="px-2.5 py-1 bg-amber-50 text-amber-600 border border-amber-100 rounded-md text-[9px] font-extrabold uppercase tracking-wider">In Transit</span>
+                                        </div>
+                                        <div class="text-[10px] text-neutral-400 font-semibold space-y-0.5">
+                                            <p>Color: <span class="text-neutral-600">Coral Peach</span></p>
+                                            <p>Size: <span class="text-neutral-600">M</span></p>
+                                            <p>Qty: 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 3: SAVED WISHLIST ==================== -->
+                <section id="panel-wishlist" class="tab-panel space-y-8 hidden">
+                    <div class="border-b border-neutral-100 pb-3">
+                        <h2 class="text-xl font-extrabold text-fashionBlack tracking-tight uppercase tracking-wide">Saved Wishlist</h2>
+                    </div>
+
+                    <!-- Wishlist grid -->
+                    <div id="wishlistGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+                        
+                        <!-- Wishlist Card 1 -->
+                        <div class="border border-neutral-150 rounded-2xl bg-white shadow-sm p-4 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow relative">
+                            <div class="flex gap-4">
+                                <div class="w-20 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200 flex-shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=200&auto=format&fit=crop" alt="Adidas Hoodie" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1 space-y-1">
+                                    <span class="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Hoodie</span>
+                                    <h3 class="font-extrabold text-sm text-fashionBlack leading-tight">Adidas Sport Hoodie Contempo</h3>
+                                    <div class="flex items-baseline space-x-1.5 pt-1">
+                                        <span class="text-fashionGold font-extrabold text-base">$48.00</span>
+                                        <span class="text-[10px] text-neutral-400 font-semibold line-through">$60.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 pt-2 border-t border-neutral-100">
+                                <button onclick="handleAddToCart('Adidas Sport Hoodie Contempo', 48.00, 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=200&auto=format&fit=crop')" class="flex-1 py-2 bg-fashionBlack hover:bg-fashionGold text-white text-[11px] font-extrabold uppercase rounded-lg shadow transition-all active:scale-95">
+                                    Move to Bag
+                                </button>
+                                <button onclick="removeWishlistItem(this)" class="px-3.5 py-2 border border-neutral-200 hover:border-rose-500 hover:text-rose-500 text-neutral-500 text-[11px] font-bold uppercase rounded-lg transition-all">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Wishlist Card 2 -->
+                        <div class="border border-neutral-150 rounded-2xl bg-white shadow-sm p-4 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow relative">
+                            <div class="flex gap-4">
+                                <div class="w-20 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200 flex-shrink-0">
+                                    <img src="https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Shoes" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1 space-y-1">
+                                    <span class="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Shoes</span>
+                                    <h3 class="font-extrabold text-sm text-fashionBlack leading-tight">Retro Court Orange Sneakers</h3>
+                                    <div class="flex items-baseline space-x-1.5 pt-1">
+                                        <span class="text-fashionGold font-extrabold text-base">$80.00</span>
+                                        <span class="text-[10px] text-neutral-400 font-semibold line-through">$160.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 pt-2 border-t border-neutral-100">
+                                <button onclick="handleAddToCart('Retro Court Orange Sneakers', 80.00, 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=800')" class="flex-1 py-2 bg-fashionBlack hover:bg-fashionGold text-white text-[11px] font-extrabold uppercase rounded-lg shadow transition-all active:scale-95">
+                                    Move to Bag
+                                </button>
+                                <button onclick="removeWishlistItem(this)" class="px-3.5 py-2 border border-neutral-200 hover:border-rose-500 hover:text-rose-500 text-neutral-500 text-[11px] font-bold uppercase rounded-lg transition-all">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 4: SETTINGS & SECURITY ==================== -->
+                <section id="panel-settings" class="tab-panel space-y-8 hidden">
+                    <div class="border-b border-neutral-100 pb-3">
+                        <h2 class="text-xl font-extrabold text-fashionBlack tracking-tight uppercase tracking-wide">Settings & Security</h2>
+                    </div>
+
+                    <form onsubmit="handleSettingsSave(event)" class="space-y-6">
+                        <!-- Notifications -->
+                        <div class="space-y-4">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Communication Preferences</h3>
+                            <div class="space-y-3.5">
+                                <label class="flex items-center space-x-3 cursor-pointer select-none">
+                                    <input type="checkbox" checked class="w-4.5 h-4.5 rounded text-fashionGold focus:ring-0 focus:ring-offset-0 border-neutral-300">
+                                    <span class="text-xs font-semibold text-neutral-600">Email notifications for orders and shipments</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer select-none">
+                                    <input type="checkbox" checked class="w-4.5 h-4.5 rounded text-fashionGold focus:ring-0 focus:ring-offset-0 border-neutral-300">
+                                    <span class="text-xs font-semibold text-neutral-600">SMS shipment alerts and delivery updates</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer select-none">
+                                    <input type="checkbox" class="w-4.5 h-4.5 rounded text-fashionGold focus:ring-0 focus:ring-offset-0 border-neutral-300">
+                                    <span class="text-xs font-semibold text-neutral-600">Receive newsletter and exclusive collections drop notifications</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Reset Password simulation -->
+                        <div class="border-t border-neutral-100 pt-6 space-y-4">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400 font-extrabold">Reset Profile Password</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label for="oldPassword" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">Current Password</label>
+                                    <input type="password" id="oldPassword" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="••••••••">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label for="newPassword" class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">New Password</label>
+                                    <input type="password" id="newPassword" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium focus:outline-none focus:border-fashionBlack transition-all bg-white" placeholder="••••••••">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="pt-4 border-t border-neutral-100 flex justify-end">
+                            <button type="submit" class="px-8 py-3 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-xl shadow-md transition-all duration-300">
+                                Save Preferences
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== INTERACTIVE GLASSMORPHIC CHECKOUT DRAWER ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <!-- Header -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Selected Items List -->
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items list -->
+                </div>
+            </div>
+
+            <!-- Footer summary block -->
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- Drawer buttons -->
+                <div class="space-y-3">
+                    <button onclick="window.location.href='checkout.html'" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE FLOATING CART SUCCESS TOAST ==================== -->
+    <div id="cartToast" class="fixed top-6 right-6 z-50 max-w-sm w-full bg-white/95 backdrop-blur-md rounded-2xl border border-emerald-100 shadow-2xl p-4 flex gap-3.5 items-center transform translate-y-[-120%] opacity-0 pointer-events-none transition-all duration-500">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        <div class="flex-1 space-y-0.5">
+            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Added to Bag!</h4>
+            <p class="text-xs text-neutral-500">Item cataloged in checkout drawer.</p>
+        </div>
+        <button onclick="hideCartToast()" class="text-neutral-400 hover:text-fashionBlack p-0.5" aria-label="Close alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- ==================== FRONT-END INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        // --- 1. USER SESSION LOADER ---
+        let userSession = {};
+        
+        function loadUserSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                userSession = JSON.parse(sessionStr);
+                
+                // Populate Profile Welcome Banner
+                document.getElementById('largeInitialsAvatar').innerText = userSession.initials;
+                document.getElementById('welcomeUserTitle').innerText = userSession.name;
+                document.getElementById('welcomeUserEmail').innerText = userSession.email;
+
+                // Populate Form Fields
+                document.getElementById('profileNameInput').value = userSession.name;
+                document.getElementById('profileEmailInput').value = userSession.email;
+                
+                // Populate simulated orders shipping destination
+                document.getElementById('ordShipTo1').innerText = userSession.name;
+                document.getElementById('ordShipTo2').innerText = userSession.name;
+
+                // Load custom fields if saved previously
+                if (userSession.phone) document.getElementById('profilePhoneInput').value = userSession.phone;
+                if (userSession.street) document.getElementById('profileStreetInput').value = userSession.street;
+                if (userSession.city) document.getElementById('profileCityInput').value = userSession.city;
+                if (userSession.state) document.getElementById('profileStateInput').value = userSession.state;
+                if (userSession.zip) document.getElementById('profileZipInput').value = userSession.zip;
+                if (userSession.country) document.getElementById('profileCountryInput').value = userSession.country;
+            }
+        }
+
+        // --- 2. HEADER ACCOUNT DROPDOWN CONTROL ---
+        function checkUserAuthSession() {
+            if (userSession.loggedIn) {
+                const link = document.getElementById('profileHeaderLink');
+                const dropdown = document.getElementById('profileDropdown');
+                const dropdownName = document.getElementById('dropdownUserName');
+
+                if (link && dropdown && dropdownName) {
+                    link.href = "javascript:void(0)";
+                    link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none border border-white/20">${userSession.initials}</div>`;
+                    dropdownName.innerText = userSession.name;
+                    
+                    link.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        dropdown.classList.toggle('hidden');
+                    });
+
+                    document.addEventListener('click', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.replace("index.html");
+        }
+
+        // --- 3. PROFILE TABS CONTROLLER ---
+        function switchTab(tabId) {
+            // Hide all tab panels
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            // Show selected tab panel
+            document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+
+            // Reset tab button states
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn w-full text-left px-5 py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between";
+                const arrow = btn.querySelector('span:last-child');
+                if (arrow) arrow.className = "text-neutral-350 text-xs";
+            });
+            
+            // Set active state on button
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = "tab-btn w-full text-left px-5 py-3.5 rounded-xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 bg-fashionBlack text-white shadow-md flex items-center justify-between";
+            const arrow = activeBtn.querySelector('span:last-child');
+            if (arrow) arrow.className = "text-neutral-400 text-xs";
+        }
+
+        // --- 4. FORM ACTIONS & LOCALSTORAGE UPDATES ---
+        function handleAccountSave(event) {
+            event.preventDefault();
+
+            // Fetch details
+            userSession.name = document.getElementById('profileNameInput').value.trim();
+            userSession.email = document.getElementById('profileEmailInput').value.trim();
+            userSession.phone = document.getElementById('profilePhoneInput').value.trim();
+            userSession.street = document.getElementById('profileStreetInput').value.trim();
+            userSession.city = document.getElementById('profileCityInput').value.trim();
+            userSession.state = document.getElementById('profileStateInput').value.trim();
+            userSession.zip = document.getElementById('profileZipInput').value.trim();
+            userSession.country = document.getElementById('profileCountryInput').value.trim();
+
+            // Compute initials
+            const nameParts = userSession.name.split(' ');
+            userSession.initials = nameParts.length >= 2 
+                ? (nameParts[0][0] + nameParts[1][0]).toUpperCase() 
+                : userSession.name.substring(0, 2).toUpperCase();
+
+            // Save
+            localStorage.setItem('userSession', JSON.stringify(userSession));
+
+            // Feedback and reload elements
+            const alertBox = document.getElementById('saveFeedback');
+            alertBox.innerText = "Personal details and shipping address updated successfully!";
+            alertBox.classList.remove('hidden');
+            
+            loadUserSession();
+            checkUserAuthSession();
+
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 3000);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleSettingsSave(event) {
+            event.preventDefault();
+
+            const alertBox = document.getElementById('saveFeedback');
+            alertBox.innerText = "Communication preferences and security details updated!";
+            alertBox.classList.remove('hidden');
+
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 3000);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 5. WISHLIST MANAGEMENT ---
+        function removeWishlistItem(button) {
+            const card = button.closest('.border-neutral-150');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.remove();
+                
+                // If wishlist is empty, show empty state
+                const grid = document.getElementById('wishlistGrid');
+                if (grid.children.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full py-10 text-center text-neutral-400 font-semibold text-xs uppercase tracking-wider">
+                            Your saved wishlist is empty.
+                        </div>
+                    `;
+                }
+            }, 300);
+        }
+
+        // --- 6. CART DRAWER SIMULATIONS ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+        const toast = document.getElementById('cartToast');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function loadCartItems() {
+            let cart = localStorage.getItem('cartItems');
+            if (!cart) {
+                cart = [
+                    {
+                        name: "Graffiti Boyfriend Oversized Hoodie",
+                        price: 24.00,
+                        image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop",
+                        qty: 1,
+                        color: "Red Graffiti",
+                        size: "M"
+                    }
+                ];
+                localStorage.setItem('cartItems', JSON.stringify(cart));
+            } else {
+                cart = JSON.parse(cart);
+            }
+            return cart;
+        }
+
+        function renderCartDrawer() {
+            const cart = loadCartItems();
+            const selectedItemsContainer = drawer.querySelector('.space-y-4.max-h-\\[50vh\\]');
+            const badge = document.getElementById('cartCountBadge');
+            const subtotalEl = document.getElementById('bagSubtotal');
+            const totalEl = document.getElementById('bagTotal');
+
+            if (badge) {
+                let count = 0;
+                cart.forEach(item => count += item.qty);
+                badge.innerText = count;
+            }
+
+            if (!selectedItemsContainer) return;
+
+            selectedItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                const newCartItem = document.createElement('div');
+                newCartItem.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                newCartItem.innerHTML = `
+                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                            <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                            <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                        </div>
+                        <div class="flex justify-between items-center pt-1.5">
+                            <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                selectedItemsContainer.appendChild(newCartItem);
+            });
+
+            if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+            if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = loadCartItems();
+            cart.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+        }
+
+        function handleAddToCart(name, price, image) {
+            const cart = loadCartItems();
+            const existingIndex = cart.findIndex(item => item.name === name);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    qty: 1,
+                    color: "Standard",
+                    size: "M"
+                });
+            }
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+
+            // Toast slide-in feedback
+            if (toast) {
+                toast.classList.remove('pointer-events-none', 'opacity-0');
+                toast.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    hideCartToast();
+                }, 3500);
+            }
+        }
+
+        function hideCartToast() {
+            if (toast) {
+                toast.style.transform = 'translateY(-120%)';
+                toast.classList.add('pointer-events-none', 'opacity-0');
+            }
+        }
+
+        // --- DOM Ready initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            loadUserSession();
+            checkUserAuthSession();
+            renderCartDrawer();
+        });
+    </script>
+</body>
+</html>

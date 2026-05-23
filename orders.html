@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>My Orders | 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Premium custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+    </style>
+
+    <!-- Unified Session Guard script (Redirects unauthenticated users immediately) -->
+    <script>
+        (function() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (!sessionStr) {
+                window.location.replace("login.html");
+            } else {
+                const session = JSON.parse(sessionStr);
+                if (!session.loggedIn) {
+                    window.location.replace("login.html");
+                }
+            }
+        })();
+    </script>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="product.html" class="hover:text-fashionBlack transition-colors duration-200">Product</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Profile -->
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
+            <!-- Cart -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== BREADCRUMBS ==================== -->
+    <div class="bg-neutral-50 border-b border-neutral-100 py-6">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center space-x-2 text-xs font-semibold text-neutral-400">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors">Home</a>
+            <span>/</span>
+            <a href="profile.html" class="hover:text-fashionBlack transition-colors">My Profile</a>
+            <span>/</span>
+            <span class="text-fashionBlack font-bold">Order History</span>
+        </div>
+    </div>
+
+    <!-- MAIN ORDERS WORKSPACE -->
+    <main class="max-w-7xl mx-auto px-6 py-12 md:px-12 md:py-20 lg:py-24">
+        <div class="space-y-1.5 mb-10 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-fashionBlack tracking-tight">Order History</h1>
+            <p class="text-xs text-neutral-400 font-semibold uppercase tracking-wider">Simulate returns, cancel shipments, and track packages</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 items-start">
+            
+            <!-- LEFT FILTERING TIMELINE SIDEBAR -->
+            <aside class="space-y-4 lg:sticky lg:top-28">
+                <div class="bg-white border border-neutral-150 rounded-2xl p-5 space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Filters</h3>
+                    <div class="space-y-1.5">
+                        <button onclick="filterOrders('all')" id="btn-filter-all" class="filter-btn w-full text-left px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all bg-fashionBlack text-white shadow-sm flex items-center justify-between">
+                            <span>All Orders</span>
+                            <span id="count-all" class="text-[10px] font-extrabold bg-white/20 px-2 py-0.5 rounded-full">0</span>
+                        </button>
+                        <button onclick="filterOrders('active')" id="btn-filter-active" class="filter-btn w-full text-left px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between">
+                            <span>In Progress</span>
+                            <span id="count-active" class="text-[10px] font-extrabold bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-full">0</span>
+                        </button>
+                        <button onclick="filterOrders('delivered')" id="btn-filter-delivered" class="filter-btn w-full text-left px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between">
+                            <span>Delivered</span>
+                            <span id="count-delivered" class="text-[10px] font-extrabold bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-full">0</span>
+                        </button>
+                        <button onclick="filterOrders('cancelled')" id="btn-filter-cancelled" class="filter-btn w-full text-left px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between">
+                            <span>Cancelled</span>
+                            <span id="count-cancelled" class="text-[10px] font-extrabold bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-full">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-neutral-50 border border-neutral-150 rounded-2xl p-5 space-y-3">
+                    <h4 class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Need Assistance?</h4>
+                    <p class="text-[11px] text-neutral-500 leading-relaxed">
+                        If you need to make changes to a processing order, you can cancel it directly here or contact support.
+                    </p>
+                    <a href="index.html#support" class="inline-block text-[11px] font-extrabold text-fashionGold uppercase tracking-wider hover:underline">
+                        Support Center ➔
+                    </a>
+                </div>
+            </aside>
+
+            <!-- RIGHT PANEL: Order cards list -->
+            <div class="lg:col-span-3 space-y-8">
+                <!-- SUCCESS/FEEDBACK TOAST -->
+                <div id="actionFeedback" class="hidden p-4 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-xl text-xs font-semibold">
+                    Order updated successfully!
+                </div>
+
+                <!-- Empty orders list fallback -->
+                <div id="noOrdersMessage" class="hidden border border-neutral-150 rounded-2xl bg-white p-12 text-center text-neutral-400 space-y-4">
+                    <div class="w-16 h-16 bg-neutral-50 rounded-full flex items-center justify-center mx-auto text-neutral-350">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="font-extrabold text-sm text-fashionBlack uppercase tracking-wider">No Orders Found</h4>
+                        <p class="text-xs">It seems you have not placed any simulated purchases yet.</p>
+                    </div>
+                    <a href="shop.html" class="inline-block px-6 py-2.5 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-xl transition-all shadow-md">
+                        Start Shopping
+                    </a>
+                </div>
+
+                <!-- Target container for orders list -->
+                <div id="ordersContainer" class="space-y-6">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ==================== CANCEL CONFIRMATION MODAL ==================== -->
+    <div id="cancelModal" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-6">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-2xl text-center transform scale-95 opacity-0 transition-all duration-300 space-y-5 border border-neutral-100">
+            <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="space-y-1.5">
+                <h3 class="text-lg font-extrabold text-fashionBlack tracking-tight">Cancel Order?</h3>
+                <p class="text-xs text-neutral-400 font-semibold leading-relaxed">
+                    Are you sure you want to cancel order <span id="cancelOrderTargetId" class="font-extrabold text-neutral-600">#4F-00000</span>? This simulation cannot be undone.
+                </p>
+            </div>
+            <div class="flex gap-3.5 pt-2">
+                <button onclick="confirmCancelOrder()" class="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold uppercase rounded-xl transition-all shadow-sm">
+                    Confirm Cancellation
+                </button>
+                <button onclick="closeCancelModal()" class="flex-1 py-3 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-xs font-semibold rounded-xl transition-all">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== GLASSMORPHIC CHECKOUT DRAWER (UTILITY) ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items -->
+                </div>
+            </div>
+
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="window.location.href='checkout.html'" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE FLOATING CART SUCCESS TOAST ==================== -->
+    <div id="cartToast" class="fixed top-6 right-6 z-50 max-w-sm w-full bg-white/95 backdrop-blur-md rounded-2xl border border-emerald-100 shadow-2xl p-4 flex gap-3.5 items-center transform translate-y-[-120%] opacity-0 pointer-events-none transition-all duration-500">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        <div class="flex-1 space-y-0.5">
+            <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">Added to Bag!</h4>
+            <p class="text-xs text-neutral-500">Item cataloged in checkout drawer.</p>
+        </div>
+        <button onclick="hideCartToast()" class="text-neutral-400 hover:text-fashionBlack p-0.5" aria-label="Close alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- ==================== FRONT-END INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        let orders = [];
+        let currentFilter = 'all';
+        let orderToCancelIndex = -1;
+
+        // Mock Initial Orders to pre-seed the list
+        const DEFAULT_ORDERS = [
+            {
+                orderId: "#4F-12894",
+                date: "May 15, 2026",
+                total: 24.00,
+                status: "Delivered",
+                shippingAddress: "128 Fashion Plaza, New York, NY, 10001",
+                items: [
+                    {
+                        name: "Graffiti Boyfriend Oversized Hoodie",
+                        price: 24.00,
+                        qty: 1,
+                        color: "Red Graffiti",
+                        size: "M",
+                        image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop"
+                    }
+                ],
+                logs: [
+                    { time: "May 15, 2026, 09:30 AM", msg: "Order placed successfully" },
+                    { time: "May 15, 2026, 02:15 PM", msg: "Package handed over to FedEx carrier" },
+                    { time: "May 16, 2026, 11:00 AM", msg: "Departed FedEx sorting facility" },
+                    { time: "May 18, 2026, 04:30 PM", msg: "Delivered - Package left near front porch" }
+                ]
+            },
+            {
+                orderId: "#4F-11024",
+                date: "April 20, 2026",
+                total: 59.00,
+                status: "In Transit",
+                shippingAddress: "128 Fashion Plaza, New York, NY, 10001",
+                items: [
+                    {
+                        name: "Sweatshirt Pink Soda Signature",
+                        price: 35.00,
+                        qty: 1,
+                        color: "Pink Standard",
+                        size: "M",
+                        image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=200&auto=format&fit=crop"
+                    },
+                    {
+                        name: "Adidas Contempo Coral Tee",
+                        price: 24.00,
+                        qty: 1,
+                        color: "Coral Peach",
+                        size: "M",
+                        image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=200&auto=format&fit=crop"
+                    }
+                ],
+                logs: [
+                    { time: "April 20, 2026, 11:00 AM", msg: "Order placed successfully" },
+                    { time: "April 20, 2026, 05:40 PM", msg: "Carrier accepted package" },
+                    { time: "April 22, 2026, 08:15 AM", msg: "In Transit - In transit to destination country sorting hub" }
+                ]
+            }
+        ];
+
+        // --- 1. USER SESSION LOAD ---
+        function checkUserAuthSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn) {
+                    const link = document.getElementById('profileHeaderLink');
+                    const dropdown = document.getElementById('profileDropdown');
+                    const dropdownName = document.getElementById('dropdownUserName');
+
+                    if (link && dropdown && dropdownName) {
+                        link.href = "javascript:void(0)";
+                        link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none border border-white/20">${session.initials}</div>`;
+                        dropdownName.innerText = session.name;
+                        
+                        link.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        document.addEventListener('click', () => {
+                            dropdown.classList.add('hidden');
+                        });
+                    }
+                }
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.replace("index.html");
+        }
+
+        // --- 2. ORDER LIST DATA HANDLERS ---
+        function loadOrders() {
+            const saved = localStorage.getItem('ordersList');
+            if (!saved) {
+                orders = DEFAULT_ORDERS;
+                localStorage.setItem('ordersList', JSON.stringify(orders));
+            } else {
+                orders = JSON.parse(saved);
+            }
+            updateCounts();
+            renderOrders();
+        }
+
+        function saveOrders() {
+            localStorage.setItem('ordersList', JSON.stringify(orders));
+            updateCounts();
+            renderOrders();
+        }
+
+        function updateCounts() {
+            const all = orders.length;
+            const active = orders.filter(o => o.status === 'Processing' || o.status === 'In Transit').length;
+            const delivered = orders.filter(o => o.status === 'Delivered').length;
+            const cancelled = orders.filter(o => o.status === 'Cancelled').length;
+
+            document.getElementById('count-all').innerText = all;
+            document.getElementById('count-active').innerText = active;
+            document.getElementById('count-delivered').innerText = delivered;
+            document.getElementById('count-cancelled').innerText = cancelled;
+        }
+
+        function filterOrders(filterType) {
+            currentFilter = filterType;
+            
+            // Toggle active styling on sidebar buttons
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => {
+                btn.className = "filter-btn w-full text-left px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack hover:bg-neutral-50 flex items-center justify-between";
+                const badge = btn.querySelector('span');
+                if (badge) {
+                    badge.className = "text-[10px] font-extrabold bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-full";
+                }
+            });
+
+            const activeBtn = document.getElementById(`btn-filter-${filterType}`);
+            if (activeBtn) {
+                activeBtn.className = "filter-btn w-full text-left px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all bg-fashionBlack text-white shadow-sm flex items-center justify-between";
+                const activeBadge = activeBtn.querySelector('span');
+                if (activeBadge) {
+                    activeBadge.className = "text-[10px] font-extrabold bg-white/20 px-2 py-0.5 rounded-full";
+                }
+            }
+
+            renderOrders();
+        }
+
+        function renderOrders() {
+            const container = document.getElementById('ordersContainer');
+            const emptyMsg = document.getElementById('noOrdersMessage');
+            container.innerHTML = '';
+
+            // Filter order items
+            let filtered = orders;
+            if (currentFilter === 'active') {
+                filtered = orders.filter(o => o.status === 'Processing' || o.status === 'In Transit');
+            } else if (currentFilter === 'delivered') {
+                filtered = orders.filter(o => o.status === 'Delivered');
+            } else if (currentFilter === 'cancelled') {
+                filtered = orders.filter(o => o.status === 'Cancelled');
+            }
+
+            // If empty, show fallback text
+            if (filtered.length === 0) {
+                container.classList.add('hidden');
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            emptyMsg.classList.add('hidden');
+
+            filtered.forEach((order, idx) => {
+                // Find actual original index in main orders array
+                const originalIndex = orders.findIndex(o => o.orderId === order.orderId);
+
+                // Build status styling classes
+                let statusBg = "bg-neutral-100 text-neutral-500 border-neutral-200";
+                if (order.status === "Delivered") {
+                    statusBg = "bg-emerald-50 text-emerald-600 border-emerald-100";
+                } else if (order.status === "In Transit") {
+                    statusBg = "bg-amber-50 text-amber-600 border-amber-100";
+                } else if (order.status === "Processing") {
+                    statusBg = "bg-sky-50 text-sky-600 border-sky-100";
+                } else if (order.status === "Cancelled") {
+                    statusBg = "bg-rose-50 text-rose-600 border-rose-100";
+                }
+
+                // Render items lists markup
+                let itemsHtml = "";
+                order.items.forEach(item => {
+                    itemsHtml += `
+                        <div class="flex gap-4 items-center py-3.5 first:pt-0 last:pb-0">
+                            <div class="w-14 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-250 flex-shrink-0">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1 space-y-1">
+                                <h4 class="text-xs font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                                <div class="text-[10px] text-neutral-400 font-semibold">
+                                    <span>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></span>
+                                    <span class="mx-1.5">•</span>
+                                    <span>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></span>
+                                </div>
+                                <div class="flex justify-between items-center pt-1">
+                                    <span class="font-extrabold text-xs text-fashionGold">$${item.price.toFixed(2)}</span>
+                                    <span class="text-[10px] text-neutral-450 font-bold">Qty: ${item.qty}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Shipment tracking timeline step calculations
+                let step1 = "border-neutral-200 text-neutral-400", line1 = "bg-neutral-200";
+                let step2 = "border-neutral-200 text-neutral-400", line2 = "bg-neutral-200";
+                let step3 = "border-neutral-200 text-neutral-400", line3 = "bg-neutral-200";
+                let step4 = "border-neutral-200 text-neutral-400";
+
+                if (order.status !== "Cancelled") {
+                    step1 = "border-fashionBlack text-fashionBlack font-bold";
+                    if (order.status === "Processing") {
+                        step2 = "border-fashionGold text-fashionGold font-bold animate-pulse";
+                    } else if (order.status === "In Transit" || order.status === "Delivered") {
+                        line1 = "bg-fashionBlack";
+                        step2 = "border-fashionBlack text-fashionBlack font-bold";
+                        if (order.status === "In Transit") {
+                            step3 = "border-fashionGold text-fashionGold font-bold animate-pulse";
+                        } else if (order.status === "Delivered") {
+                            line2 = "bg-fashionBlack";
+                            step3 = "border-fashionBlack text-fashionBlack font-bold";
+                            line3 = "bg-fashionBlack";
+                            step4 = "border-emerald-500 bg-emerald-500 text-white font-bold";
+                        }
+                    }
+                }
+
+                // Log timeline messages
+                let logHtml = "";
+                if (order.logs && order.logs.length > 0) {
+                    order.logs.forEach(log => {
+                        logHtml += `
+                            <div class="flex justify-between items-start gap-4 pb-2 border-b border-neutral-100 last:border-0 last:pb-0">
+                                <span class="text-neutral-450 text-[10px] font-bold font-mono">${log.time}</span>
+                                <span class="text-neutral-600 text-right text-[10px]">${log.msg}</span>
+                            </div>
+                        `;
+                    });
+                } else {
+                    logHtml = `<p class="text-[10px] text-neutral-400 italic">No package dispatch logs available.</p>`;
+                }
+
+                // Render Action CTAs
+                let actionBtnsHtml = "";
+                if (order.status === "Processing" || order.status === "In Transit") {
+                    actionBtnsHtml = `
+                        <button onclick="triggerCancelOrder('${order.orderId}', ${originalIndex})" class="px-4 py-2 border border-rose-200 hover:bg-rose-50 hover:text-rose-600 text-neutral-500 text-[11px] font-bold uppercase rounded-xl transition-all">
+                            Cancel Order
+                        </button>
+                        <button onclick="advanceShipmentState(${originalIndex})" class="px-4 py-2 bg-neutral-900 hover:bg-fashionGold text-white text-[11px] font-bold uppercase rounded-xl transition-all shadow-sm">
+                            Simulate State Advance
+                        </button>
+                    `;
+                }
+
+                const card = document.createElement('div');
+                card.className = "border border-neutral-150 rounded-2xl bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow";
+                card.innerHTML = `
+                    <!-- Card Top Header -->
+                    <div class="p-5 bg-neutral-50 border-b border-neutral-150 flex flex-wrap justify-between items-center gap-4 text-xs font-semibold text-neutral-500">
+                        <div class="flex space-x-6 flex-wrap gap-y-2">
+                            <div>
+                                <span class="block text-[9px] uppercase text-neutral-400 tracking-wider">Date Placed</span>
+                                <span class="font-bold text-fashionBlack">${order.date}</span>
+                            </div>
+                            <div>
+                                <span class="block text-[9px] uppercase text-neutral-400 tracking-wider">Order Total</span>
+                                <span class="font-extrabold text-fashionGold">$${order.total.toFixed(2)}</span>
+                            </div>
+                            <div class="hidden sm:block">
+                                <span class="block text-[9px] uppercase text-neutral-400 tracking-wider">Shipping to</span>
+                                <span class="font-bold text-fashionBlack truncate max-w-[150px] block" title="${order.shippingAddress}">${order.shippingAddress}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 text-[10px] font-extrabold uppercase border rounded-md ${statusBg}">
+                                ${order.status}
+                            </span>
+                            <div class="text-right">
+                                <span class="block text-[9px] uppercase text-neutral-400 tracking-wider">Order ID</span>
+                                <span class="font-extrabold text-neutral-700 font-mono">${order.orderId}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-5 md:p-6 space-y-6">
+                        <!-- Items list -->
+                        <div class="divide-y divide-neutral-100">
+                            ${itemsHtml}
+                        </div>
+
+                        <!-- Progress timeline block (Hidden on Cancelled orders) -->
+                        ${order.status === "Cancelled" ? `
+                            <div class="p-4 bg-rose-50/50 rounded-xl border border-rose-100 text-center text-xs font-semibold text-rose-600 uppercase tracking-wide">
+                                Order cancelled simulated successfully. Payment holds refunded.
+                            </div>
+                        ` : `
+                            <div class="pt-6 border-t border-neutral-100 space-y-4">
+                                <h5 class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Tracking Timeline</h5>
+                                <div class="flex items-center justify-between relative max-w-xl mx-auto py-2">
+                                    <!-- Progress Line background -->
+                                    <div class="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-0.5 bg-neutral-200 z-0"></div>
+                                    <div class="absolute left-6 top-1/2 -translate-y-1/2 h-0.5 z-0 transition-all duration-500" style="width: ${order.status === 'Processing' ? '33.33%' : (order.status === 'In Transit' ? '66.66%' : (order.status === 'Delivered' ? '100%' : '0%'))}">
+                                        <div class="w-full h-full bg-fashionBlack"></div>
+                                    </div>
+
+                                    <!-- Node 1 -->
+                                    <div class="flex flex-col items-center z-10 space-y-1.5">
+                                        <div class="w-7 h-7 rounded-full bg-white border-2 flex items-center justify-center text-xs font-bold transition-all ${step1}">1</div>
+                                        <span class="text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Placed</span>
+                                    </div>
+                                    <!-- Node 2 -->
+                                    <div class="flex flex-col items-center z-10 space-y-1.5">
+                                        <div class="w-7 h-7 rounded-full bg-white border-2 flex items-center justify-center text-xs font-bold transition-all ${step2}">2</div>
+                                        <span class="text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Processing</span>
+                                    </div>
+                                    <!-- Node 3 -->
+                                    <div class="flex flex-col items-center z-10 space-y-1.5">
+                                        <div class="w-7 h-7 rounded-full bg-white border-2 flex items-center justify-center text-xs font-bold transition-all ${step3}">3</div>
+                                        <span class="text-[9px] uppercase tracking-wider text-neutral-400 font-bold">In Transit</span>
+                                    </div>
+                                    <!-- Node 4 -->
+                                    <div class="flex flex-col items-center z-10 space-y-1.5">
+                                        <div class="w-7 h-7 rounded-full bg-white border-2 flex items-center justify-center text-xs font-bold transition-all ${step4}">
+                                            ${order.status === "Delivered" ? "✓" : "4"}
+                                        </div>
+                                        <span class="text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Delivered</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `}
+
+                        <!-- Expandable accordion details -->
+                        <div class="border-t border-neutral-100 pt-5">
+                            <button onclick="toggleLogsAccordion(this)" class="w-full flex items-center justify-between text-[11px] font-extrabold uppercase tracking-wider text-neutral-500 hover:text-fashionBlack transition-colors">
+                                <span>Package Dispatch Log</span>
+                                <span class="accordion-icon transition-transform duration-300">▼</span>
+                            </button>
+                            <div class="accordion-panel max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-3 bg-neutral-50 rounded-xl border-0 p-0">
+                                <div class="p-4 space-y-2">
+                                    ${logHtml}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Action buttons footer -->
+                    ${actionBtnsHtml ? `
+                        <div class="p-4 bg-neutral-50 border-t border-neutral-150 flex justify-end gap-3">
+                            ${actionBtnsHtml}
+                        </div>
+                    ` : ""}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleLogsAccordion(button) {
+            const panel = button.nextElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            
+            if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
+                panel.style.maxHeight = '0px';
+                panel.classList.remove('border', 'border-neutral-150');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+                panel.classList.add('border', 'border-neutral-150');
+                icon.style.transform = 'rotate(-180deg)';
+            }
+        }
+
+        // --- 3. SHIPMENT STATE ADVANCER SIMULATOR ---
+        function advanceShipmentState(index) {
+            const order = orders[index];
+            const now = new Date();
+            const timeStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ", " + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            if (order.status === "Processing") {
+                order.status = "In Transit";
+                order.logs.push({ time: timeStr, msg: "Package departed local sorting facility" });
+                triggerFeedbackToast("Shipment advanced to In Transit!");
+            } else if (order.status === "In Transit") {
+                order.status = "Delivered";
+                order.logs.push({ time: timeStr, msg: "Delivered - Package left near mailbox/lobby" });
+                triggerFeedbackToast("Shipment delivered successfully!");
+            }
+            saveOrders();
+        }
+
+        // --- 4. ORDER CANCELLATION ---
+        function triggerCancelOrder(orderId, index) {
+            orderToCancelIndex = index;
+            document.getElementById('cancelOrderTargetId').innerText = orderId;
+            
+            const modal = document.getElementById('cancelModal');
+            const inner = modal.firstElementChild;
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            setTimeout(() => {
+                inner.classList.remove('scale-95', 'opacity-0');
+                inner.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+
+        function closeCancelModal() {
+            const modal = document.getElementById('cancelModal');
+            const inner = modal.firstElementChild;
+            inner.classList.remove('scale-100', 'opacity-100');
+            inner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('pointer-events-none', 'opacity-0');
+                orderToCancelIndex = -1;
+            }, 200);
+        }
+
+        function confirmCancelOrder() {
+            if (orderToCancelIndex > -1) {
+                const order = orders[orderToCancelIndex];
+                order.status = "Cancelled";
+                const now = new Date();
+                const timeStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ", " + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                order.logs.push({ time: timeStr, msg: "Order cancelled by customer. Refund initiated." });
+                
+                triggerFeedbackToast(`Order ${order.orderId} cancelled.`);
+                saveOrders();
+                closeCancelModal();
+            }
+        }
+
+        function triggerFeedbackToast(msg) {
+            const box = document.getElementById('actionFeedback');
+            box.innerText = msg;
+            box.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.add('hidden');
+            }, 3000);
+        }
+
+        // --- 5. CART UTILITY OVERLAYS ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+        const toast = document.getElementById('cartToast');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function loadCartItems() {
+            let cart = localStorage.getItem('cartItems');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function renderCartDrawer() {
+            const cart = loadCartItems();
+            const selectedItemsContainer = drawer.querySelector('.space-y-4.max-h-\\[50vh\\]');
+            const badge = document.getElementById('cartCountBadge');
+            const subtotalEl = document.getElementById('bagSubtotal');
+            const totalEl = document.getElementById('bagTotal');
+
+            if (badge) {
+                let count = 0;
+                cart.forEach(item => count += item.qty);
+                badge.innerText = count;
+            }
+
+            if (!selectedItemsContainer) return;
+
+            selectedItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                const newCartItem = document.createElement('div');
+                newCartItem.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                newCartItem.innerHTML = `
+                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                            <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                            <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                        </div>
+                        <div class="flex justify-between items-center pt-1.5">
+                            <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                selectedItemsContainer.appendChild(newCartItem);
+            });
+
+            if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+            if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = loadCartItems();
+            cart.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+        }
+
+        function hideCartToast() {
+            if (toast) {
+                toast.style.transform = 'translateY(-120%)';
+                toast.classList.add('pointer-events-none', 'opacity-0');
+            }
+        }
+
+        // --- DOM INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            checkUserAuthSession();
+            loadOrders();
+            renderCartDrawer();
+        });
+    </script>
+</body>
+</html>
