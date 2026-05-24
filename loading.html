@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom animations for premium editorial feel */
+        @keyframes pulseGlow {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.02);
+            }
+        }
+        
+        .bg-glow {
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        /* Glassmorphism utility */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(241, 138, 0, 0.4);
+            box-shadow: 0 0 20px rgba(241, 138, 0, 0.15);
+        }
+
+        /* Page fade-out transition */
+        .page-fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1), visibility 0.8s;
+        }
+    </style>
+</head>
+<body class="bg-fashionBlack text-white font-sans antialiased min-h-screen overflow-hidden flex flex-col justify-between p-8 relative selection:bg-fashionGold selection:text-white">
+
+    <!-- Glowing Background Blob for luxury depth -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-fashionGold/5 filter blur-[120px] bg-glow"></div>
+    </div>
+
+    <!-- Top header layout -->
+    <header class="w-full flex justify-between items-center z-10">
+        <!-- Minimal small identifier -->
+        <span class="text-[10px] tracking-[0.25em] text-neutral-500 uppercase font-semibold">SPRING / SUMMER '26</span>
+        <!-- Current year -->
+        <span class="text-[10px] tracking-[0.2em] text-neutral-500 uppercase font-semibold">EST. 2026</span>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="w-full flex flex-col items-center justify-center flex-grow z-10 py-12">
+        <div class="max-w-md w-full flex flex-col items-center text-center space-y-10">
+            
+            <!-- Brand Logo with animated tracking and glow -->
+            <div class="flex items-center space-x-1 group select-none cursor-default">
+                <span class="font-extrabold tracking-tighter text-5xl md:text-6xl italic text-white transition-colors duration-500 group-hover:text-fashionGold">4F</span>
+                <span class="font-bold tracking-[0.15em] text-3xl md:text-4xl text-neutral-400 group-hover:text-white transition-colors duration-500">WEARS</span>
+            </div>
+
+            <!-- Loader Wrapper -->
+            <div class="w-full space-y-4 px-6">
+                <!-- Slim Progress Bar Container -->
+                <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+                    <div id="progressBar" class="absolute left-0 top-0 bottom-0 w-0 bg-gradient-to-r from-fashionGold to-amber-500 transition-all duration-100 ease-out shadow-[0_0_8px_#f18a00]"></div>
+                </div>
+
+                <!-- Status & Percentage Row -->
+                <div class="flex justify-between items-center text-xs tracking-wider text-neutral-400 font-medium">
+                    <span id="loadingStatus" class="transition-opacity duration-300">PREPARING EXPERIENCE</span>
+                    <span id="percentText" class="font-mono text-neutral-300">0%</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bottom Footer Layout -->
+    <footer class="w-full flex justify-between items-center z-10">
+        <!-- Floating fashion quotes shifting dynamically -->
+        <div class="h-6 overflow-hidden relative w-2/3 hidden sm:block">
+            <span id="fashionQuote" class="text-xs text-neutral-500 font-medium tracking-wide uppercase transition-all duration-500 transform translate-y-0 opacity-100 block">
+                Reflect who you are through premium style.
+            </span>
+        </div>
+
+        <!-- Glassmorphism Enter / Skip Button -->
+        <button id="skipBtn" onclick="triggerRedirect()" class="glass-btn px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider flex items-center space-x-2 text-white">
+            <span>SKIP INTRO</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+        </button>
+    </footer>
+
+    <!-- JavaScript to handle Loader Logic and Redirection -->
+    <script>
+        // List of luxury brand statements/quotes to cycle through
+        const statusPhrases = [
+            "INITIALIZING STYLES",
+            "CRAFTING PREMIUM TEXTURES",
+            "REFINING COMFORT AND FIT",
+            "CURATING NEW ARRIVALS",
+            "OPTIMIZING STOREFRONT",
+            "WELCOME TO 4F WEARS"
+        ];
+
+        const quotes = [
+            "Reflect who you are through premium style.",
+            "Crafting authentic identity with every fiber.",
+            "Comfort maximized. Style defined.",
+            "Uncompromising luxury designed for the modern look.",
+            "Your story, expressed through bold collections."
+        ];
+
+        let progress = 0;
+        const progressBar = document.getElementById("progressBar");
+        const percentText = document.getElementById("percentText");
+        const loadingStatus = document.getElementById("loadingStatus");
+        const fashionQuote = document.getElementById("fashionQuote");
+
+        // Dynamic Tagline Cycler
+        let quoteIndex = 0;
+        const quoteInterval = setInterval(() => {
+            if (progress < 95) {
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+                
+                // Animate fade out, text change, fade in
+                fashionQuote.style.opacity = 0;
+                fashionQuote.style.transform = "translateY(10px)";
+                
+                setTimeout(() => {
+                    fashionQuote.textContent = quotes[quoteIndex];
+                    fashionQuote.style.opacity = 1;
+                    fashionQuote.style.transform = "translateY(0)";
+                }, 400);
+            }
+        }, 1200);
+
+        // Progress simulation
+        const duration = 2400; // 2.4 seconds total simulated time
+        const intervalTime = 20; // run every 20ms
+        const increment = 100 / (duration / intervalTime);
+
+        const progressInterval = setInterval(() => {
+            progress += increment + (Math.random() * 0.8 - 0.2); // slight organic variability
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(progressInterval);
+                clearInterval(quoteInterval);
+                finishLoading();
+            }
+
+            // Update percentage bar and text
+            progressBar.style.width = `${progress}%`;
+            percentText.textContent = `${Math.floor(progress)}%`;
+
+            // Update phrase based on progress ranges
+            const phase = Math.min(Math.floor((progress / 100) * statusPhrases.length), statusPhrases.length - 1);
+            if (loadingStatus.textContent !== statusPhrases[phase]) {
+                loadingStatus.style.opacity = 0;
+                setTimeout(() => {
+                    loadingStatus.textContent = statusPhrases[phase];
+                    loadingStatus.style.opacity = 1;
+                }, 150);
+            }
+        }, intervalTime);
+
+        let redirected = false;
+
+        function finishLoading() {
+            progressBar.style.width = "100%";
+            percentText.textContent = "100%";
+            loadingStatus.textContent = "READY";
+            
+            // Wait slightly for visual confirmation of 100%
+            setTimeout(() => {
+                triggerRedirect();
+            }, 300);
+        }
+
+        function triggerRedirect() {
+            if (redirected) return;
+            redirected = true;
+
+            // Mark session storage as visited so auto-redirect is bypassed next time
+            sessionStorage.setItem('visitedLoader', 'true');
+
+            // Apply page-wide fade transition
+            document.body.classList.add('page-fade-out');
+
+            // Redirect to index.html after transition finishes
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 800);
+        }
+    </script>
+</body>
+</html>
