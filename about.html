@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>Brand Story - Our Philosophy | 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Premium custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Subtle gradient overlay on image hover */
+        .image-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(14, 15, 17, 0.4));
+            z-index: 10;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .image-container:hover::before {
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="lookbook.html" class="hover:text-fashionBlack transition-colors duration-200">Lookbook</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Wishlist -->
+            <a href="wishlist.html" aria-label="Wishlist" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                <span id="wishlistCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">0</span>
+            </a>
+            <!-- Profile -->
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <a href="track-order.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Track Order</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
+            <!-- Cart -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== BREADCRUMBS ==================== -->
+    <div class="bg-neutral-50 border-b border-neutral-100 py-6">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center space-x-2 text-xs font-semibold text-neutral-400">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors">Home</a>
+            <span>/</span>
+            <span class="text-fashionBlack font-bold">Brand Philosophy</span>
+        </div>
+    </div>
+
+    <!-- MAIN BRAND STORY master layout -->
+    <main class="space-y-20 md:space-y-32 py-12 md:py-20 overflow-hidden">
+        
+        <!-- SECTION 1: HERO HEADER -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+            <!-- Left Header block -->
+            <div class="md:col-span-6 space-y-6 md:pr-6">
+                <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">Slow Fashion Manifesto</span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-fashionBlack leading-[1.08]">
+                    Crafted to Express.<br/><span class="text-fashionGold">Sourced to Last.</span>
+                </h1>
+                <p class="text-neutral-500 text-sm md:text-base leading-relaxed max-w-lg">
+                    4F WEARS was founded with a singular directive: to strip away the transient nature of modern apparel and replace it with slow, deliberate excellence. Every thread, stitch pattern, and silhouette length is designed as an extension of the individual—authentic, bold, and uncompromising.
+                </p>
+                <div class="pt-4 flex flex-wrap gap-4">
+                    <a href="shop.html" class="px-6 py-3.5 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-xl transition-all shadow-md">
+                        Explore Collection
+                    </a>
+                    <a href="#philosophy" class="px-6 py-3.5 border border-neutral-200 text-neutral-600 hover:border-fashionBlack hover:text-fashionBlack text-xs font-bold uppercase rounded-xl transition-all">
+                        Our Manifesto ➔
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Visual block -->
+            <div class="md:col-span-6">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl image-container group">
+                    <img 
+                        src="assets/atelier_workspace.png" 
+                        alt="Tailor's workshop atelier desk" 
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    >
+                    <div class="absolute bottom-6 left-6 right-6 z-20 text-white space-y-1">
+                        <span class="text-[9px] uppercase tracking-wider font-extrabold text-fashionGold">Tailoring Atelier</span>
+                        <h4 class="text-sm font-extrabold">Where patterns become identity.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE 4F VALUES MANIFESTO -->
+        <section id="philosophy" class="bg-neutral-50 py-20 w-full border-t border-b border-neutral-100">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+                
+                <div class="text-center space-y-3 max-w-xl mx-auto">
+                    <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">Pillars of Design</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-fashionBlack tracking-tight">The 4F Philosophy</h2>
+                    <p class="text-xs md:text-sm text-neutral-400 font-semibold leading-relaxed">
+                        We govern our garment development cycle by four fundamental standards, ensuring every piece you purchase meets structural and visual perfection.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 pt-4">
+                    <!-- Value 1: Fit -->
+                    <div class="bg-white border border-neutral-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-fashionGold flex items-center justify-center font-extrabold text-sm">01</div>
+                        <h3 class="text-base font-extrabold text-fashionBlack uppercase tracking-tight">Fit</h3>
+                        <p class="text-xs text-neutral-500 leading-relaxed font-semibold">
+                            Precision silhouetting, drop-shoulder contours, and engineered seam drops ensure the garment drapes naturally on the human form.
+                        </p>
+                    </div>
+
+                    <!-- Value 2: Fabric -->
+                    <div class="bg-white border border-neutral-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-fashionGold flex items-center justify-center font-extrabold text-sm">02</div>
+                        <h3 class="text-base font-extrabold text-fashionBlack uppercase tracking-tight">Fabric</h3>
+                        <p class="text-xs text-neutral-500 leading-relaxed font-semibold">
+                            Heavyweight French Terry loopback cottons, premium long-staple cotton fibers, and organic blends that soften with age.
+                        </p>
+                    </div>
+
+                    <!-- Value 3: Finish -->
+                    <div class="bg-white border border-neutral-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-fashionGold flex items-center justify-center font-extrabold text-sm">03</div>
+                        <h3 class="text-base font-extrabold text-fashionBlack uppercase tracking-tight">Finish</h3>
+                        <p class="text-xs text-neutral-500 leading-relaxed font-semibold">
+                            Reinforced double-needle topstitching, flatlock seam finishes, and garment-washed textures to eliminate pre-shrinkage.
+                        </p>
+                    </div>
+
+                    <!-- Value 4: Function -->
+                    <div class="bg-white border border-neutral-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-fashionGold flex items-center justify-center font-extrabold text-sm">04</div>
+                        <h3 class="text-base font-extrabold text-fashionBlack uppercase tracking-tight">Function</h3>
+                        <p class="text-xs text-neutral-500 leading-relaxed font-semibold">
+                            Versatile apparel suited for urban exploration or everyday luxury, balancing heavy insulation with breathable structures.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: MATERIALS SPOTLIGHT -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-2 border-b border-neutral-100">
+                <div class="space-y-3">
+                    <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">Material Sourcing</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-fashionBlack tracking-tight">Premium Raw Sourcing</h2>
+                </div>
+                <p class="text-neutral-500 text-xs md:text-sm font-semibold max-w-md md:text-right">
+                    We select our fibers globally based on hand-feel, structural longevity, and ethical certifications. No synthetics, no filler fibers.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <!-- Cotton Section -->
+                <div class="space-y-6">
+                    <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[16/10] image-container group">
+                        <img 
+                            src="assets/organic_cotton_harvest.png" 
+                            alt="Raw organic cotton bolls on stone surface" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        >
+                        <span class="absolute top-4 left-4 z-20 px-2.5 py-1 text-[9px] font-extrabold uppercase bg-white/90 backdrop-blur-md rounded-md text-fashionBlack border border-neutral-100">100% Organic Sourced</span>
+                    </div>
+                    <div class="space-y-3">
+                        <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">Long-Staple Cotton</span>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-fashionBlack tracking-tight">Softness Sourced Ethically</h3>
+                        <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-semibold">
+                            By utilizing exclusively long-staple organic cotton fibers, we create yarn that has significantly fewer loose ends. This results in smoother fabric surfaces that naturally resist pilling, even after dozens of machine washes.
+                        </p>
+                        <div class="grid grid-cols-3 gap-4 pt-2 text-center text-xs font-semibold text-neutral-500 border-t border-neutral-100">
+                            <div>
+                                <span class="block font-bold text-fashionBlack text-sm">320+ GSM</span>
+                                <span class="text-[9px] uppercase tracking-wider text-neutral-400">Yarn Density</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-fashionBlack text-sm">GOTS Cert</span>
+                                <span class="text-[9px] uppercase tracking-wider text-neutral-400">Eco-Friendly</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-fashionBlack text-sm">Ring-Spun</span>
+                                <span class="text-[9px] uppercase tracking-wider text-neutral-400">Yarn Type</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loopback Terry Section -->
+                <div class="space-y-6">
+                    <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[16/10] image-container group">
+                        <img 
+                            src="assets/french_terry_texture.png" 
+                            alt="Detailed loopback French Terry fabric texture" 
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        >
+                        <span class="absolute top-4 left-4 z-20 px-2.5 py-1 text-[9px] font-extrabold uppercase bg-white/90 backdrop-blur-md rounded-md text-fashionBlack border border-neutral-100">High-Density Weave</span>
+                    </div>
+                    <div class="space-y-3">
+                        <span class="text-fashionGold font-bold text-xs uppercase tracking-wider block">French Loopback Terry</span>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-fashionBlack tracking-tight">Signature Heavyweight Drape</h3>
+                        <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-semibold">
+                            Our signature hoodies and crewnecks use loopback knit architecture. Rather than brushing the interior loops to create synthetic fluff, we leave the cotton loops intact. This results in superior thermal regulation and a beautiful heavy drape.
+                        </p>
+                        <div class="grid grid-cols-3 gap-4 pt-2 text-center text-xs font-semibold text-neutral-500 border-t border-neutral-100">
+                            <div>
+                                <span class="block font-bold text-fashionBlack text-sm">450+ GSM</span>
+                                <span class="text-[9px] uppercase tracking-wider text-neutral-400">Average Weight</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-fashionBlack text-sm">Loopback</span>
+                                <span class="text-[9px] uppercase tracking-wider text-neutral-400">Weave Pattern</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-fashionBlack text-sm">Zero Fluff</span>
+                                <span class="text-[9px] uppercase tracking-wider text-neutral-400">Interior Fiber</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE CRAFTSMANSHIP TIMELINE -->
+        <section class="bg-neutral-50 py-20 w-full border-t border-b border-neutral-100">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
+                
+                <div class="text-center space-y-3 max-w-xl mx-auto">
+                    <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">Production Process</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-fashionBlack tracking-tight">The Journey of Creation</h2>
+                    <p class="text-xs md:text-sm text-neutral-400 font-semibold leading-relaxed">
+                        Slow fashion requires slow manufacturing. Here is how we develop a silhouette from a draft sketch to a premium finished garment.
+                    </p>
+                </div>
+
+                <!-- Process Steps (Timeline layout) -->
+                <div class="relative max-w-3xl mx-auto pl-8 sm:pl-0 sm:grid sm:grid-cols-2 gap-x-12 gap-y-16 before:absolute before:left-3 sm:before:left-1/2 sm:before:-translate-x-1/2 before:top-2 before:bottom-2 before:w-0.5 before:bg-neutral-200">
+                    
+                    <!-- Step 1: Design Sketching (Right on desktop) -->
+                    <div class="relative pb-10 sm:pb-0 sm:text-right sm:pr-8 pr-0">
+                        <div class="absolute -left-[29px] sm:-left-auto sm:-right-[37px] top-1 w-6 h-6 rounded-full bg-white border-4 border-fashionGold z-10 flex items-center justify-center font-bold text-[9px] text-fashionGold shadow-sm">1</div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-fashionGold">Stage 01</span>
+                            <h4 class="text-base font-extrabold text-fashionBlack tracking-tight">Pattern Drafting</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed font-semibold max-w-sm sm:ml-auto">
+                                Every collection begins as a geometric sketch. We calculate drape drop-shoulder values, seam curves, and neckband rib proportions mathematically.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Place holder for spacing on desktop grid -->
+                    <div class="hidden sm:block"></div>
+                    <div class="hidden sm:block"></div>
+
+                    <!-- Step 2: Sourcing & Weaving (Left on desktop) -->
+                    <div class="relative pb-10 sm:pb-0 sm:pl-8 pl-0">
+                        <div class="absolute -left-[29px] sm:-left-[37px] top-1 w-6 h-6 rounded-full bg-white border-4 border-fashionGold z-10 flex items-center justify-center font-bold text-[9px] text-fashionGold shadow-sm">2</div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-fashionGold">Stage 02</span>
+                            <h4 class="text-base font-extrabold text-fashionBlack tracking-tight">Yarn Weaving</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed font-semibold max-w-sm">
+                                Cotton fibers are spun and knit on specialized high-gauge circular looms. Fabric is pre-shrunk before cutting to ensure reliable fit stability.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Stitch Assembly (Right on desktop) -->
+                    <div class="relative pb-10 sm:pb-0 sm:text-right sm:pr-8 pr-0">
+                        <div class="absolute -left-[29px] sm:-left-auto sm:-right-[37px] top-1 w-6 h-6 rounded-full bg-white border-4 border-fashionGold z-10 flex items-center justify-center font-bold text-[9px] text-fashionGold shadow-sm">3</div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-fashionGold">Stage 03</span>
+                            <h4 class="text-base font-extrabold text-fashionBlack tracking-tight">Manual Cutting & Sewing</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed font-semibold max-w-sm sm:ml-auto">
+                                Fabrics are cut in small batches by master tailors. Assembly is completed using heavy-duty flatlock stitching which creates smooth, durable seams.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="hidden sm:block"></div>
+                    <div class="hidden sm:block"></div>
+
+                    <!-- Step 4: Quality & Wash (Left on desktop) -->
+                    <div class="relative">
+                        <div class="absolute -left-[29px] sm:-left-[37px] top-1 w-6 h-6 rounded-full bg-white border-4 border-fashionGold z-10 flex items-center justify-center font-bold text-[9px] text-fashionGold shadow-sm">4</div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-fashionGold">Stage 04</span>
+                            <h4 class="text-base font-extrabold text-fashionBlack tracking-tight">Stonewash & Inspection</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed font-semibold max-w-sm">
+                                Finished garments are stone-washed to relax fiber tension, resulting in a soft, broken-in hand-feel. Finally, every seam is manually checked.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 5: CALL TO ACTION -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 text-center py-6">
+            <div class="bg-fashionDarkBg text-white rounded-3xl p-8 md:p-16 space-y-6 relative overflow-hidden">
+                <div class="absolute -left-20 -top-20 w-48 h-48 bg-fashionGold/10 rounded-full filter blur-xl"></div>
+                <div class="absolute -right-20 -bottom-20 w-48 h-48 bg-fashionGold/10 rounded-full filter blur-xl"></div>
+
+                <div class="space-y-3 relative z-10">
+                    <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">Join the movement</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Express Your Authentic Self</h2>
+                    <p class="text-xs md:text-sm text-neutral-400 font-semibold max-w-md mx-auto leading-relaxed">
+                        We don't sell fast-fashion. We build collectibles. Explore our spring collection catalog today.
+                    </p>
+                </div>
+                <div class="relative z-10 pt-2">
+                    <a href="shop.html" class="inline-block px-8 py-4 bg-fashionGold hover:bg-amber-600 text-white text-xs font-extrabold uppercase rounded-xl transition-all shadow-md">
+                        Shop Collections
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="about.html" class="hover:text-fashionGold transition-all duration-200 font-bold text-fashionBlack">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="track-order.html" class="hover:text-fashionGold transition-all duration-200">Track Order</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== INTERACTIVE GLASSMORPHIC CHECKOUT DRAWER ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items list -->
+                </div>
+            </div>
+
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="window.location.href='checkout.html'" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // --- 1. USER SESSION LOAD ---
+        function checkUserAuthSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn) {
+                    const link = document.getElementById('profileHeaderLink');
+                    const dropdown = document.getElementById('profileDropdown');
+                    const dropdownName = document.getElementById('dropdownUserName');
+
+                    if (link && dropdown && dropdownName) {
+                        link.href = "javascript:void(0)";
+                        link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none border border-white/20">${session.initials}</div>`;
+                        dropdownName.innerText = session.name;
+                        
+                        link.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        document.addEventListener('click', () => {
+                            dropdown.classList.add('hidden');
+                        });
+                    }
+                }
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.replace("index.html");
+        }
+
+        // --- 2. CHECKOUT DRAWER AND CART RE-SYCN ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function loadCartItems() {
+            let cart = localStorage.getItem('cartItems');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function renderCartDrawer() {
+            const cart = loadCartItems();
+            const selectedItemsContainer = drawer.querySelector('.space-y-4.max-h-\\[50vh\\]');
+            const badge = document.getElementById('cartCountBadge');
+            const subtotalEl = document.getElementById('bagSubtotal');
+            const totalEl = document.getElementById('bagTotal');
+
+            if (badge) {
+                let count = 0;
+                cart.forEach(item => count += item.qty);
+                badge.innerText = count;
+            }
+
+            if (!selectedItemsContainer) return;
+
+            selectedItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                const newCartItem = document.createElement('div');
+                newCartItem.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                newCartItem.innerHTML = `
+                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                            <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                            <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                        </div>
+                        <div class="flex justify-between items-center pt-1.5">
+                            <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                selectedItemsContainer.appendChild(newCartItem);
+            });
+
+            if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+            if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = loadCartItems();
+            cart.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+        }
+
+        // --- WISHLIST BADGE SYNC ---
+        function updateWishlistBadge() {
+            const wishlist = localStorage.getItem('wishlistItems');
+            const badge = document.getElementById('wishlistCountBadge');
+            if (badge) {
+                const count = wishlist ? JSON.parse(wishlist).length : 0;
+                badge.innerText = count;
+            }
+        }
+
+        // --- DOM INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            checkUserAuthSession();
+            renderCartDrawer();
+            updateWishlistBadge();
+        });
+    </script>
+</body>
+</html>
