@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>Admin Portal - 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                        adminDarkCard: '#242426',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar for admin dashboard */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1c1c1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333335;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f18a00;
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Transition utilities */
+        .tab-panel {
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .toast-enter {
+            transform: translateY(120%);
+            opacity: 0;
+        }
+        .toast-active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-fashionBlack text-white font-sans antialiased min-h-screen overflow-x-hidden flex flex-col md:flex-row">
+
+    <!-- ==================== SIDEBAR NAVIGATION PANEL ==================== -->
+    <aside class="w-full md:w-64 bg-fashionDarkBg border-b md:border-b-0 md:border-r border-neutral-800 flex flex-col justify-between shrink-0 z-30">
+        <div class="p-6 space-y-8">
+            <!-- Brand Logo -->
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-1 group">
+                    <span class="font-extrabold tracking-tighter text-2xl italic text-white transition-colors group-hover:text-fashionGold">4F</span>
+                    <span class="font-bold tracking-widest text-lg text-white/80">WEARS</span>
+                    <span class="text-[9px] uppercase tracking-wider bg-fashionGold/25 text-fashionGold font-extrabold px-1.5 py-0.5 rounded border border-fashionGold/30 ml-2">PORTAL</span>
+                </a>
+                
+                <!-- User Profile Initials Pill (Mobile) -->
+                <div id="adminInitialsMobile" class="w-7 h-7 rounded-full bg-fashionGold text-white font-bold text-xs flex items-center justify-center md:hidden border border-white/10 select-none">
+                    AD
+                </div>
+            </div>
+
+            <!-- Dashboard Sections Links -->
+            <nav class="space-y-1">
+                <button onclick="switchTab('overview')" id="tabBtn-overview" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-fashionGold text-white shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-inherit">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                    </svg>
+                    <span>Overview</span>
+                </button>
+                
+                <button onclick="switchTab('products')" id="tabBtn-products" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-inherit">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                    </svg>
+                    <span>Products</span>
+                </button>
+                
+                <button onclick="switchTab('orders')" id="tabBtn-orders" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-inherit">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.375M9 18h3.375m-6.43-16.5H18c.621 0 1.125.504 1.125 1.125v17.25c0 .621-.504 1.125-1.125 1.125H6c-.621 0-1.125-.504-1.125-1.125V3.375C4.875 2.25 5.379 1.75 6 1.75zm12.38 0H18c-.621 0-1.125.504-1.125 1.125v17.25c0 .621-.504 1.125-1.125 1.125H6c-.621 0-1.125-.504-1.125-1.125V3.375C4.875 2.25 5.379 1.75 6 1.75z" />
+                    </svg>
+                    <span>Orders</span>
+                </button>
+                
+                <button onclick="switchTab('simulator')" id="tabBtn-simulator" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-inherit">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.685-.196-1.353-.617-1.885-1.243-.53-.627-.852-1.42-.907-2.278M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Simulator / Reset</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Administrator Identity Card (Desktop) -->
+        <div class="hidden md:flex p-6 border-t border-neutral-800 bg-[#151517]/40 flex-col space-y-4">
+            <div class="flex items-center space-x-3">
+                <div id="adminInitials" class="w-9 h-9 rounded-full bg-fashionGold text-white font-extrabold text-xs flex items-center justify-center border border-white/10 select-none">
+                    AD
+                </div>
+                <div class="min-w-0">
+                    <span id="adminName" class="block text-xs font-extrabold truncate">Admin User</span>
+                    <span id="adminEmail" class="block text-[9px] text-neutral-500 font-semibold truncate">admin@4fwears.com</span>
+                </div>
+            </div>
+            <button onclick="handleLogout()" class="w-full py-2 bg-neutral-800 hover:bg-rose-950 hover:text-rose-400 text-[10px] font-extrabold uppercase rounded-lg border border-neutral-700 hover:border-rose-900 transition-colors">
+                Log Out
+            </button>
+        </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT AREA ==================== -->
+    <main class="flex-1 min-w-0 p-6 md:p-10 space-y-8">
+        
+        <!-- HEADER STATUS ROW -->
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-neutral-800">
+            <div class="space-y-1">
+                <span class="text-fashionGold font-extrabold text-[10px] uppercase tracking-wider block">Admin Management Panel</span>
+                <h1 id="panelTitle" class="text-2xl md:text-3xl font-extrabold tracking-tight">Overview Dashboard</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <span class="block text-[10px] text-neutral-500 font-bold uppercase">System Status</span>
+                    <span class="text-[11px] font-extrabold text-emerald-500 flex items-center gap-1.5 justify-end">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Live & Synced
+                    </span>
+                </div>
+                <a href="index.html" class="px-4 py-2 border border-neutral-700 hover:border-white text-xs font-semibold rounded-xl transition-all uppercase tracking-wider flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                    </svg>
+                    <span>Store Front</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- ==================== TAB 1: OVERVIEW DASHBOARD ==================== -->
+        <div id="panel-overview" class="tab-panel space-y-8">
+            
+            <!-- KPI STATS CARDS GRID -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Sales -->
+                <div class="bg-adminDarkCard border border-neutral-800 p-5 rounded-2xl space-y-3 shadow-md relative overflow-hidden group hover:border-neutral-700 transition-colors">
+                    <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-fashionGold/5 rounded-full filter blur-xl"></div>
+                    <span class="text-[10px] font-bold text-neutral-450 uppercase tracking-wider block">Total Sales</span>
+                    <div class="flex justify-between items-baseline">
+                        <span id="stat-sales" class="text-xl sm:text-2xl font-extrabold tracking-tight">$0.00</span>
+                        <span class="text-[10px] font-bold text-emerald-500 leading-none bg-emerald-500/10 px-1.5 py-0.5 rounded">+14.2%</span>
+                    </div>
+                </div>
+
+                <!-- Orders -->
+                <div class="bg-adminDarkCard border border-neutral-800 p-5 rounded-2xl space-y-3 shadow-md relative overflow-hidden group hover:border-neutral-700 transition-colors">
+                    <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-fashionGold/5 rounded-full filter blur-xl"></div>
+                    <span class="text-[10px] font-bold text-neutral-450 uppercase tracking-wider block">Total Orders</span>
+                    <div class="flex justify-between items-baseline">
+                        <span id="stat-orders" class="text-xl sm:text-2xl font-extrabold tracking-tight">0</span>
+                        <span class="text-[10px] font-bold text-emerald-500 leading-none bg-emerald-500/10 px-1.5 py-0.5 rounded">+8.6%</span>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div class="bg-adminDarkCard border border-neutral-800 p-5 rounded-2xl space-y-3 shadow-md relative overflow-hidden group hover:border-neutral-700 transition-colors">
+                    <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-fashionGold/5 rounded-full filter blur-xl"></div>
+                    <span class="text-[10px] font-bold text-neutral-450 uppercase tracking-wider block">Active Products</span>
+                    <div class="flex justify-between items-baseline">
+                        <span id="stat-products" class="text-xl sm:text-2xl font-extrabold tracking-tight">0</span>
+                        <span class="text-[10px] font-bold text-neutral-400 leading-none bg-neutral-800 px-1.5 py-0.5 rounded">Live</span>
+                    </div>
+                </div>
+
+                <!-- Avg. Order Value -->
+                <div class="bg-adminDarkCard border border-neutral-800 p-5 rounded-2xl space-y-3 shadow-md relative overflow-hidden group hover:border-neutral-700 transition-colors">
+                    <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-fashionGold/5 rounded-full filter blur-xl"></div>
+                    <span class="text-[10px] font-bold text-neutral-450 uppercase tracking-wider block">Avg. Order Value (AOV)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span id="stat-aov" class="text-xl sm:text-2xl font-extrabold tracking-tight">$0.00</span>
+                        <span class="text-[10px] font-bold text-fashionGold leading-none bg-fashionGold/10 px-1.5 py-0.5 rounded">Target</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANALYTICS SVG CHART -->
+            <div class="bg-adminDarkCard border border-neutral-800 p-6 rounded-2xl shadow-md space-y-6">
+                <div class="flex justify-between items-center">
+                    <div class="space-y-1">
+                        <h3 class="text-sm font-extrabold uppercase tracking-wider">Weekly Revenue Stream</h3>
+                        <p class="text-neutral-450 text-[10px]">Real-time transactional chart curve based on order counts</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="px-2.5 py-1 bg-neutral-800 border border-neutral-750 text-[10px] font-extrabold rounded-lg text-neutral-350">7 Days</span>
+                    </div>
+                </div>
+
+                <!-- SVG sparkline -->
+                <div class="w-full h-48 bg-[#18181a] rounded-xl border border-neutral-850 p-4 relative overflow-hidden flex items-end">
+                    <svg viewBox="0 0 100 30" class="w-full h-full text-fashionGold overflow-visible" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#f18a00" stop-opacity="0.3"/>
+                                <stop offset="100%" stop-color="#f18a00" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Gradient Fill Area -->
+                        <path d="M 0 30 Q 15 22 25 24 T 50 12 T 75 18 T 100 6 L 100 30 Z" fill="url(#chartGradient)" />
+                        <!-- Chart Line -->
+                        <path d="M 0 30 Q 15 22 25 24 T 50 12 T 75 18 T 100 6" fill="none" stroke="currentColor" stroke-width="0.85" stroke-linecap="round" />
+                    </svg>
+                    <!-- Simulated days labels -->
+                    <div class="absolute bottom-2 left-6 right-6 flex justify-between text-[9px] text-neutral-500 font-bold uppercase tracking-wider select-none">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DUAL COLUMNS: RECENT ORDERS & TOP PRODUCTS -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Recent Orders Column -->
+                <div class="lg:col-span-7 bg-adminDarkCard border border-neutral-800 p-6 rounded-2xl shadow-md space-y-4">
+                    <div class="flex justify-between items-center pb-2 border-b border-neutral-800">
+                        <h3 class="text-sm font-extrabold uppercase tracking-wider">Recent Transactions</h3>
+                        <button onclick="switchTab('orders')" class="text-fashionGold hover:underline text-[10px] font-extrabold uppercase tracking-wider">View All</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs font-semibold">
+                            <thead>
+                                <tr class="text-neutral-500 border-b border-neutral-800/60 pb-2">
+                                    <th class="py-2.5">ID</th>
+                                    <th class="py-2.5">Status</th>
+                                    <th class="py-2.5">Total</th>
+                                    <th class="py-2.5 text-right font-bold text-neutral-400">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="overview-orders-tbody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Top Products Column -->
+                <div class="lg:col-span-5 bg-adminDarkCard border border-neutral-800 p-6 rounded-2xl shadow-md space-y-4">
+                    <div class="flex justify-between items-center pb-2 border-b border-neutral-800">
+                        <h3 class="text-sm font-extrabold uppercase tracking-wider">Top-Selling Designs</h3>
+                        <button onclick="switchTab('products')" class="text-fashionGold hover:underline text-[10px] font-extrabold uppercase tracking-wider">Catalog</button>
+                    </div>
+                    <div id="overview-top-products" class="space-y-3.5">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==================== TAB 2: PRODUCTS MANAGER ==================== -->
+        <div id="panel-products" class="tab-panel hidden space-y-6">
+            
+            <!-- Controls bar -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <!-- Search and Filters -->
+                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-64">
+                        <input 
+                            type="text" 
+                            id="searchProductInput" 
+                            oninput="filterProductsTable()" 
+                            placeholder="Search catalog design..." 
+                            class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-neutral-850 bg-neutral-900 text-xs font-medium text-white focus:outline-none focus:border-fashionGold transition-all"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                        </svg>
+                    </div>
+                    <select 
+                        id="filterCategorySelect" 
+                        onchange="filterProductsTable()"
+                        class="px-3.5 py-2.5 rounded-xl border border-neutral-850 bg-neutral-900 text-xs font-semibold text-neutral-400 focus:outline-none focus:border-fashionGold transition-all"
+                    >
+                        <option value="ALL">All Categories</option>
+                        <option value="Hoodie">Hoodies</option>
+                        <option value="Sweatshirt">Sweatshirts</option>
+                        <option value="T-Shirt">T-Shirts</option>
+                        <option value="Pants">Pants</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Jackets">Jackets</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                </div>
+
+                <!-- Add Button -->
+                <button onclick="openProductModal('ADD')" class="w-full sm:w-auto px-5 py-2.5 bg-fashionGold hover:bg-amber-600 text-white text-xs font-extrabold uppercase rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4.5 h-4.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    <span>Add Design</span>
+                </button>
+            </div>
+
+            <!-- Products List Table Card -->
+            <div class="bg-adminDarkCard border border-neutral-800 rounded-2xl shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs font-semibold">
+                        <thead>
+                            <tr class="text-neutral-500 border-b border-neutral-800 bg-[#1a1a1c]/60 select-none">
+                                <th class="py-3 px-5">Image</th>
+                                <th class="py-3 px-4">Title</th>
+                                <th class="py-3 px-4">Category</th>
+                                <th class="py-3 px-4">Price</th>
+                                <th class="py-3 px-4">Stock status</th>
+                                <th class="py-3 px-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody" class="divide-y divide-neutral-800/50">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==================== TAB 3: ORDERS MANAGER ==================== -->
+        <div id="panel-orders" class="tab-panel hidden space-y-6">
+            
+            <!-- Controls bar -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <!-- Search and Filters -->
+                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-64">
+                        <input 
+                            type="text" 
+                            id="searchOrderInput" 
+                            oninput="filterOrdersTable()" 
+                            placeholder="Search Order ID..." 
+                            class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-neutral-850 bg-neutral-900 text-xs font-medium text-white focus:outline-none focus:border-fashionGold transition-all"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                        </svg>
+                    </div>
+                    <select 
+                        id="filterOrderStatus" 
+                        onchange="filterOrdersTable()"
+                        class="px-3.5 py-2.5 rounded-xl border border-neutral-850 bg-neutral-900 text-xs font-semibold text-neutral-400 focus:outline-none focus:border-fashionGold transition-all"
+                    >
+                        <option value="ALL">All Statuses</option>
+                        <option value="Processing">Processing</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Out for Delivery">Out for Delivery</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Orders Table Card -->
+            <div class="bg-adminDarkCard border border-neutral-800 rounded-2xl shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs font-semibold">
+                        <thead>
+                            <tr class="text-neutral-500 border-b border-neutral-800 bg-[#1a1a1c]/60 select-none">
+                                <th class="py-3 px-5">Order ID</th>
+                                <th class="py-3 px-4">Date</th>
+                                <th class="py-3 px-4">Items Count</th>
+                                <th class="py-3 px-4">Total</th>
+                                <th class="py-3 px-4">Ship Status</th>
+                                <th class="py-3 px-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody" class="divide-y divide-neutral-800/50">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==================== TAB 4: SIMULATOR / CONTROLS ==================== -->
+        <div id="panel-simulator" class="tab-panel hidden space-y-8 max-w-xl">
+            
+            <div class="bg-adminDarkCard border border-neutral-800 p-6 rounded-2xl shadow-md space-y-6">
+                <div class="space-y-1">
+                    <h3 class="text-base font-extrabold uppercase tracking-wider text-fashionGold">Admin Testing sandbox</h3>
+                    <p class="text-neutral-450 text-xs leading-relaxed font-semibold">
+                        Simulate full customer transactions and manage data stores locally. Use these options to seed or clear orders and reset standard product configurations.
+                    </p>
+                </div>
+
+                <div class="space-y-4 pt-2">
+                    <!-- Seed Orders Option -->
+                    <div class="flex items-center justify-between p-4 bg-neutral-900/60 rounded-xl border border-neutral-800/70">
+                        <div class="space-y-0.5">
+                            <span class="block text-xs font-extrabold uppercase">Seed Mock Transactions</span>
+                            <span class="block text-[10px] text-neutral-500 font-semibold">Adds 2 realistic mock orders to localStorage.</span>
+                        </div>
+                        <button onclick="seedMockOrders()" class="px-4 py-2 bg-neutral-800 hover:bg-fashionGold text-white text-[10px] font-extrabold uppercase rounded-lg transition-colors border border-neutral-700">
+                            Generate
+                        </button>
+                    </div>
+
+                    <!-- Reset Products Option -->
+                    <div class="flex items-center justify-between p-4 bg-neutral-900/60 rounded-xl border border-neutral-800/70">
+                        <div class="space-y-0.5">
+                            <span class="block text-xs font-extrabold uppercase">Reset Product Database</span>
+                            <span class="block text-[10px] text-neutral-500 font-semibold font-semibold">Resets the catalog back to the initial 12 designs.</span>
+                        </div>
+                        <button onclick="resetProductsCatalog()" class="px-4 py-2 bg-neutral-850 hover:bg-neutral-800 text-white text-[10px] font-extrabold uppercase rounded-lg transition-colors border border-neutral-700">
+                            Reset Store
+                        </button>
+                    </div>
+
+                    <!-- Wipe Orders Option -->
+                    <div class="flex items-center justify-between p-4 bg-rose-950/20 rounded-xl border border-rose-950/40">
+                        <div class="space-y-0.5">
+                            <span class="block text-xs font-extrabold uppercase text-rose-400">Wipe Orders Cache</span>
+                            <span class="block text-[10px] text-rose-500/80 font-semibold">Deletes all placed transactions from localStorage.</span>
+                        </div>
+                        <button onclick="wipeOrdersCache()" class="px-4 py-2 bg-rose-900/30 hover:bg-rose-600 text-rose-300 hover:text-white text-[10px] font-extrabold uppercase rounded-lg transition-colors border border-rose-900/40">
+                            Wipe Orders
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ==================== MODAL: PRODUCT DETAILS ADD/EDIT ==================== -->
+    <div id="productModal" class="fixed inset-0 z-50 bg-fashionBlack/75 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-4">
+        <div id="productModalContent" class="bg-adminDarkCard rounded-2xl w-full max-w-md p-6 shadow-2xl border border-neutral-800 transform scale-95 opacity-0 transition-all duration-300 space-y-6">
+            
+            <div class="flex justify-between items-center pb-3 border-b border-neutral-800">
+                <h3 id="productModalTitle" class="text-sm font-extrabold uppercase tracking-wider text-fashionGold">Add Catalog Design</h3>
+                <button onclick="closeProductModal()" class="text-neutral-450 hover:text-white p-1" aria-label="Close modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form id="productForm" onsubmit="handleProductFormSubmit(event)" class="space-y-4">
+                <input type="hidden" id="modalProductIndex">
+                
+                <div class="space-y-1">
+                    <label for="pTitle" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-400">Design Title *</label>
+                    <input type="text" id="pTitle" required class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="pCategory" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-400">Category *</label>
+                        <select id="pCategory" required class="w-full px-3 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all text-neutral-300">
+                            <option value="Hoodie">Hoodie</option>
+                            <option value="Sweatshirt">Sweatshirt</option>
+                            <option value="T-Shirt">T-Shirt</option>
+                            <option value="Pants">Pants</option>
+                            <option value="Shoes">Shoes</option>
+                            <option value="Jackets">Jackets</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1">
+                        <label for="pFit" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-400">Fit Silhouette</label>
+                        <select id="pFit" class="w-full px-3 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all text-neutral-300">
+                            <option value="Regular">Regular</option>
+                            <option value="Oversized">Oversized</option>
+                            <option value="Relaxed">Relaxed</option>
+                            <option value="Athletic">Athletic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="pPrice" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-400">Sale Price ($) *</label>
+                        <input type="number" step="0.01" id="pPrice" required class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all">
+                    </div>
+                    <div class="space-y-1">
+                        <label for="pOriginalPrice" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-400">Original Price ($)</label>
+                        <input type="number" step="0.01" id="pOriginalPrice" class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label for="pImage" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-400">Image Asset URL *</label>
+                    <input type="url" id="pImage" required class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all" placeholder="https://images.unsplash.com/...">
+                </div>
+
+                <div class="flex items-center space-x-2.5 pt-1">
+                    <input type="checkbox" id="pInStock" class="w-4 h-4 rounded text-fashionGold focus:ring-0 focus:ring-offset-0 bg-neutral-900 border-neutral-800" checked>
+                    <label for="pInStock" class="text-xs font-semibold text-neutral-400 cursor-pointer select-none">Design Available In Stock</label>
+                </div>
+
+                <!-- Action Button -->
+                <div class="pt-3 border-t border-neutral-800 flex justify-end gap-2.5">
+                    <button type="button" onclick="closeProductModal()" class="px-4 py-2 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-white text-xs font-extrabold uppercase rounded-lg transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-fashionGold hover:bg-amber-600 text-white text-xs font-extrabold uppercase rounded-lg transition-colors">
+                        Save Design
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: ORDER DETAILS / STATUS CONTROL ==================== -->
+    <div id="orderModal" class="fixed inset-0 z-50 bg-fashionBlack/75 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-4">
+        <div id="orderModalContent" class="bg-adminDarkCard rounded-2xl w-full max-w-2xl p-6 shadow-2xl border border-neutral-800 transform scale-95 opacity-0 transition-all duration-300 space-y-6">
+            
+            <div class="flex justify-between items-center pb-3 border-b border-neutral-800">
+                <div class="space-y-0.5">
+                    <h3 id="orderModalTitle" class="text-sm font-extrabold uppercase tracking-wider text-fashionGold">Order Details</h3>
+                    <p id="orderModalSubtitle" class="text-[10px] text-neutral-500 font-semibold">Reference ID: #4F-11024</p>
+                </div>
+                <button onclick="closeOrderModal()" class="text-neutral-450 hover:text-white p-1" aria-label="Close modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Details Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:divide-x md:divide-neutral-800/80">
+                
+                <!-- Left: Info, Items List, Summary -->
+                <div class="space-y-4 pr-0 md:pr-4 text-left">
+                    <div class="space-y-1">
+                        <span class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-500">Shipping Destination</span>
+                        <p id="orderModalAddress" class="text-xs text-neutral-300 font-medium leading-relaxed">128 Fashion Plaza, New York, NY, 10001</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <span class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-500">Items Ordered</span>
+                        <div id="orderModalItems" class="space-y-2.5 max-h-48 overflow-y-auto pr-1">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="border-t border-neutral-800 pt-3 flex justify-between items-baseline">
+                        <span class="text-xs font-bold text-neutral-450 uppercase">Estimated Total</span>
+                        <span id="orderModalTotal" class="text-base font-extrabold text-fashionGold">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- Right: Status manager and Logistics Log tracker -->
+                <div class="space-y-4 pl-0 md:pl-6 text-left">
+                    <!-- Status selector dropdown -->
+                    <div class="space-y-2">
+                        <label for="orderStatusSelector" class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-500">Change Ship Status</label>
+                        <div class="flex gap-2">
+                            <select id="orderStatusSelector" class="flex-1 px-3 py-2.5 rounded-xl border border-neutral-850 bg-neutral-900 text-xs font-semibold focus:outline-none focus:border-fashionGold transition-all text-neutral-300">
+                                <option value="Processing">Processing</option>
+                                <option value="In Transit">In Transit</option>
+                                <option value="Out for Delivery">Out for Delivery</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <button onclick="updateOrderStatusAction()" class="px-4 py-2.5 bg-fashionGold hover:bg-amber-600 text-white text-xs font-extrabold uppercase rounded-xl transition-colors">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Logs timeline -->
+                    <div class="space-y-2">
+                        <span class="block text-[9px] font-extrabold uppercase tracking-wider text-neutral-500">Logistics History Logs</span>
+                        <div id="orderModalLogs" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-[11px]">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== FLOATING FEEDBACK TOAST ==================== -->
+    <div id="adminToast" class="fixed bottom-6 right-6 z-50 max-w-sm bg-white text-fashionBlack rounded-2xl border border-neutral-100 shadow-2xl p-4 flex gap-3.5 items-center toast-enter transition-all duration-300">
+        <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4.5 h-4.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        <div class="flex-1">
+            <p id="adminToastMsg" class="text-xs font-bold text-neutral-800 leading-tight">Action completed successfully</p>
+        </div>
+    </div>
+
+    <!-- ==================== CORE INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        // --- 1. SESSION MANAGEMENT ---
+        function checkAdminSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn && session.role === 'admin') {
+                    // Update user card visuals
+                    document.getElementById('adminName').innerText = session.name || "Admin User";
+                    document.getElementById('adminEmail').innerText = session.email || "admin@4fwears.com";
+                    document.getElementById('adminInitials').innerText = session.initials || "AD";
+                    const mobileInit = document.getElementById('adminInitialsMobile');
+                    if (mobileInit) mobileInit.innerText = session.initials || "AD";
+                    return;
+                }
+            }
+            // Fallback redirect if protection fails in head
+            window.location.replace("login.html");
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('userSession');
+            window.location.replace("index.html");
+        }
+
+        // --- 2. TAB TOGGLING ---
+        let currentTab = "overview";
+        function switchTab(tabName) {
+            // Hide previous active panel, reset previous active button class
+            document.getElementById(`panel-${currentTab}`).classList.add('hidden');
+            const prevBtn = document.getElementById(`tabBtn-${currentTab}`);
+            prevBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800";
+
+            // Set new active panel and button class
+            currentTab = tabName;
+            document.getElementById(`panel-${tabName}`).classList.remove('hidden');
+            const newBtn = document.getElementById(`tabBtn-${tabName}`);
+            newBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-fashionGold text-white shadow-lg";
+
+            // Update title
+            const titles = {
+                overview: "Overview Dashboard",
+                products: "Product Catalog Manager",
+                orders: "Orders Control Center",
+                simulator: "Testing sandbox"
+            };
+            document.getElementById('panelTitle').innerText = titles[tabName] || "Portal Dashboard";
+
+            // Trigger statistics and tables refreshes
+            if (tabName === 'overview') {
+                loadOverviewStats();
+            } else if (tabName === 'products') {
+                renderProductsTable();
+            } else if (tabName === 'orders') {
+                renderOrdersTable();
+            }
+        }
+
+        // --- 3. PRODUCTS DATABASE HANDLING (CRUD) ---
+        const DEFAULT_PRODUCT_SET = [
+            { id: 1, title: "Graffiti Boyfriend Oversized Hoodie", category: "Hoodie", price: 24.00, originalPrice: 48.00, rating: 5.0, badge: "50% off", image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop", fit: "Oversized", promotions: ["Best Seller"], inStock: true },
+            { id: 2, title: "Sweatshirt Pink Soda Signature", category: "Sweatshirt", price: 35.00, originalPrice: 70.00, rating: 4.9, badge: "50% off", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop", fit: "Regular", promotions: ["New Arrival"], inStock: true },
+            { id: 3, title: "Adidas Sport Hoodie Contempo", category: "Hoodie", price: 48.00, originalPrice: 60.00, rating: 4.8, badge: "20% off", image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop", fit: "Athletic", promotions: ["Best Seller"], inStock: true },
+            { id: 4, title: "Adidas Contempo Coral Tee", category: "T-Shirt", price: 24.00, originalPrice: 48.00, rating: 5.0, badge: "50% off", image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop", fit: "Relaxed", promotions: ["On Sale"], inStock: true },
+            { id: 5, title: "Urban Cargo Tapered Joggers", category: "Pants", price: 45.00, originalPrice: 90.00, rating: 4.7, badge: "50% off", image: "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?q=80&w=800&auto=format&fit=crop", fit: "Relaxed", promotions: ["Best Seller"], inStock: true },
+            { id: 6, title: "Raw Denim High-Style Jacket", category: "Jackets", price: 65.00, originalPrice: 130.00, rating: 4.9, badge: "50% off", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800&auto=format&fit=crop", fit: "Regular", promotions: ["New Arrival"], inStock: true },
+            { id: 7, title: "Retro Court Orange Sneakers", category: "Shoes", price: 80.00, originalPrice: 160.00, rating: 5.0, badge: "50% off", image: "https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=800", fit: "Regular", promotions: ["Best Seller"], inStock: true },
+            { id: 8, title: "Matte Charcoal Cargo Shorts", category: "Pants", price: 30.00, originalPrice: 60.00, rating: 4.6, badge: "50% off", image: "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800", fit: "Oversized", promotions: ["On Sale"], inStock: true },
+            { id: 9, title: "Badge Boyfriend Black Hoodie", category: "Hoodie", price: 24.00, originalPrice: 48.00, rating: 4.8, badge: "50% off", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop", fit: "Oversized", promotions: ["New Arrival"], inStock: true },
+            { id: 10, title: "Comfy Loungewear Crew Sweatshirt", category: "Sweatshirt", price: 40.00, originalPrice: 80.00, rating: 4.7, badge: "50% off", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop", fit: "Relaxed", promotions: ["On Sale"], inStock: false },
+            { id: 11, title: "Streetwear Tech Windbreaker", category: "Jackets", price: 55.00, originalPrice: 110.00, rating: 4.9, badge: "50% off", image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?q=80&w=800&auto=format&fit=crop", fit: "Athletic", promotions: ["New Arrival"], inStock: true },
+            { id: 12, title: "Minimalist Full Leather Belt", category: "Accessories", price: 15.00, originalPrice: 30.00, rating: 4.5, badge: "50% off", image: "https://images.unsplash.com/photo-1624222247344-550fb8ecf7db?q=80&w=800&auto=format&fit=crop", fit: "Regular", promotions: ["On Sale"], inStock: true }
+        ];
+
+        function getProductsList() {
+            let products = localStorage.getItem('productsList');
+            if (!products) {
+                products = DEFAULT_PRODUCT_SET;
+                localStorage.setItem('productsList', JSON.stringify(products));
+            } else {
+                products = JSON.parse(products);
+            }
+            return products;
+        }
+
+        function saveProductsList(products) {
+            localStorage.setItem('productsList', JSON.stringify(products));
+        }
+
+        function renderProductsTable() {
+            const products = getProductsList();
+            const tbody = document.getElementById('products-tbody');
+            tbody.innerHTML = '';
+
+            products.forEach((p, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-neutral-850/30 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3.5 px-5">
+                        <img src="${p.image}" alt="${p.title}" class="w-10 h-12 object-cover rounded bg-neutral-900 border border-neutral-850">
+                    </td>
+                    <td class="py-3.5 px-4 max-w-xs truncate font-extrabold text-white">
+                        ${p.title}
+                    </td>
+                    <td class="py-3.5 px-4 text-neutral-400 font-semibold">
+                        ${p.category}
+                    </td>
+                    <td class="py-3.5 px-4 text-fashionGold font-extrabold">
+                        $${p.price.toFixed(2)}
+                    </td>
+                    <td class="py-3.5 px-4">
+                        ${p.inStock 
+                            ? `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">In Stock</span>`
+                            : `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Out Of Stock</span>`
+                        }
+                    </td>
+                    <td class="py-3.5 px-5 text-right space-x-2">
+                        <button onclick="openProductModal('EDIT', ${idx})" class="px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold uppercase rounded border border-neutral-700 hover:border-neutral-500 transition-colors">
+                            Edit
+                        </button>
+                        <button onclick="deleteProductAction(${idx})" class="px-2.5 py-1 bg-rose-950/20 hover:bg-rose-900/60 text-rose-400 hover:text-white text-[10px] font-bold uppercase rounded border border-rose-900/30 hover:border-rose-900 transition-colors">
+                            Delete
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            filterProductsTable(); // Run active filter/search inputs
+        }
+
+        function filterProductsTable() {
+            const query = document.getElementById('searchProductInput').value.toLowerCase().trim();
+            const cat = document.getElementById('filterCategorySelect').value;
+            const tbody = document.getElementById('products-tbody');
+            const rows = tbody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length < 5) continue;
+
+                const title = cells[1].innerText.toLowerCase();
+                const category = cells[2].innerText;
+
+                const queryMatch = title.includes(query);
+                const categoryMatch = (cat === 'ALL' || category === cat);
+
+                if (queryMatch && categoryMatch) {
+                    rows[i].classList.remove('hidden');
+                } else {
+                    rows[i].classList.add('hidden');
+                }
+            }
+        }
+
+        // --- PRODUCT EDIT/ADD MODAL CONTROLLER ---
+        const pModal = document.getElementById('productModal');
+        const pContent = document.getElementById('productModalContent');
+
+        function openProductModal(mode, index = -1) {
+            pModal.classList.remove('pointer-events-none', 'opacity-0');
+            pModal.classList.add('opacity-100');
+            setTimeout(() => {
+                pContent.classList.remove('scale-95', 'opacity-0');
+                pContent.classList.add('scale-100', 'opacity-100');
+            }, 50);
+
+            const titleInput = document.getElementById('pTitle');
+            const categorySelect = document.getElementById('pCategory');
+            const fitSelect = document.getElementById('pFit');
+            const priceInput = document.getElementById('pPrice');
+            const origPriceInput = document.getElementById('pOriginalPrice');
+            const imageInput = document.getElementById('pImage');
+            const stockCheck = document.getElementById('pInStock');
+            const idxInput = document.getElementById('modalProductIndex');
+
+            if (mode === 'ADD') {
+                document.getElementById('productModalTitle').innerText = "Add Catalog Design";
+                idxInput.value = "-1";
+                titleInput.value = "";
+                categorySelect.selectedIndex = 0;
+                fitSelect.selectedIndex = 0;
+                priceInput.value = "";
+                origPriceInput.value = "";
+                imageInput.value = "";
+                stockCheck.checked = true;
+            } else {
+                document.getElementById('productModalTitle').innerText = "Edit Catalog Design";
+                const products = getProductsList();
+                const product = products[index];
+                if (!product) return;
+
+                idxInput.value = index;
+                titleInput.value = product.title;
+                categorySelect.value = product.category || "Hoodie";
+                fitSelect.value = product.fit || "Regular";
+                priceInput.value = product.price;
+                origPriceInput.value = product.originalPrice || "";
+                imageInput.value = product.image;
+                stockCheck.checked = product.inStock;
+            }
+        }
+
+        function closeProductModal() {
+            pContent.classList.remove('scale-100', 'opacity-100');
+            pContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                pModal.classList.remove('opacity-100');
+                pModal.classList.add('pointer-events-none', 'opacity-0');
+            }, 200);
+        }
+
+        function handleProductFormSubmit(e) {
+            e.preventDefault();
+            const idx = parseInt(document.getElementById('modalProductIndex').value);
+            const title = document.getElementById('pTitle').value.trim();
+            const category = document.getElementById('pCategory').value;
+            const fit = document.getElementById('pFit').value;
+            const price = parseFloat(document.getElementById('pPrice').value);
+            const origPrice = parseFloat(document.getElementById('pOriginalPrice').value) || price;
+            const image = document.getElementById('pImage').value.trim();
+            const inStock = document.getElementById('pInStock').checked;
+
+            const products = getProductsList();
+
+            if (idx === -1) {
+                // Add Product
+                const newProduct = {
+                    id: Date.now(), // Generate dynamic ID
+                    title: title,
+                    category: category,
+                    price: price,
+                    originalPrice: origPrice,
+                    rating: 5.0,
+                    badge: origPrice > price ? `${Math.round(((origPrice - price)/origPrice)*100)}% off` : "",
+                    image: image,
+                    fit: fit,
+                    promotions: ["New Arrival"],
+                    inStock: inStock
+                };
+                products.push(newProduct);
+                showToast("Added new design successfully.");
+            } else {
+                // Edit Product
+                if (products[idx]) {
+                    products[idx].title = title;
+                    products[idx].category = category;
+                    products[idx].fit = fit;
+                    products[idx].price = price;
+                    products[idx].originalPrice = origPrice;
+                    products[idx].badge = origPrice > price ? `${Math.round(((origPrice - price)/origPrice)*100)}% off` : "";
+                    products[idx].image = image;
+                    products[idx].inStock = inStock;
+                }
+                showToast("Product design updated.");
+            }
+
+            saveProductsList(products);
+            renderProductsTable();
+            closeProductModal();
+        }
+
+        function deleteProductAction(index) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                const products = getProductsList();
+                products.splice(index, 1);
+                saveProductsList(products);
+                renderProductsTable();
+                showToast("Product deleted successfully.");
+            }
+        }
+
+        // --- 4. ORDERS DATABASE HANDLING ---
+        function getOrdersList() {
+            let orders = localStorage.getItem('ordersList');
+            return orders ? JSON.parse(orders) : [];
+        }
+
+        function saveOrdersList(orders) {
+            localStorage.setItem('ordersList', JSON.stringify(orders));
+        }
+
+        function renderOrdersTable() {
+            const orders = getOrdersList();
+            const tbody = document.getElementById('orders-tbody');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="py-8 text-center text-neutral-500 font-semibold">
+                            No orders logged in the store system yet. Use the sandbox to generate mock logs.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            orders.forEach((ord, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-neutral-850/30 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3.5 px-5 font-extrabold text-white tracking-wider">
+                        ${ord.orderId}
+                    </td>
+                    <td class="py-3.5 px-4 text-neutral-400">
+                        ${ord.date}
+                    </td>
+                    <td class="py-3.5 px-4 text-neutral-300">
+                        ${ord.items ? ord.items.length : 0} item(s)
+                    </td>
+                    <td class="py-3.5 px-4 text-fashionGold font-extrabold">
+                        $${ord.total.toFixed(2)}
+                    </td>
+                    <td class="py-3.5 px-4">
+                        ${getStatusBadgeHtml(ord.status)}
+                    </td>
+                    <td class="py-3.5 px-5 text-right">
+                        <button onclick="openOrderModal(${idx})" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold uppercase rounded border border-neutral-700 hover:border-neutral-500 transition-colors">
+                            Manage
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            filterOrdersTable();
+        }
+
+        function getStatusBadgeHtml(status) {
+            switch (status) {
+                case "Processing":
+                    return `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Processing</span>`;
+                case "In Transit":
+                    return `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-sky-500/10 text-sky-500 border border-sky-500/20">In Transit</span>`;
+                case "Out for Delivery":
+                    return `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">Out for Delivery</span>`;
+                case "Delivered":
+                    return `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Delivered</span>`;
+                case "Cancelled":
+                    return `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Cancelled</span>`;
+                default:
+                    return `<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-neutral-500/10 text-neutral-500 border border-neutral-500/20">${status}</span>`;
+            }
+        }
+
+        function filterOrdersTable() {
+            const query = document.getElementById('searchOrderInput').value.toLowerCase().trim();
+            const status = document.getElementById('filterOrderStatus').value;
+            const tbody = document.getElementById('orders-tbody');
+            const rows = tbody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length < 5) continue;
+
+                const orderId = cells[0].innerText.toLowerCase();
+                const shipStatus = cells[4].innerText;
+
+                const queryMatch = orderId.includes(query);
+                const statusMatch = (status === 'ALL' || shipStatus === status);
+
+                if (queryMatch && statusMatch) {
+                    rows[i].classList.remove('hidden');
+                } else {
+                    rows[i].classList.add('hidden');
+                }
+            }
+        }
+
+        // --- ORDER MANAGEMENT MODAL CONTROLLERS ---
+        const oModal = document.getElementById('orderModal');
+        const oContent = document.getElementById('orderModalContent');
+        let currentOrderIndexForEdit = -1;
+
+        function openOrderModal(index) {
+            oModal.classList.remove('pointer-events-none', 'opacity-0');
+            oModal.classList.add('opacity-100');
+            setTimeout(() => {
+                oContent.classList.remove('scale-95', 'opacity-0');
+                oContent.classList.add('scale-100', 'opacity-100');
+            }, 50);
+
+            const orders = getOrdersList();
+            const order = orders[index];
+            if (!order) return;
+
+            currentOrderIndexForEdit = index;
+
+            document.getElementById('orderModalTitle').innerText = `Order: ${order.orderId}`;
+            document.getElementById('orderModalSubtitle').innerText = `Placed on: ${order.date}`;
+            document.getElementById('orderModalAddress').innerText = order.shippingAddress || "N/A";
+            document.getElementById('orderModalTotal').innerText = `$${order.total.toFixed(2)}`;
+            document.getElementById('orderStatusSelector').value = order.status || "Processing";
+
+            // Populate Items ordered list
+            const itemsContainer = document.getElementById('orderModalItems');
+            itemsContainer.innerHTML = '';
+            order.items.forEach(itm => {
+                const itmDiv = document.createElement('div');
+                itmDiv.className = "flex gap-3 items-center p-2 bg-neutral-900 rounded-lg border border-neutral-800/80";
+                itmDiv.innerHTML = `
+                    <img src="${itm.image}" alt="${itm.name}" class="w-10 h-12 object-cover rounded bg-neutral-850">
+                    <div class="flex-1 min-w-0">
+                        <span class="block text-xs font-bold text-white truncate leading-tight">${itm.name}</span>
+                        <div class="text-[9px] text-neutral-450 font-bold mt-0.5 space-x-2">
+                            <span>Color: ${itm.color || 'Standard'}</span>
+                            <span>Size: ${itm.size || 'M'}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-xs font-extrabold text-fashionGold">$${itm.price.toFixed(2)}</span>
+                        <span class="block text-[10px] text-neutral-400 font-bold">Qty: ${itm.qty}</span>
+                    </div>
+                `;
+                itemsContainer.appendChild(itmDiv);
+            });
+
+            // Populate Logs
+            renderOrderModalLogs(order);
+        }
+
+        function renderOrderModalLogs(order) {
+            const logsContainer = document.getElementById('orderModalLogs');
+            logsContainer.innerHTML = '';
+            if (!order.logs || order.logs.length === 0) {
+                logsContainer.innerHTML = `<span class="text-neutral-500 font-semibold italic">No logs logged.</span>`;
+                return;
+            }
+            order.logs.forEach(log => {
+                const logDiv = document.createElement('div');
+                logDiv.className = "border-l-2 border-fashionGold pl-3.5 py-1 relative before:absolute before:-left-[5px] before:top-1.5 before:w-2 before:h-2 before:rounded-full before:bg-fashionGold";
+                logDiv.innerHTML = `
+                    <span class="block font-semibold text-[9px] text-neutral-500">${log.time}</span>
+                    <span class="block text-neutral-300 font-medium">${log.msg}</span>
+                `;
+                logsContainer.appendChild(logDiv);
+            });
+        }
+
+        function closeOrderModal() {
+            oContent.classList.remove('scale-100', 'opacity-100');
+            oContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                oModal.classList.remove('opacity-100');
+                oModal.classList.add('pointer-events-none', 'opacity-0');
+            }, 200);
+        }
+
+        function updateOrderStatusAction() {
+            if (currentOrderIndexForEdit === -1) return;
+            const orders = getOrdersList();
+            const order = orders[currentOrderIndexForEdit];
+            if (!order) return;
+
+            const selectedStatus = document.getElementById('orderStatusSelector').value;
+            if (order.status === selectedStatus) {
+                showToast("Status matches current configuration.");
+                return;
+            }
+
+            // Update status
+            order.status = selectedStatus;
+
+            // Generate clean date string
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const logTime = `${dateStr}, ${timeStr}`;
+
+            // Append status log
+            const statusMsg = `Status updated to ${selectedStatus} by administrative controller.`;
+            if (!order.logs) order.logs = [];
+            order.logs.unshift({ time: logTime, msg: statusMsg }); // Push to front for recency view
+
+            saveOrdersList(orders);
+            renderOrdersTable();
+            renderOrderModalLogs(order);
+            showToast(`Order status updated to ${selectedStatus}`);
+        }
+
+        // --- 5. OVERVIEW STATISTICS CALCULATOR ---
+        function loadOverviewStats() {
+            const orders = getOrdersList();
+            const products = getProductsList();
+
+            // Total active products count
+            document.getElementById('stat-products').innerText = products.length;
+
+            // Total sales calculation
+            let totalSales = 0;
+            orders.forEach(ord => {
+                if (ord.status !== "Cancelled") {
+                    totalSales += ord.total;
+                }
+            });
+            document.getElementById('stat-sales').innerText = `$${totalSales.toFixed(2)}`;
+
+            // Total Orders Count
+            document.getElementById('stat-orders').innerText = orders.length;
+
+            // Average Order Value (AOV)
+            const aov = orders.length > 0 ? (totalSales / orders.length) : 0;
+            document.getElementById('stat-aov').innerText = `$${aov.toFixed(2)}`;
+
+            // Render Recent Orders on Overview
+            const overviewTbody = document.getElementById('overview-orders-tbody');
+            overviewTbody.innerHTML = '';
+            
+            const recentOrders = orders.slice(0, 5); // top 5
+            if (recentOrders.length === 0) {
+                overviewTbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="py-4 text-center text-neutral-500 font-semibold">No recent logs.</td>
+                    </tr>
+                `;
+            } else {
+                recentOrders.forEach(ord => {
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-neutral-800/40";
+                    tr.innerHTML = `
+                        <td class="py-2.5 font-extrabold text-white">${ord.orderId}</td>
+                        <td class="py-2.5">${getStatusBadgeHtml(ord.status)}</td>
+                        <td class="py-2.5 text-fashionGold font-extrabold">$${ord.total.toFixed(2)}</td>
+                        <td class="py-2.5 text-right text-neutral-400">${ord.date}</td>
+                    `;
+                    overviewTbody.appendChild(tr);
+                });
+            }
+
+            // Render Top Products List
+            const topProductsContainer = document.getElementById('overview-top-products');
+            topProductsContainer.innerHTML = '';
+            const topProducts = products.slice(0, 3); // mock top 3
+            topProducts.forEach(p => {
+                const pDiv = document.createElement('div');
+                pDiv.className = "flex gap-3 items-center justify-between";
+                pDiv.innerHTML = `
+                    <div class="flex gap-2.5 items-center min-w-0">
+                        <img src="${p.image}" alt="${p.title}" class="w-8 h-10 object-cover rounded bg-neutral-900">
+                        <div class="min-w-0">
+                            <span class="block text-xs font-bold text-white truncate leading-tight">${p.title}</span>
+                            <span class="block text-[9px] text-neutral-500 font-bold">${p.category}</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-extrabold text-fashionGold shrink-0">$${p.price.toFixed(2)}</span>
+                `;
+                topProductsContainer.appendChild(pDiv);
+            });
+        }
+
+        // --- 6. SIMULATOR ACTIONS ---
+        function seedMockOrders() {
+            let currentOrders = getOrdersList();
+            const mockOrders = [
+                {
+                    orderId: "#4F-11024",
+                    date: "April 20, 2026",
+                    total: 59.00,
+                    status: "In Transit",
+                    shippingAddress: "128 Fashion Plaza, New York, NY, 10001",
+                    items: [
+                        { name: "Sweatshirt Pink Soda Signature", price: 35.00, qty: 1, color: "Pink Standard", size: "M", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=200&auto=format&fit=crop" },
+                        { name: "Adidas Contempo Coral Tee", price: 24.00, qty: 1, color: "Coral Peach", size: "M", image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=200&auto=format&fit=crop" }
+                    ],
+                    logs: [
+                        { time: "April 20, 2026, 11:00 AM", msg: "Order placed successfully" },
+                        { time: "April 20, 2026, 05:40 PM", msg: "Carrier accepted package" },
+                        { time: "April 22, 2026, 08:15 AM", msg: "In Transit - In transit to destination country sorting hub" }
+                    ]
+                },
+                {
+                    orderId: "#4F-12894",
+                    date: "May 15, 2026",
+                    total: 24.00,
+                    status: "Delivered",
+                    shippingAddress: "128 Fashion Plaza, New York, NY, 10001",
+                    items: [
+                        { name: "Graffiti Boyfriend Oversized Hoodie", price: 24.00, qty: 1, color: "Red Graffiti", size: "M", image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop" }
+                    ],
+                    logs: [
+                        { time: "May 15, 2026, 09:30 AM", msg: "Order placed successfully" },
+                        { time: "May 15, 2026, 02:15 PM", msg: "Package handed over to FedEx carrier" },
+                        { time: "May 16, 2026, 11:00 AM", msg: "Departed FedEx sorting facility" },
+                        { time: "May 18, 2026, 04:30 PM", msg: "Delivered - Package left near front porch" }
+                    ]
+                }
+            ];
+
+            // Avoid duplicating identical mock keys
+            mockOrders.forEach(mo => {
+                if (!currentOrders.some(x => x.orderId === mo.orderId)) {
+                    currentOrders.push(mo);
+                }
+            });
+
+            saveOrdersList(currentOrders);
+            showToast("Mock transactions seeded.");
+        }
+
+        function resetProductsCatalog() {
+            if (confirm("Reset local catalog back to standard defaults? This will erase custom added designs.")) {
+                localStorage.removeItem('productsList');
+                getProductsList();
+                showToast("Product catalog reset to factory configuration.");
+            }
+        }
+
+        function wipeOrdersCache() {
+            if (confirm("Wipe all placed orders? You will need to place new orders or re-seed mock transactions.")) {
+                localStorage.removeItem('ordersList');
+                showToast("Orders wiped from local cache.");
+            }
+        }
+
+        // --- 7. FLOATING TOAST CONTROLLER ---
+        function showToast(msg) {
+            const toast = document.getElementById('adminToast');
+            const msgEl = document.getElementById('adminToastMsg');
+            if (!toast) return;
+
+            msgEl.innerText = msg;
+            toast.classList.remove('toast-enter');
+            toast.classList.add('toast-active');
+
+            clearTimeout(window.adminToastTimeout);
+            window.adminToastTimeout = setTimeout(() => {
+                toast.classList.remove('toast-active');
+                toast.classList.add('toast-enter');
+            }, 3000);
+        }
+
+        // --- DOM CONTENT LOADED ---
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAdminSession();
+            loadOverviewStats();
+        });
+    </script>
+</body>
+</html>
