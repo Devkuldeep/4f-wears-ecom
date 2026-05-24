@@ -145,6 +145,7 @@
                     </div>
                     <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
                     <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <a href="track-order.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Track Order</a>
                     <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
                         Log Out
                     </button>
@@ -363,19 +364,19 @@
 
             <!-- Column 2: Sweatshirt Pink Soda -->
             <div class="group flex flex-col space-y-4">
-                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                <a href="product.html?id=2" class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm block">
                     <img 
                         src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop" 
                         alt="Sweatshirt Pink Soda Collections model posing in orange top" 
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         loading="lazy"
                     >
-                </div>
+                </a>
                 <div class="flex justify-between items-start pt-1">
-                    <h3 class="font-bold text-lg text-fashionBlack leading-tight tracking-tight">
-                        Sweatshirt Pink Soda<br/>Collections
+                    <h3 class="font-bold text-lg text-fashionBlack leading-tight tracking-tight hover:text-fashionGold transition-colors">
+                        <a href="product.html?id=2">Sweatshirt Pink Soda<br/>Collections</a>
                     </h3>
-                    <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-fashionBlack transition-all duration-300 hover:bg-fashionBlack hover:border-fashionBlack hover:text-white" aria-label="View Sweatshirt Pink Soda Collections">
+                    <a href="product.html?id=2" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-fashionBlack transition-all duration-300 hover:bg-fashionBlack hover:border-fashionBlack hover:text-white" aria-label="View Sweatshirt Pink Soda Collections">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                         </svg>
@@ -385,19 +386,19 @@
 
             <!-- Column 3: Adidas Hoodie -->
             <div class="group flex flex-col space-y-4">
-                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
+                <a href="product.html?id=3" class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm block">
                     <img 
                         src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop" 
                         alt="Adidas Hoodie Collections model posing in black sports jacket" 
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         loading="lazy"
                     >
-                </div>
+                </a>
                 <div class="flex justify-between items-start pt-1">
-                    <h3 class="font-bold text-lg text-fashionBlack leading-tight tracking-tight">
-                        Adidas Hoodie<br/>Collections
+                    <h3 class="font-bold text-lg text-fashionBlack leading-tight tracking-tight hover:text-fashionGold transition-colors">
+                        <a href="product.html?id=3">Adidas Hoodie<br/>Collections</a>
                     </h3>
-                    <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-fashionBlack transition-all duration-300 hover:bg-fashionBlack hover:border-fashionBlack hover:text-white" aria-label="View Adidas Hoodie Collections">
+                    <a href="product.html?id=3" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-fashionBlack transition-all duration-300 hover:bg-fashionBlack hover:border-fashionBlack hover:text-white" aria-label="View Adidas Hoodie Collections">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                         </svg>
@@ -437,17 +438,19 @@
                 <!-- Product 1 -->
                 <div class="group flex flex-col space-y-4">
                     <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
-                        <img 
-                            src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop" 
-                            alt="Graffiti Boyfriend T-Shirt in vibrant red" 
-                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                            loading="lazy"
-                        >
+                        <a href="product.html?id=1" class="block w-full h-full">
+                            <img 
+                                src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop" 
+                                alt="Graffiti Boyfriend Oversized Hoodie in vibrant red" 
+                                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                loading="lazy"
+                            >
+                        </a>
                         <!-- Wishlist Toggle Button -->
                         <button 
-                            data-wishlist-name="Graffiti Boyfriend T-Shirt" 
+                            data-wishlist-name="Graffiti Boyfriend Oversized Hoodie" 
                             data-wishlist-price="24" 
-                            data-wishlist-category="T-Shirt" 
+                            data-wishlist-category="Hoodie" 
                             data-wishlist-image="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop" 
                             onclick="toggleWishlist(this)" 
                             class="absolute top-4 right-4 z-10 w-10 h-10 bg-white hover:bg-fashionGold hover:text-white rounded-full flex items-center justify-center text-fashionBlack shadow-md transition-all active:scale-90" 
@@ -457,7 +460,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
                         </button>
-                        <button onclick="handleAddToCart('Graffiti Boyfriend T-Shirt', 24, 'https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Graffiti Boyfriend T-Shirt to cart">
+                        <button onclick="handleAddToCart('Graffiti Boyfriend Oversized Hoodie', 24, 'https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Graffiti Boyfriend Oversized Hoodie to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -465,9 +468,9 @@
                     </div>
                     <div class="flex justify-between items-end pt-1">
                         <div class="space-y-0.5">
-                            <span class="text-neutral-400 font-semibold text-sm block">T-Shirt</span>
-                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
-                                Graffiti Boyfriend
+                            <span class="text-neutral-400 font-semibold text-sm block">Hoodie</span>
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight hover:text-fashionGold transition-colors">
+                                <a href="product.html?id=1">Graffiti Boyfriend</a>
                             </h4>
                         </div>
                         <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
@@ -477,15 +480,17 @@
                 <!-- Product 2 -->
                 <div class="group flex flex-col space-y-4">
                     <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
-                        <img 
-                            src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop" 
-                            alt="Badge Boyfriend Hoodie in clean black" 
-                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                            loading="lazy"
-                        >
+                        <a href="product.html?id=9" class="block w-full h-full">
+                            <img 
+                                src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop" 
+                                alt="Badge Boyfriend Black Hoodie in clean black" 
+                                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                loading="lazy"
+                            >
+                        </a>
                         <!-- Wishlist Toggle Button -->
                         <button 
-                            data-wishlist-name="Badge Boyfriend Hoodie" 
+                            data-wishlist-name="Badge Boyfriend Black Hoodie" 
                             data-wishlist-price="24" 
                             data-wishlist-category="Hoodie" 
                             data-wishlist-image="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop" 
@@ -497,7 +502,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
                         </button>
-                        <button onclick="handleAddToCart('Badge Boyfriend Hoodie', 24, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Badge Boyfriend Hoodie to cart">
+                        <button onclick="handleAddToCart('Badge Boyfriend Black Hoodie', 24, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Badge Boyfriend Black Hoodie to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -506,8 +511,8 @@
                     <div class="flex justify-between items-end pt-1">
                         <div class="space-y-0.5">
                             <span class="text-neutral-400 font-semibold text-sm block">Hoodie</span>
-                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
-                                Badge Boyfriend
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight hover:text-fashionGold transition-colors">
+                                <a href="product.html?id=9">Badge Boyfriend</a>
                             </h4>
                         </div>
                         <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
@@ -517,15 +522,17 @@
                 <!-- Product 3 -->
                 <div class="group flex flex-col space-y-4">
                     <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
-                        <img 
-                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop" 
-                            alt="Adidas Contempo T-Shirt in coral/peach" 
-                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                            loading="lazy"
-                        >
+                        <a href="product.html?id=4" class="block w-full h-full">
+                            <img 
+                                src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop" 
+                                alt="Adidas Contempo Coral Tee in coral/peach" 
+                                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                loading="lazy"
+                            >
+                        </a>
                         <!-- Wishlist Toggle Button -->
                         <button 
-                            data-wishlist-name="Adidas Contempo T-Shirt" 
+                            data-wishlist-name="Adidas Contempo Coral Tee" 
                             data-wishlist-price="24" 
                             data-wishlist-category="T-Shirt" 
                             data-wishlist-image="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop" 
@@ -537,7 +544,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
                         </button>
-                        <button onclick="handleAddToCart('Adidas Contempo T-Shirt', 24, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Contempo T-Shirt to cart">
+                        <button onclick="handleAddToCart('Adidas Contempo Coral Tee', 24, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=800&auto=format&fit=crop')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md" aria-label="Add Adidas Contempo Coral Tee to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -546,8 +553,8 @@
                     <div class="flex justify-between items-end pt-1">
                         <div class="space-y-0.5">
                             <span class="text-neutral-400 font-semibold text-sm block">T-Shirt</span>
-                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight">
-                                Adidas Contempo
+                            <h4 class="font-extrabold text-lg text-fashionBlack leading-tight tracking-tight hover:text-fashionGold transition-colors">
+                                <a href="product.html?id=4">Adidas Contempo</a>
                             </h4>
                         </div>
                         <span class="text-fashionGold font-extrabold text-2xl leading-none">$24</span>
@@ -853,7 +860,7 @@
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
                             <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
-                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                            <li><a href="about.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
                         </ul>
                     </div>
 
@@ -863,6 +870,7 @@
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
                             <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
                             <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Support</a></li>
+                            <li><a href="track-order.html" class="hover:text-fashionGold transition-all duration-200">Track Order</a></li>
                         </ul>
                     </div>
 

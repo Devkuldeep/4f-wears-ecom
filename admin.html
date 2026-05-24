@@ -113,6 +113,16 @@
                     <span>Orders</span>
                 </button>
                 
+                <button onclick="switchTab('reviews')" id="tabBtn-reviews" class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800">
+                    <div class="flex items-center space-x-3 text-inherit">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-inherit">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3h9m-9 3h3m-6.75 3h12a3 3 0 003-3V6.75a3 3 0 00-3-3h-12a3 3 0 00-3 3v8.25a3 3 0 003 3z" />
+                        </svg>
+                        <span>Reviews</span>
+                    </div>
+                    <span id="pending-reviews-count" class="hidden bg-rose-500 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full leading-none">0</span>
+                </button>
+
                 <button onclick="switchTab('simulator')" id="tabBtn-simulator" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-inherit">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.685-.196-1.353-.617-1.885-1.243-.53-.627-.852-1.42-.907-2.278M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -412,6 +422,61 @@
 
         </div>
 
+        <!-- ==================== TAB 5: REVIEWS MODERATION PANEL ==================== -->
+        <div id="panel-reviews" class="tab-panel hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="space-y-1">
+                    <h2 class="text-xl font-extrabold tracking-tight text-white uppercase">Product Reviews Moderation</h2>
+                    <p class="text-neutral-400 text-xs font-semibold">
+                        Approve or reject customer reviews before they are displayed publicly on the product catalog details page.
+                    </p>
+                </div>
+                
+                <!-- Filters pill buttons -->
+                <div class="flex items-center space-x-2 bg-neutral-900 border border-neutral-800 p-1 rounded-xl w-fit self-start">
+                    <button onclick="filterReviewsAdmin('all')" id="filterBtn-all" class="px-3.5 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all bg-fashionGold text-white">
+                        All
+                    </button>
+                    <button onclick="filterReviewsAdmin('pending')" id="filterBtn-pending" class="px-3.5 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all text-neutral-400 hover:text-white">
+                        Pending
+                    </button>
+                    <button onclick="filterReviewsAdmin('approved')" id="filterBtn-approved" class="px-3.5 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all text-neutral-400 hover:text-white">
+                        Approved
+                    </button>
+                    <button onclick="filterReviewsAdmin('rejected')" id="filterBtn-rejected" class="px-3.5 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all text-neutral-400 hover:text-white">
+                        Rejected
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reviews Table -->
+            <div class="bg-[#151517] border border-neutral-800 rounded-2xl shadow-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-neutral-800 text-neutral-450 uppercase tracking-widest text-[9px] font-extrabold bg-[#0e0f11]/60">
+                                <th class="py-4 px-5">Product</th>
+                                <th class="py-4 px-4">Author / Rating</th>
+                                <th class="py-4 px-4">Review Details</th>
+                                <th class="py-4 px-4">Status</th>
+                                <th class="py-4 px-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reviews-tbody" class="divide-y divide-neutral-800/50">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Empty state placeholder -->
+                <div id="reviews-empty-state" class="hidden p-12 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-neutral-600 mx-auto mb-3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3h9m-9 3h3m-6.75 3h12a3 3 0 003-3V6.75a3 3 0 00-3-3h-12a3 3 0 00-3 3v8.25a3 3 0 003 3z" />
+                    </svg>
+                    <p class="text-neutral-400 font-bold text-sm">No reviews found matching this filter.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- ==================== TAB 4: SIMULATOR / CONTROLS ==================== -->
         <div id="panel-simulator" class="tab-panel hidden space-y-8 max-w-xl">
             
@@ -454,6 +519,28 @@
                         </div>
                         <button onclick="wipeOrdersCache()" class="px-4 py-2 bg-rose-900/30 hover:bg-rose-600 text-rose-300 hover:text-white text-[10px] font-extrabold uppercase rounded-lg transition-colors border border-rose-900/40">
                             Wipe Orders
+                        </button>
+                    </div>
+
+                    <!-- Seed Reviews Option -->
+                    <div class="flex items-center justify-between p-4 bg-neutral-900/60 rounded-xl border border-neutral-800/70">
+                        <div class="space-y-0.5">
+                            <span class="block text-xs font-extrabold uppercase">Seed Mock Reviews</span>
+                            <span class="block text-[10px] text-neutral-500 font-semibold">Generates approved and pending customer reviews.</span>
+                        </div>
+                        <button onclick="seedMockReviews()" class="px-4 py-2 bg-neutral-800 hover:bg-fashionGold text-white text-[10px] font-extrabold uppercase rounded-lg transition-colors border border-neutral-700">
+                            Seed Reviews
+                        </button>
+                    </div>
+
+                    <!-- Wipe Reviews Option -->
+                    <div class="flex items-center justify-between p-4 bg-rose-950/20 rounded-xl border border-rose-950/40">
+                        <div class="space-y-0.5">
+                            <span class="block text-xs font-extrabold uppercase text-rose-400">Wipe Reviews Cache</span>
+                            <span class="block text-[10px] text-rose-500/80 font-semibold">Deletes all customer reviews from localStorage.</span>
+                        </div>
+                        <button onclick="wipeReviewsCache()" class="px-4 py-2 bg-rose-900/30 hover:bg-rose-600 text-rose-300 hover:text-white text-[10px] font-extrabold uppercase rounded-lg transition-colors border border-rose-900/40">
+                            Wipe Reviews
                         </button>
                     </div>
                 </div>
@@ -660,19 +747,28 @@
             // Hide previous active panel, reset previous active button class
             document.getElementById(`panel-${currentTab}`).classList.add('hidden');
             const prevBtn = document.getElementById(`tabBtn-${currentTab}`);
-            prevBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800";
+            if (currentTab === 'reviews') {
+                prevBtn.className = "w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800";
+            } else {
+                prevBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-neutral-400 hover:text-white hover:bg-neutral-800";
+            }
 
             // Set new active panel and button class
             currentTab = tabName;
             document.getElementById(`panel-${tabName}`).classList.remove('hidden');
             const newBtn = document.getElementById(`tabBtn-${tabName}`);
-            newBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-fashionGold text-white shadow-lg";
+            if (tabName === 'reviews') {
+                newBtn.className = "w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-fashionGold text-white shadow-lg";
+            } else {
+                newBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-fashionGold text-white shadow-lg";
+            }
 
             // Update title
             const titles = {
                 overview: "Overview Dashboard",
                 products: "Product Catalog Manager",
                 orders: "Orders Control Center",
+                reviews: "Reviews Moderation Panel",
                 simulator: "Testing sandbox"
             };
             document.getElementById('panelTitle').innerText = titles[tabName] || "Portal Dashboard";
@@ -684,6 +780,8 @@
                 renderProductsTable();
             } else if (tabName === 'orders') {
                 renderOrdersTable();
+            } else if (tabName === 'reviews') {
+                renderReviewsAdmin();
             }
         }
 
@@ -1169,13 +1267,16 @@
                         <img src="${p.image}" alt="${p.title}" class="w-8 h-10 object-cover rounded bg-neutral-900">
                         <div class="min-w-0">
                             <span class="block text-xs font-bold text-white truncate leading-tight">${p.title}</span>
-                            <span class="block text-[9px] text-neutral-500 font-bold">${p.category}</span>
+                            <span class="block text-[9px] text-neutral-550 font-bold">${p.category}</span>
                         </div>
                     </div>
                     <span class="text-xs font-extrabold text-fashionGold shrink-0">$${p.price.toFixed(2)}</span>
                 `;
                 topProductsContainer.appendChild(pDiv);
             });
+
+            // Sync reviews notification badge count
+            updatePendingReviewsBadge();
         }
 
         // --- 6. SIMULATOR ACTIONS ---
@@ -1263,7 +1364,234 @@
         window.addEventListener('DOMContentLoaded', () => {
             checkAdminSession();
             loadOverviewStats();
+            updatePendingReviewsBadge();
         });
+
+        // ==================== DEFAULT MOCK REVIEWS SEED ====================
+        const DEFAULT_REVIEWS = [
+            { id: 1, productId: 1, name: "Jane Cooper", rating: 5, title: "Cozy and Premium!", comment: "This hoodie is everything! The 480gsm weight is heavy but highly breathable. It holds its oversized shape beautifully even after washing. Definitely buying the Charcoal color too.", date: "May 12, 2026", status: "approved", helpfulCount: 24, verified: true },
+            { id: 2, productId: 1, name: "Cody Fisher", rating: 5, title: "Great fit & color", comment: "Beautiful red tone, very vibrant. Fits perfectly oversized. Highly recommend sizing down if you want a more standard silhouette, but the drop-shoulders are amazing.", date: "April 28, 2026", status: "approved", helpfulCount: 12, verified: true },
+            { id: 3, productId: 1, name: "Robert Fox", rating: 4, title: "Very comfortable", comment: "Extremely warm and high quality loopback fleece. Minus one star because sizing is indeed very large. Size down unless you want a massive fit.", date: "May 10, 2026", status: "approved", helpfulCount: 3, verified: true },
+            { id: 4, productId: 2, name: "Esther Howard", rating: 5, title: "Stunning quality", comment: "Pink Soda color is amazing, very soft cotton. Recommending this brand to all my friends.", date: "May 15, 2026", status: "approved", helpfulCount: 6, verified: true },
+            { id: 5, productId: 3, name: "Devon Lane", rating: 4, title: "Good sportswear hoodie", comment: "Classic Adidas styling. Fits slightly snugger than other 4F hoodies, but great for athletic activities.", date: "May 14, 2026", status: "approved", helpfulCount: 2, verified: false },
+            { id: 6, productId: 1, name: "Eleanor Pena", rating: 5, title: "Awesome design details", comment: "The custom signature graffiti embroidery details are so neat. Gives off a raw aesthetic. Highly recommend!", date: "May 24, 2026", status: "approved", helpfulCount: 0, verified: true },
+            { id: 7, productId: 2, name: "Guy Hawkins", rating: 3, title: "Just okay", comment: "Decent quality but shipping took 5 days. Product is fine though.", date: "May 22, 2026", status: "pending", helpfulCount: 0, verified: true }
+        ];
+
+        // --- 8. REVIEWS MODERATION PANEL CODE ---
+        let reviewsFilter = 'all';
+
+        function updatePendingReviewsBadge() {
+            let reviews = localStorage.getItem('productReviews');
+            reviews = reviews ? JSON.parse(reviews) : DEFAULT_REVIEWS;
+            const pendingCount = reviews.filter(r => r.status === 'pending').length;
+            const badge = document.getElementById('pending-reviews-count');
+            if (badge) {
+                if (pendingCount > 0) {
+                    badge.innerText = pendingCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+        }
+
+        function getReviewsList() {
+            let reviews = localStorage.getItem('productReviews');
+            if (!reviews) {
+                reviews = DEFAULT_REVIEWS;
+                localStorage.setItem('productReviews', JSON.stringify(reviews));
+            } else {
+                reviews = JSON.parse(reviews);
+            }
+            return reviews;
+        }
+
+        function saveReviewsList(reviews) {
+            localStorage.setItem('productReviews', JSON.stringify(reviews));
+            updatePendingReviewsBadge();
+        }
+
+        function filterReviewsAdmin(filter) {
+            reviewsFilter = filter;
+            
+            const filters = ['all', 'pending', 'approved', 'rejected'];
+            filters.forEach(f => {
+                const btn = document.getElementById(`filterBtn-${f}`);
+                if (btn) {
+                    if (f === filter) {
+                        btn.className = "px-3.5 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all bg-fashionGold text-white";
+                    } else {
+                        btn.className = "px-3.5 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all text-neutral-400 hover:text-white";
+                    }
+                }
+            });
+            
+            renderReviewsAdmin();
+        }
+
+        function renderReviewsAdmin() {
+            const reviews = getReviewsList();
+            const products = getProductsList();
+            const tbody = document.getElementById('reviews-tbody');
+            const emptyState = document.getElementById('reviews-empty-state');
+            
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            
+            let filteredReviews = reviews;
+            if (reviewsFilter !== 'all') {
+                filteredReviews = reviews.filter(r => r.status === reviewsFilter);
+            }
+            
+            filteredReviews.sort((a, b) => (b.id || 0) - (a.id || 0));
+            
+            if (filteredReviews.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+            
+            filteredReviews.forEach(r => {
+                const product = products.find(p => p.id === r.productId) || { title: `Product #${r.productId}`, image: '' };
+                
+                let statusBadge = '';
+                if (r.status === 'pending') {
+                    statusBadge = `<span class="px-2 py-0.5 text-[9px] font-bold rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Pending</span>`;
+                } else if (r.status === 'approved') {
+                    statusBadge = `<span class="px-2 py-0.5 text-[9px] font-bold rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Approved</span>`;
+                } else if (r.status === 'rejected') {
+                    statusBadge = `<span class="px-2 py-0.5 text-[9px] font-bold rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Rejected</span>`;
+                }
+                
+                let starsStr = '';
+                for (let i = 0; i < 5; i++) {
+                    starsStr += i < r.rating ? '★' : '☆';
+                }
+                
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-neutral-850/30 transition-colors";
+                
+                let actionButtons = '';
+                if (r.status === 'pending') {
+                    actionButtons = `
+                        <button onclick="approveReview(${r.id})" class="px-2.5 py-1 bg-emerald-950/20 hover:bg-emerald-900/60 text-emerald-400 hover:text-white text-[10px] font-bold uppercase rounded border border-emerald-900/30 hover:border-emerald-900 transition-colors">
+                            Approve
+                        </button>
+                        <button onclick="rejectReview(${r.id})" class="px-2.5 py-1 bg-rose-950/20 hover:bg-rose-900/60 text-rose-400 hover:text-white text-[10px] font-bold uppercase rounded border border-rose-900/30 hover:border-rose-900 transition-colors">
+                            Reject
+                        </button>
+                    `;
+                } else if (r.status === 'approved') {
+                    actionButtons = `
+                        <button onclick="rejectReview(${r.id})" class="px-2.5 py-1 bg-amber-950/20 hover:bg-amber-900/60 text-amber-400 hover:text-white text-[10px] font-bold uppercase rounded border border-amber-900/30 hover:border-amber-900 transition-colors">
+                            Reject
+                        </button>
+                    `;
+                } else if (r.status === 'rejected') {
+                    actionButtons = `
+                        <button onclick="approveReview(${r.id})" class="px-2.5 py-1 bg-emerald-950/20 hover:bg-emerald-900/60 text-emerald-400 hover:text-white text-[10px] font-bold uppercase rounded border border-emerald-900/30 hover:border-emerald-900 transition-colors">
+                            Approve
+                        </button>
+                    `;
+                }
+                
+                actionButtons += `
+                    <button onclick="deleteReview(${r.id})" class="px-2.5 py-1 bg-neutral-800 hover:bg-rose-600 text-neutral-400 hover:text-white text-[10px] font-bold uppercase rounded border border-neutral-700 hover:border-rose-500 transition-colors">
+                        Delete
+                    </button>
+                `;
+                
+                const initials = r.name ? r.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U';
+                
+                tr.innerHTML = `
+                    <td class="py-3.5 px-5">
+                        <div class="flex gap-2.5 items-center">
+                            ${product.image ? `<img src="${product.image}" alt="${product.title}" class="w-8 h-10 object-cover rounded bg-neutral-900">` : ''}
+                            <div class="max-w-[150px]">
+                                <span class="block text-xs font-extrabold text-white truncate leading-tight">${product.title}</span>
+                                <span class="block text-[9px] text-neutral-500 font-bold">${product.category || ''}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-4">
+                        <div class="space-y-0.5">
+                            <span class="block font-extrabold text-white">${r.name}</span>
+                            <span class="block text-fashionGold font-extrabold text-[10px]">${starsStr}</span>
+                            ${r.verified ? `<span class="block text-[8px] font-bold text-emerald-500 uppercase">Verified</span>` : ''}
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-4 max-w-sm">
+                        <div class="space-y-0.5 text-neutral-450 font-semibold">
+                            <span class="block text-white font-extrabold">${r.title || ''}</span>
+                            <p class="text-[10px] leading-normal italic text-neutral-450 line-clamp-2">"${r.comment}"</p>
+                            <span class="block text-[9px] text-neutral-555">${r.date || ''}</span>
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-4">
+                        ${statusBadge}
+                    </td>
+                    <td class="py-3.5 px-5 text-right space-x-2 whitespace-nowrap">
+                        ${actionButtons}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function approveReview(id) {
+            const reviews = getReviewsList();
+            const idx = reviews.findIndex(r => r.id === id);
+            if (idx > -1) {
+                reviews[idx].status = 'approved';
+                saveReviewsList(reviews);
+                showToast("Review approved successfully.");
+                renderReviewsAdmin();
+            }
+        }
+
+        function rejectReview(id) {
+            const reviews = getReviewsList();
+            const idx = reviews.findIndex(r => r.id === id);
+            if (idx > -1) {
+                reviews[idx].status = 'rejected';
+                saveReviewsList(reviews);
+                showToast("Review rejected successfully.");
+                renderReviewsAdmin();
+            }
+        }
+
+        function deleteReview(id) {
+            if (confirm("Are you sure you want to permanently delete this review?")) {
+                const reviews = getReviewsList();
+                const filtered = reviews.filter(r => r.id !== id);
+                saveReviewsList(filtered);
+                showToast("Review deleted permanently.");
+                renderReviewsAdmin();
+            }
+        }
+
+        // --- testing sandbox actions ---
+        function seedMockReviews() {
+            localStorage.setItem('productReviews', JSON.stringify(DEFAULT_REVIEWS));
+            updatePendingReviewsBadge();
+            showToast("Mock reviews seeded successfully.");
+            if (currentTab === 'reviews') {
+                renderReviewsAdmin();
+            }
+        }
+
+        function wipeReviewsCache() {
+            if (confirm("Are you sure you want to delete all reviews from local cache?")) {
+                localStorage.removeItem('productReviews');
+                updatePendingReviewsBadge();
+                showToast("Reviews cache wiped successfully.");
+                if (currentTab === 'reviews') {
+                    renderReviewsAdmin();
+                }
+            }
+        }
     </script>
 </body>
 </html>

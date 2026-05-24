@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
     <title>My Wishlist - 4F WEARS</title>
     
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -215,7 +216,7 @@
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
                             <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
-                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                            <li><a href="about.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
                         </ul>
                     </div>
 
@@ -411,7 +412,13 @@
             fallback.classList.add('hidden');
 
             grid.innerHTML = '';
+            const catalogStr = localStorage.getItem('productsList');
+            const catalog = catalogStr ? JSON.parse(catalogStr) : [];
+
             wishlist.forEach((item, index) => {
+                const matched = catalog.find(p => p.title === item.name);
+                const pId = matched ? matched.id : 1;
+
                 const card = document.createElement('div');
                 card.className = "wishlist-card bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between p-4 relative group hover:shadow-lg animate-fade-in-up";
                 card.id = `wishlist-item-${index}`;
@@ -423,17 +430,19 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-
+ 
                     <!-- Product image -->
-                    <div class="relative overflow-hidden aspect-[3/4] rounded-2xl bg-neutral-100 border border-neutral-150 flex-shrink-0">
+                    <a href="product.html?id=${pId}" class="relative block overflow-hidden aspect-[3/4] rounded-2xl bg-neutral-100 border border-neutral-150 flex-shrink-0">
                         <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103">
-                    </div>
-
+                    </a>
+ 
                     <!-- Details and move action -->
                     <div class="pt-4 flex flex-col justify-between flex-grow space-y-4">
                         <div class="space-y-1 text-left">
-                            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${item.category || 'Apparel'}</span>
-                            <h3 class="font-extrabold text-base text-fashionBlack leading-snug tracking-tight">${item.name}</h3>
+                            <span class="text-[10px] font-bold text-neutral-450 uppercase tracking-wider">${item.category || 'Apparel'}</span>
+                            <h3 class="font-extrabold text-base text-fashionBlack leading-snug tracking-tight">
+                                <a href="product.html?id=${pId}" class="hover:text-fashionGold transition-colors">${item.name}</a>
+                            </h3>
                             <span class="font-extrabold text-base text-fashionGold block">$${item.price.toFixed(2)}</span>
                         </div>
                         
@@ -444,7 +453,7 @@
                                 </svg>
                                 <span>Move To Bag</span>
                             </button>
-                            <a href="product.html" class="w-10 h-10 border border-neutral-200 text-neutral-500 hover:text-fashionBlack hover:border-fashionBlack rounded-xl flex items-center justify-center transition-all shadow-sm active:scale-90" aria-label="View Details">
+                            <a href="product.html?id=${pId}" class="w-10 h-10 border border-neutral-250 text-neutral-550 hover:text-fashionBlack hover:border-fashionBlack rounded-xl flex items-center justify-center transition-all shadow-sm active:scale-90" aria-label="View Details">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="loader.js"></script>
+    <title>Track Order | 4F WEARS</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium, modern, clean editorial feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashionGold: '#f18a00',
+                        fashionBlack: '#0e0f11',
+                        fashionDarkBg: '#1c1c1e', // Matte charcoal background
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Premium custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Shine effect on active button */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 40%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0.1) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: transform 1.2s ease;
+        }
+        .shine-effect:hover::after {
+            transform: translate(50%, 50%) rotate(30deg);
+        }
+
+        /* Pulsing ring for current tracking node */
+        @keyframes pulseTrackRing {
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+        .track-pulse {
+            animation: pulseTrackRing 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#ffffff] text-fashionBlack font-sans antialiased min-h-screen selection:bg-fashionGold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-300">
+        <!-- Brand Navigation Links -->
+        <nav class="hidden md:flex space-x-8 lg:space-x-10 text-neutral-600 font-semibold text-sm lg:text-[0.92rem]">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors duration-200">Home</a>
+            <a href="shop.html" class="hover:text-fashionBlack transition-colors duration-200">Shop</a>
+            <a href="lookbook.html" class="hover:text-fashionBlack transition-colors duration-200">Lookbook</a>
+            <a href="carrer.html" class="hover:text-fashionBlack transition-colors duration-200">Career</a>
+        </nav>
+
+        <!-- Centered Logo -->
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-extrabold tracking-tighter text-2xl md:text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+            <span class="font-bold tracking-widest text-lg md:text-xl text-fashionBlack/80">WEARS</span>
+        </a>
+
+        <!-- Utility Icons (Search, Profile, Cart) -->
+        <div class="flex items-center space-x-5 text-fashionBlack">
+            <!-- Search -->
+            <button aria-label="Search items" class="p-1 hover:text-fashionGold transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                </svg>
+            </button>
+            <!-- Wishlist -->
+            <a href="wishlist.html" aria-label="Wishlist" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                <span id="wishlistCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">0</span>
+            </a>
+            <!-- Profile -->
+            <div class="relative">
+                <a href="login.html" id="profileHeaderLink" aria-label="User Account" class="p-1 hover:text-fashionGold transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+                <!-- Dropdown Menu for Logged In User -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2.5 w-48 bg-white border border-neutral-100 rounded-xl shadow-xl py-2 z-50 text-xs font-bold text-neutral-600">
+                    <div class="px-4 py-2 border-b border-neutral-100 mb-1">
+                        <span class="block text-[10px] text-neutral-400 uppercase tracking-wider">Signed in as</span>
+                        <span id="dropdownUserName" class="block text-fashionBlack truncate text-sm mt-0.5">Jane Doe</span>
+                    </div>
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
+                    <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <a href="track-order.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Track Order</a>
+                    <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
+                        Log Out
+                    </button>
+                </div>
+            </div>
+            <!-- Cart -->
+            <a href="javascript:void(0)" onclick="toggleCheckoutDrawer()" aria-label="Shopping Bag" class="p-1 hover:text-fashionGold transition-colors duration-200 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cartCountBadge" class="absolute -top-1 -right-1.5 w-4.5 h-4.5 bg-fashionGold text-white font-extrabold text-[9px] flex items-center justify-center rounded-full transition-transform duration-300">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== BREADCRUMBS ==================== -->
+    <div class="bg-neutral-50 border-b border-neutral-100 py-6">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center space-x-2 text-xs font-semibold text-neutral-400">
+            <a href="index.html" class="hover:text-fashionBlack transition-colors">Home</a>
+            <span>/</span>
+            <span class="text-fashionBlack font-bold">Track Shipment</span>
+        </div>
+    </div>
+
+    <!-- MAIN TRACKING CONTAINER -->
+    <main class="max-w-7xl mx-auto px-6 py-12 md:px-12 md:py-20">
+        
+        <!-- HEADER BLOCK -->
+        <div class="text-center space-y-3 max-w-xl mx-auto mb-12">
+            <span class="text-fashionGold font-extrabold text-xs uppercase tracking-wider block">Shipment Status Lookup</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-fashionBlack tracking-tight">Track Your Shipment</h1>
+            <p class="text-xs md:text-sm text-neutral-400 font-semibold leading-relaxed">
+                Stay updated on your premium fashion orders. Input your order reference to display live updates, logistics history, and transit details.
+            </p>
+        </div>
+
+        <!-- SEARCH FORM CARD -->
+        <section class="max-w-2xl mx-auto mb-16" aria-label="Order Tracking Search Form">
+            <div class="bg-white border border-neutral-150 rounded-3xl p-6 md:p-8 shadow-xl shadow-neutral-100/50 space-y-6 relative overflow-hidden">
+                <!-- Background decorative touch -->
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-fashionGold/5 rounded-full filter blur-xl"></div>
+                
+                <form id="trackingForm" onsubmit="handleTrackSubmit(event)" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="space-y-1.5">
+                            <label for="orderIdInput" class="block text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Order Reference ID</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="text" 
+                                    id="orderIdInput" 
+                                    required 
+                                    placeholder="e.g. 4F-11024 or #4F-11024"
+                                    class="w-full pl-10 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm font-bold text-fashionBlack placeholder-neutral-350 focus:outline-none focus:border-fashionGold focus:bg-white transition-all"
+                                >
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="emailInput" class="block text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Billing Email Address (Optional)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="email" 
+                                    id="emailInput" 
+                                    placeholder="e.g. customer@example.com"
+                                    class="w-full pl-10 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm font-bold text-fashionBlack placeholder-neutral-350 focus:outline-none focus:border-fashionGold focus:bg-white transition-all"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        class="shine-effect w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-extrabold uppercase rounded-xl transition-all shadow-md flex items-center justify-center space-x-2"
+                    >
+                        <span>Track Shipment Status</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="pt-4 border-t border-neutral-100 flex flex-wrap gap-x-2.5 gap-y-1.5 items-center justify-center text-xs text-neutral-400 font-semibold">
+                    <span>Quick Track Demo:</span>
+                    <button onclick="trackDemoOrder('4F-11024')" class="text-fashionGold hover:underline font-bold">#4F-11024 (In Transit)</button>
+                    <span class="text-neutral-250">•</span>
+                    <button onclick="trackDemoOrder('4F-12894')" class="text-fashionGold hover:underline font-bold">#4F-12894 (Delivered)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- feedback notification area -->
+        <div id="actionFeedback" class="hidden max-w-5xl mx-auto mb-6 p-4 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-xl text-xs font-semibold text-center">
+            Order updated successfully!
+        </div>
+
+        <!-- TRACKING NOT FOUND / ERROR FALLBACK -->
+        <section id="notFoundSection" class="hidden max-w-xl mx-auto border border-neutral-150 rounded-2xl bg-white p-10 text-center text-neutral-400 space-y-4">
+            <div class="w-16 h-16 bg-neutral-50 rounded-full flex items-center justify-center mx-auto text-neutral-350">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-neutral-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="space-y-1">
+                <h4 class="font-extrabold text-sm text-fashionBlack uppercase tracking-wider">Reference Not Found</h4>
+                <p class="text-xs leading-relaxed max-w-sm mx-auto">We couldn't locate any package associated with that Order Reference. Verify the ID and try again, or check your profile order history.</p>
+            </div>
+            <div class="pt-2 flex justify-center gap-3">
+                <a href="orders.html" class="px-5 py-2.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-xs font-bold uppercase rounded-xl transition-all">
+                    Order History
+                </a>
+                <button onclick="trackDemoOrder('4F-11024')" class="px-5 py-2.5 bg-fashionBlack text-white hover:bg-fashionGold text-xs font-bold uppercase rounded-xl transition-all shadow-md">
+                    Track Demo Order
+                </button>
+            </div>
+        </section>
+
+        <!-- TRACKING DETAILS LAYOUT (DYNAMIC) -->
+        <section id="trackingDetailsSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT PANEL: Timeline and scan logs -->
+            <div class="lg:col-span-8 space-y-8">
+                
+                <!-- PROGRESS TIMELINE CARD -->
+                <div class="bg-white border border-neutral-150 rounded-3xl p-6 md:p-8 shadow-sm">
+                    <div class="flex justify-between items-center pb-5 border-b border-neutral-100 flex-wrap gap-3">
+                        <div class="space-y-1">
+                            <span id="currentStatusBadge" class="px-2.5 py-1 text-[10px] font-extrabold uppercase border rounded-md bg-amber-50 text-amber-600 border-amber-100">
+                                In Transit
+                            </span>
+                            <h2 class="text-lg font-extrabold text-fashionBlack tracking-tight">Estimated Delivery</h2>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Scheduled date</span>
+                            <span id="estimatedDeliveryDate" class="text-sm font-extrabold text-fashionGold">May 20, 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress timeline visual -->
+                    <div class="pt-10 pb-4">
+                        <!-- Desktop Layout (Horizontal nodes) -->
+                        <div class="hidden sm:flex items-center justify-between relative max-w-xl mx-auto">
+                            <!-- Progress Line background -->
+                            <div class="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-0.5 bg-neutral-200 z-0"></div>
+                            
+                            <!-- Active Fill Line -->
+                            <div id="progressFillLine" class="absolute left-6 top-1/2 -translate-y-1/2 h-0.5 z-0 transition-all duration-700 bg-fashionBlack" style="width: 50%;"></div>
+
+                            <!-- Node 1: Placed -->
+                            <div class="flex flex-col items-center z-10 space-y-2 relative">
+                                <div id="node1-dot" class="w-8 h-8 rounded-full bg-white border-2 border-fashionBlack text-fashionBlack font-bold flex items-center justify-center text-xs relative transition-all duration-300">
+                                    ✓
+                                </div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Placed</span>
+                                <span id="node1-date" class="text-[9px] font-bold font-mono text-neutral-400 absolute top-12 whitespace-nowrap">May 15</span>
+                            </div>
+
+                            <!-- Node 2: Processing -->
+                            <div class="flex flex-col items-center z-10 space-y-2 relative">
+                                <div id="node2-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-400 font-bold flex items-center justify-center text-xs transition-all duration-300">
+                                    2
+                                </div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Processing</span>
+                                <span id="node2-date" class="text-[9px] font-bold font-mono text-neutral-400 absolute top-12 whitespace-nowrap">--</span>
+                            </div>
+
+                            <!-- Node 3: In Transit -->
+                            <div class="flex flex-col items-center z-10 space-y-2 relative">
+                                <div id="node3-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-400 font-bold flex items-center justify-center text-xs transition-all duration-300">
+                                    3
+                                </div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">In Transit</span>
+                                <span id="node3-date" class="text-[9px] font-bold font-mono text-neutral-400 absolute top-12 whitespace-nowrap">--</span>
+                            </div>
+
+                            <!-- Node 4: Out for Delivery -->
+                            <div class="flex flex-col items-center z-10 space-y-2 relative">
+                                <div id="node4-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-400 font-bold flex items-center justify-center text-xs transition-all duration-300">
+                                    4
+                                </div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Out for Delivery</span>
+                                <span id="node4-date" class="text-[9px] font-bold font-mono text-neutral-400 absolute top-12 whitespace-nowrap">--</span>
+                            </div>
+
+                            <!-- Node 5: Delivered -->
+                            <div class="flex flex-col items-center z-10 space-y-2 relative">
+                                <div id="node5-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-400 font-bold flex items-center justify-center text-xs transition-all duration-300">
+                                    ✓
+                                </div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">Delivered</span>
+                                <span id="node5-date" class="text-[9px] font-bold font-mono text-neutral-400 absolute top-12 whitespace-nowrap">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Layout (Vertical nodes) -->
+                        <div class="sm:hidden flex flex-col space-y-8 relative pl-8 pt-4">
+                            <!-- Background Vertical Line -->
+                            <div class="absolute left-[15px] top-6 bottom-6 w-0.5 bg-neutral-200 z-0"></div>
+                            <!-- Active Fill Line Vertical -->
+                            <div id="progressFillLineMobile" class="absolute left-[15px] top-6 w-0.5 z-0 transition-all duration-700 bg-fashionBlack" style="height: 0px;"></div>
+
+                            <!-- Node 1: Placed -->
+                            <div class="flex items-start space-x-4 relative z-10">
+                                <div id="m-node1-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-450 font-bold flex items-center justify-center text-xs flex-shrink-0">1</div>
+                                <div class="space-y-0.5">
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-fashionBlack">Order Placed</h4>
+                                    <p id="m-node1-date" class="text-[10px] font-bold font-mono text-neutral-400">--</p>
+                                </div>
+                            </div>
+
+                            <!-- Node 2: Processing -->
+                            <div class="flex items-start space-x-4 relative z-10">
+                                <div id="m-node2-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-450 font-bold flex items-center justify-center text-xs flex-shrink-0">2</div>
+                                <div class="space-y-0.5">
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-fashionBlack">Processing & Packing</h4>
+                                    <p id="m-node2-date" class="text-[10px] font-bold font-mono text-neutral-400">--</p>
+                                </div>
+                            </div>
+
+                            <!-- Node 3: In Transit -->
+                            <div class="flex items-start space-x-4 relative z-10">
+                                <div id="m-node3-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-450 font-bold flex items-center justify-center text-xs flex-shrink-0">3</div>
+                                <div class="space-y-0.5">
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-fashionBlack">In Transit</h4>
+                                    <p id="m-node3-date" class="text-[10px] font-bold font-mono text-neutral-400">--</p>
+                                </div>
+                            </div>
+
+                            <!-- Node 4: Out for Delivery -->
+                            <div class="flex items-start space-x-4 relative z-10">
+                                <div id="m-node4-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-450 font-bold flex items-center justify-center text-xs flex-shrink-0">4</div>
+                                <div class="space-y-0.5">
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-fashionBlack">Out for Delivery</h4>
+                                    <p id="m-node4-date" class="text-[10px] font-bold font-mono text-neutral-400">--</p>
+                                </div>
+                            </div>
+
+                            <!-- Node 5: Delivered -->
+                            <div class="flex items-start space-x-4 relative z-10">
+                                <div id="m-node5-dot" class="w-8 h-8 rounded-full bg-white border-2 border-neutral-200 text-neutral-450 font-bold flex items-center justify-center text-xs flex-shrink-0">✓</div>
+                                <div class="space-y-0.5">
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-fashionBlack">Delivered</h4>
+                                    <p id="m-node5-date" class="text-[10px] font-bold font-mono text-neutral-400">--</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARRIER & LOGS ACCORDION CARD -->
+                <div class="bg-white border border-neutral-150 rounded-3xl p-6 md:p-8 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center pb-3 border-b border-neutral-100">
+                        <h3 class="text-sm font-extrabold text-fashionBlack uppercase tracking-wider">Logistics Activity Log</h3>
+                        <span id="carrierInfo" class="text-xs font-extrabold font-mono text-neutral-450">FedEx Tracking: #4F-11024</span>
+                    </div>
+                    
+                    <div id="logsTimelineContainer" class="space-y-3.5 pl-4 relative before:absolute before:left-1.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-neutral-100">
+                        <!-- Dynamic Logs generated here -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT PANEL: Items list, cost breakdown, simulation controls -->
+            <div class="lg:col-span-4 space-y-8">
+                
+                <!-- SIMULATOR CONTROL PANEL -->
+                <div class="bg-amber-50/50 border border-amber-150 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div class="flex items-center space-x-2 text-amber-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider">Simulated Sandbox Controls</h4>
+                    </div>
+                    <p class="text-[11px] text-amber-700 leading-relaxed">
+                        Since this is a simulated storefront, you can advance the package status or trigger cancellation to see the visual tracker update in real-time.
+                    </p>
+                    <div class="space-y-2.5 pt-1" id="sandboxButtonsContainer">
+                        <!-- Simulated status advancement buttons -->
+                    </div>
+                </div>
+
+                <!-- PACKAGE CONTENTS CARD -->
+                <div class="bg-white border border-neutral-150 rounded-3xl p-6 shadow-sm space-y-6">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Order Information</h3>
+                    
+                    <!-- Details (Address, ID) -->
+                    <div class="text-xs font-semibold space-y-3 pb-5 border-b border-neutral-100">
+                        <div>
+                            <span class="block text-[9px] uppercase tracking-wider text-neutral-400 font-bold mb-0.5">Shipping Address</span>
+                            <p id="shippingAddressText" class="text-fashionBlack leading-relaxed">Jane Doe, 128 Fashion Plaza, New York, NY, 10001</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="block text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Order ID</span>
+                                <span id="summaryOrderId" class="text-fashionBlack font-mono font-bold">#4F-11024</span>
+                            </div>
+                            <div>
+                                <span class="block text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Payment Method</span>
+                                <span class="text-fashionBlack font-bold">Simulated Credit Card</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items List -->
+                    <div id="itemsContainer" class="divide-y divide-neutral-100 max-h-[30vh] overflow-y-auto pr-1">
+                        <!-- Dynamic items layout -->
+                    </div>
+
+                    <!-- Order Price Breakdown -->
+                    <div class="space-y-2 pt-2 text-xs font-semibold text-neutral-500">
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span id="summarySubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Shipping (Standard Express)</span>
+                            <span class="font-bold text-emerald-600">FREE</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Estimated Tax</span>
+                            <span id="summaryTax" class="font-bold text-fashionBlack">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-extrabold text-fashionBlack pt-3 border-t border-neutral-100">
+                            <span>Estimated Total</span>
+                            <span id="summaryTotal" class="text-fashionGold text-base font-extrabold">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ==================== CANCEL CONFIRMATION MODAL ==================== -->
+    <div id="cancelModal" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-6">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-2xl text-center transform scale-95 opacity-0 transition-all duration-300 space-y-5 border border-neutral-100">
+            <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="space-y-1.5">
+                <h3 class="text-lg font-extrabold text-fashionBlack tracking-tight">Cancel Order?</h3>
+                <p class="text-xs text-neutral-400 font-semibold leading-relaxed">
+                    Are you sure you want to cancel order <span id="cancelOrderTargetId" class="font-extrabold text-neutral-600">#4F-00000</span>? This simulation cannot be undone.
+                </p>
+            </div>
+            <div class="flex gap-3.5 pt-2">
+                <button onclick="confirmCancelOrder()" class="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold uppercase rounded-xl transition-all shadow-sm">
+                    Confirm Cancellation
+                </button>
+                <button onclick="closeCancelModal()" class="flex-1 py-3 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-xs font-semibold rounded-xl transition-all">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER BLOCK ==================== -->
+    <footer class="w-full bg-[#ffffff] border-t border-neutral-100 pt-16 pb-8 md:pt-20 md:pb-12 text-fashionBlack">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16">
+            
+            <!-- Top Grid info -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Left Description Column -->
+                <div class="col-span-1 md:col-span-6 space-y-6">
+                    <a href="index.html" class="flex items-center space-x-1 group w-fit">
+                        <span class="font-extrabold tracking-tighter text-3xl italic text-fashionBlack transition-colors group-hover:text-fashionGold">4F</span>
+                        <span class="font-bold tracking-widest text-xl text-fashionBlack/80">WEARS</span>
+                    </a>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-md">
+                        We believe standard excellence can raise total fashion profiles without compromising convenience. To express yourself fully represents our main design philosophy. All you need to do is discover the right selections.
+                    </p>
+                </div>
+
+                <!-- Right Navigation Directory Columns -->
+                <div class="col-span-1 md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-6 items-start">
+                    
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Navigation</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Home</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Collections</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="product.html" class="hover:text-fashionGold transition-all duration-200">Product</a></li>
+                            <li><a href="shop.html" class="hover:text-fashionGold transition-all duration-200">Featured</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
+                            <li><a href="about.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Link Stack -->
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Customer</h4>
+                        <ul class="space-y-2 text-sm font-semibold text-neutral-600">
+                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Reviews</a></li>
+                            <li><a href="track-order.html" class="hover:text-fashionGold transition-all duration-200">Track Order</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Row copyright and terms -->
+            <div class="pt-8 border-t border-neutral-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-neutral-400">
+                <p>© Copyright 2026. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-fashionGold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-fashionGold transition-colors">Shipping Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ==================== CHECKOUT DRAWER (UTILITY) ==================== -->
+    <div id="checkoutDrawer" class="fixed inset-0 z-50 bg-fashionBlack/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex justify-end">
+        <div id="drawerContent" class="w-full max-w-md bg-white h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between translate-x-full transition-transform duration-300">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center pb-4 border-b border-neutral-100">
+                    <h3 class="text-xl font-extrabold text-fashionBlack tracking-tight">Your Shopping Bag</h3>
+                    <button onclick="toggleCheckoutDrawer()" class="text-neutral-400 hover:text-fashionBlack transition-colors p-1 rounded-full hover:bg-neutral-50" aria-label="Close cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Dynamic cart items -->
+                </div>
+            </div>
+
+            <div class="border-t border-neutral-100 pt-6 space-y-6">
+                <div class="space-y-2.5">
+                    <div class="flex justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                        <span>Bag Subtotal</span>
+                        <span id="bagSubtotal" class="font-bold text-fashionBlack">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-fashionBlack uppercase tracking-tight pt-2 border-t border-neutral-100">
+                        <span>Estimated Total</span>
+                        <span id="bagTotal" class="text-lg text-fashionGold font-extrabold">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="window.location.href='checkout.html'" class="w-full py-4 bg-fashionBlack text-white hover:bg-fashionGold text-sm font-extrabold uppercase rounded-xl shadow-lg transition-all active:scale-97">
+                        Checkout Securely
+                    </button>
+                    <button onclick="toggleCheckoutDrawer()" class="w-full py-3.5 border border-neutral-200 text-neutral-500 hover:border-fashionBlack hover:text-fashionBlack text-sm font-semibold rounded-xl transition-all">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT APP LOGIC ==================== -->
+    <script>
+        let orders = [];
+        let currentlyTrackedOrder = null;
+        let originalOrderIndex = -1;
+
+        // Mock Initial Orders to seed search in case checkout has not been run
+        const DEFAULT_ORDERS = [
+            {
+                orderId: "#4F-12894",
+                date: "May 15, 2026",
+                total: 24.00,
+                status: "Delivered",
+                shippingAddress: "Jane Doe, 128 Fashion Plaza, New York, NY, 10001",
+                items: [
+                    {
+                        name: "Graffiti Boyfriend Oversized Hoodie",
+                        price: 24.00,
+                        qty: 1,
+                        color: "Red Graffiti",
+                        size: "M",
+                        image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=200&auto=format&fit=crop"
+                    }
+                ],
+                logs: [
+                    { time: "May 15, 2026, 09:30 AM", msg: "Order placed successfully" },
+                    { time: "May 15, 2026, 02:15 PM", msg: "Package handed over to FedEx carrier" },
+                    { time: "May 16, 2026, 11:00 AM", msg: "Departed FedEx sorting facility" },
+                    { time: "May 17, 2026, 08:45 AM", msg: "Out for delivery - Package on courier vehicle" },
+                    { time: "May 18, 2026, 04:30 PM", msg: "Delivered - Package left near front porch" }
+                ]
+            },
+            {
+                orderId: "#4F-11024",
+                date: "May 20, 2026",
+                total: 59.00,
+                status: "In Transit",
+                shippingAddress: "Jane Doe, 128 Fashion Plaza, New York, NY, 10001",
+                items: [
+                    {
+                        name: "Sweatshirt Pink Soda Signature",
+                        price: 35.00,
+                        qty: 1,
+                        color: "Pink Standard",
+                        size: "M",
+                        image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=200&auto=format&fit=crop"
+                    },
+                    {
+                        name: "Adidas Contempo Coral Tee",
+                        price: 24.00,
+                        qty: 1,
+                        color: "Coral Peach",
+                        size: "M",
+                        image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=200&auto=format&fit=crop"
+                    }
+                ],
+                logs: [
+                    { time: "May 20, 2026, 11:00 AM", msg: "Order placed successfully" },
+                    { time: "May 20, 2026, 05:40 PM", msg: "Carrier accepted package" },
+                    { time: "May 22, 2026, 08:15 AM", msg: "In Transit - In transit to destination country sorting hub" }
+                ]
+            }
+        ];
+
+        // --- 1. USER SESSION LOAD ---
+        function checkUserAuthSession() {
+            const sessionStr = localStorage.getItem('userSession');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                if (session.loggedIn) {
+                    const link = document.getElementById('profileHeaderLink');
+                    const dropdown = document.getElementById('profileDropdown');
+                    const dropdownName = document.getElementById('dropdownUserName');
+
+                    if (link && dropdown && dropdownName) {
+                        link.href = "javascript:void(0)";
+                        link.innerHTML = `<div class="w-7 h-7 rounded-full bg-fashionGold text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm select-none border border-white/20">${session.initials}</div>`;
+                        dropdownName.innerText = session.name;
+                        
+                        link.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        document.addEventListener('click', () => {
+                            dropdown.classList.add('hidden');
+                        });
+                    }
+                }
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem('userSession');
+            window.location.replace("index.html");
+        }
+
+        // --- 2. ORDER RETRIEVAL ---
+        function getOrders() {
+            const saved = localStorage.getItem('ordersList');
+            if (!saved) {
+                orders = DEFAULT_ORDERS;
+                localStorage.setItem('ordersList', JSON.stringify(orders));
+            } else {
+                orders = JSON.parse(saved);
+            }
+        }
+
+        function saveOrders() {
+            localStorage.setItem('ordersList', JSON.stringify(orders));
+        }
+
+        function searchOrder(orderId) {
+            getOrders();
+            // clean up input
+            let targetId = orderId.trim();
+            if (!targetId.startsWith('#')) {
+                targetId = '#' + targetId;
+            }
+
+            const idx = orders.findIndex(o => o.orderId.toUpperCase() === targetId.toUpperCase());
+            if (idx > -1) {
+                currentlyTrackedOrder = orders[idx];
+                originalOrderIndex = idx;
+                return true;
+            }
+            currentlyTrackedOrder = null;
+            originalOrderIndex = -1;
+            return false;
+        }
+
+        // --- 3. TRACKING UI RENDERING ---
+        function renderTrackingView() {
+            const detailsSection = document.getElementById('trackingDetailsSection');
+            const notFoundSection = document.getElementById('notFoundSection');
+
+            if (!currentlyTrackedOrder) {
+                detailsSection.classList.add('hidden');
+                notFoundSection.classList.remove('hidden');
+                return;
+            }
+
+            notFoundSection.classList.add('hidden');
+            detailsSection.classList.remove('hidden');
+
+            const order = currentlyTrackedOrder;
+
+            // Status details
+            const badge = document.getElementById('currentStatusBadge');
+            badge.innerText = order.status;
+            
+            // Badge design
+            badge.className = "px-2.5 py-1 text-[10px] font-extrabold uppercase border rounded-md ";
+            if (order.status === "Delivered") {
+                badge.className += "bg-emerald-50 text-emerald-600 border-emerald-100";
+            } else if (order.status === "In Transit") {
+                badge.className += "bg-amber-50 text-amber-600 border-amber-100";
+            } else if (order.status === "Processing") {
+                badge.className += "bg-sky-50 text-sky-600 border-sky-100";
+            } else if (order.status === "Cancelled") {
+                badge.className += "bg-rose-50 text-rose-600 border-rose-100";
+            } else if (order.status === "Out for Delivery") {
+                badge.className += "bg-indigo-50 text-indigo-600 border-indigo-100 animate-pulse";
+            } else {
+                badge.className += "bg-neutral-100 text-neutral-500 border-neutral-200";
+            }
+
+            // Estimate Date (mock logic adds 4 days to order date)
+            const estDel = document.getElementById('estimatedDeliveryDate');
+            if (order.status === "Cancelled") {
+                estDel.innerText = "Cancelled";
+                estDel.className = "text-sm font-extrabold text-rose-600";
+            } else {
+                estDel.innerText = computeDeliveryEstimate(order.date);
+                estDel.className = "text-sm font-extrabold text-fashionGold";
+            }
+
+            // Timeline calculations
+            renderTimelineNodes(order);
+
+            // Carrier info
+            document.getElementById('carrierInfo').innerText = `Carrier: FedEx Tracking ${order.orderId}`;
+            
+            // Render Logs
+            renderLogsList(order);
+
+            // Summary information
+            document.getElementById('summaryOrderId').innerText = order.orderId;
+            document.getElementById('shippingAddressText').innerText = order.shippingAddress || "Jane Doe, 128 Fashion Plaza, New York, NY, 10001";
+
+            // Items List
+            renderItemsList(order);
+
+            // Price breakdowns
+            const subtotal = order.total;
+            const tax = subtotal * 0.08;
+            const total = subtotal;
+
+            document.getElementById('summarySubtotal').innerText = `$${(subtotal - tax).toFixed(2)}`;
+            document.getElementById('summaryTax').innerText = `$${tax.toFixed(2)}`;
+            document.getElementById('summaryTotal').innerText = `$${total.toFixed(2)}`;
+
+            // Sandbox buttons
+            renderSandboxControls(order);
+        }
+
+        function computeDeliveryEstimate(orderPlacedDateStr) {
+            // Mock delivery estimation (adds 3 days to date placed)
+            try {
+                const date = new Date(orderPlacedDateStr);
+                if (isNaN(date.getTime())) return "3-5 Business Days";
+                date.setDate(date.getDate() + 3);
+                return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            } catch (e) {
+                return "3-5 Business Days";
+            }
+        }
+
+        function renderTimelineNodes(order) {
+            // Statuses: Placed (1) -> Processing (2) -> In Transit (3) -> Out for Delivery (4) -> Delivered (5)
+            const stages = ["Placed", "Processing", "In Transit", "Out for Delivery", "Delivered"];
+            const currentStatus = order.status;
+
+            // Compute step numbers
+            let step = 1; // Default
+            if (currentStatus === "Processing") step = 2;
+            else if (currentStatus === "In Transit") step = 3;
+            else if (currentStatus === "Out for Delivery") step = 4;
+            else if (currentStatus === "Delivered") step = 5;
+            else if (currentStatus === "Cancelled") step = 0;
+
+            // Adjust horizontal line progress percentage
+            const desktopLine = document.getElementById('progressFillLine');
+            const mobileLine = document.getElementById('progressFillLineMobile');
+            
+            let percentage = 0;
+            if (step > 1) percentage = ((step - 1) / 4) * 100;
+            if (currentStatus === "Cancelled") percentage = 0;
+
+            desktopLine.style.width = `${percentage}%`;
+            mobileLine.style.height = `${percentage}%`;
+
+            // Reset nodes
+            for (let i = 1; i <= 5; i++) {
+                const dot = document.getElementById(`node${i}-dot`);
+                const mdot = document.getElementById(`m-node${i}-dot`);
+                const dateSpan = document.getElementById(`node${i}-date`);
+                const mdateSpan = document.getElementById(`m-node${i}-date`);
+
+                dot.className = "w-8 h-8 rounded-full bg-white border-2 flex items-center justify-center text-xs transition-all duration-300 ";
+                mdot.className = "w-8 h-8 rounded-full bg-white border-2 flex items-center justify-center text-xs flex-shrink-0 transition-all duration-300 ";
+                
+                // Clear animations
+                dot.innerHTML = i === 5 ? "✓" : i;
+                mdot.innerHTML = i === 5 ? "✓" : i;
+
+                if (currentStatus === "Cancelled") {
+                    dot.className += "border-neutral-200 text-neutral-350";
+                    mdot.className += "border-neutral-200 text-neutral-350";
+                    dateSpan.innerText = "--";
+                    mdateSpan.innerText = "--";
+                    continue;
+                }
+
+                if (i < step) {
+                    // Completed step
+                    dot.className += "border-fashionBlack bg-fashionBlack text-white font-bold";
+                    mdot.className += "border-fashionBlack bg-fashionBlack text-white font-bold";
+                    dot.innerHTML = "✓";
+                    mdot.innerHTML = "✓";
+                    
+                    // Display dates from logs if possible
+                    const logDate = getLogDateForStage(order, stages[i-1]);
+                    dateSpan.innerText = logDate;
+                    mdateSpan.innerText = logDate;
+                } else if (i === step) {
+                    // Active step
+                    if (currentStatus === "Delivered") {
+                        dot.className += "border-emerald-500 bg-emerald-500 text-white font-bold shadow-md shadow-emerald-100";
+                        mdot.className += "border-emerald-500 bg-emerald-500 text-white font-bold shadow-md shadow-emerald-100";
+                        dot.innerHTML = "✓";
+                        mdot.innerHTML = "✓";
+                    } else {
+                        dot.className += "border-fashionGold text-fashionGold font-extrabold relative shadow-md shadow-amber-100";
+                        mdot.className += "border-fashionGold text-fashionGold font-extrabold relative shadow-md shadow-amber-100";
+                        
+                        // Add pulsing indicator ring
+                        dot.innerHTML = `${i}<span class="absolute inset-0 rounded-full border border-fashionGold/60 track-pulse"></span>`;
+                        mdot.innerHTML = `${i}<span class="absolute inset-0 rounded-full border border-fashionGold/60 track-pulse"></span>`;
+                    }
+                    const logDate = getLogDateForStage(order, stages[i-1]);
+                    dateSpan.innerText = logDate;
+                    mdateSpan.innerText = logDate;
+                } else {
+                    // Upcoming step
+                    dot.className += "border-neutral-200 text-neutral-350";
+                    mdot.className += "border-neutral-200 text-neutral-350";
+                    dateSpan.innerText = "--";
+                    mdateSpan.innerText = "--";
+                }
+            }
+        }
+
+        function getLogDateForStage(order, stage) {
+            // Find matches in logs to show clean short dates
+            let searchKeyword = "placed";
+            if (stage === "Processing") searchKeyword = " warehouse";
+            else if (stage === "In Transit") searchKeyword = "Transit";
+            else if (stage === "Out for Delivery") searchKeyword = "Out for delivery";
+            else if (stage === "Delivered") searchKeyword = "Delivered";
+
+            const log = order.logs.find(l => l.msg.toLowerCase().includes(searchKeyword.toLowerCase()));
+            if (log) {
+                // Parse date string (e.g., "May 15, 2026, 09:30 AM")
+                try {
+                    const parts = log.time.split(',');
+                    return parts[0].trim(); // Returns "May 15"
+                } catch(e) {
+                    return log.time;
+                }
+            }
+            // fallback helper
+            if (stage === "Placed") return order.date.split(',')[0];
+            return "--";
+        }
+
+        function renderLogsList(order) {
+            const container = document.getElementById('logsTimelineContainer');
+            container.innerHTML = '';
+
+            // Render logs in reverse chronological order (newest first)
+            const displayLogs = [...order.logs].reverse();
+
+            displayLogs.forEach(log => {
+                const logItem = document.createElement('div');
+                logItem.className = "flex justify-between items-start gap-4 pb-2 border-b border-neutral-100 last:border-0 last:pb-0 relative";
+                logItem.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-neutral-250 border border-white z-10 flex-shrink-0"></span>
+                        <span class="text-neutral-400 font-bold font-mono text-[10px]">${log.time}</span>
+                    </div>
+                    <span class="text-neutral-600 text-right text-xs font-semibold max-w-[65%]">${log.msg}</span>
+                `;
+                container.appendChild(logItem);
+            });
+        }
+
+        function renderItemsList(order) {
+            const container = document.getElementById('itemsContainer');
+            container.innerHTML = '';
+
+            order.items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "flex gap-4 items-center py-4 first:pt-0 last:pb-0";
+                itemDiv.innerHTML = `
+                    <div class="w-14 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200 flex-shrink-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-xs font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[10px] text-neutral-400 font-semibold">
+                            <span>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></span>
+                            <span class="mx-1.5">•</span>
+                            <span>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></span>
+                        </div>
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="font-extrabold text-xs text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-[10px] text-neutral-450 font-bold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function renderSandboxControls(order) {
+            const container = document.getElementById('sandboxButtonsContainer');
+            container.innerHTML = '';
+
+            if (order.status === "Cancelled") {
+                container.innerHTML = `<div class="p-3 bg-rose-50 border border-rose-100 rounded-xl text-rose-600 font-bold text-center text-[10px] uppercase">Simulation Closed: Order Cancelled</div>`;
+                return;
+            }
+            if (order.status === "Delivered") {
+                container.innerHTML = `<div class="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-emerald-600 font-bold text-center text-[10px] uppercase">Simulation Closed: Package Delivered</div>`;
+                return;
+            }
+
+            let nextStatusLabel = "";
+            if (order.status === "Processing") nextStatusLabel = "Advance to In Transit";
+            else if (order.status === "In Transit") nextStatusLabel = "Advance to Out for Delivery";
+            else if (order.status === "Out for Delivery") nextStatusLabel = "Deliver Package";
+
+            container.innerHTML = `
+                <button onclick="advanceShipmentStateSimulated()" class="w-full py-3 bg-fashionBlack hover:bg-fashionGold text-white font-extrabold uppercase rounded-xl transition-all shadow-sm text-[10px] tracking-wider">
+                    ${nextStatusLabel} ➔
+                </button>
+                <button onclick="triggerCancelOrderSimulated()" class="w-full py-2.5 border border-rose-200 text-rose-500 hover:bg-rose-50 font-extrabold uppercase rounded-xl transition-all text-[10px] tracking-wider">
+                    Cancel Order
+                </button>
+            `;
+        }
+
+        // --- 4. SIMULATOR ACTIONS ---
+        function advanceShipmentStateSimulated() {
+            if (originalOrderIndex === -1) return;
+            
+            getOrders();
+            const order = orders[originalOrderIndex];
+            const now = new Date();
+            const timeStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ", " + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            if (order.status === "Processing") {
+                order.status = "In Transit";
+                order.logs.push({ time: timeStr, msg: "In Transit - Departed local logistics hub" });
+                triggerFeedbackToast("Advanced: Order marked In Transit!");
+            } else if (order.status === "In Transit") {
+                order.status = "Out for Delivery";
+                order.logs.push({ time: timeStr, msg: "Out for delivery - Package on courier vehicle" });
+                triggerFeedbackToast("Advanced: Package Out for Delivery!");
+            } else if (order.status === "Out for Delivery") {
+                order.status = "Delivered";
+                order.logs.push({ time: timeStr, msg: "Delivered - Handed over directly to resident" });
+                triggerFeedbackToast("Advanced: Package Delivered successfully!");
+            }
+
+            saveOrders();
+            currentlyTrackedOrder = order;
+            renderTrackingView();
+        }
+
+        function triggerCancelOrderSimulated() {
+            document.getElementById('cancelOrderTargetId').innerText = currentlyTrackedOrder.orderId;
+            
+            const modal = document.getElementById('cancelModal');
+            const inner = modal.firstElementChild;
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            setTimeout(() => {
+                inner.classList.remove('scale-95', 'opacity-0');
+                inner.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+
+        function closeCancelModal() {
+            const modal = document.getElementById('cancelModal');
+            const inner = modal.firstElementChild;
+            inner.classList.remove('scale-100', 'opacity-100');
+            inner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('pointer-events-none', 'opacity-0');
+            }, 200);
+        }
+
+        function confirmCancelOrder() {
+            if (originalOrderIndex === -1) return;
+
+            getOrders();
+            const order = orders[originalOrderIndex];
+            order.status = "Cancelled";
+            const now = new Date();
+            const timeStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ", " + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            order.logs.push({ time: timeStr, msg: "Order cancelled by customer. Refund process completed." });
+            
+            triggerFeedbackToast(`Order ${order.orderId} cancelled.`);
+            saveOrders();
+            currentlyTrackedOrder = order;
+            renderTrackingView();
+            closeCancelModal();
+        }
+
+        function triggerFeedbackToast(msg) {
+            const box = document.getElementById('actionFeedback');
+            box.innerText = msg;
+            box.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.add('hidden');
+            }, 3000);
+        }
+
+        // --- 5. SEARCH HANDLERS ---
+        function handleTrackSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('orderIdInput').value;
+            if (searchOrder(input)) {
+                renderTrackingView();
+            } else {
+                currentlyTrackedOrder = null;
+                renderTrackingView();
+            }
+        }
+
+        function trackDemoOrder(id) {
+            document.getElementById('orderIdInput').value = id;
+            if (searchOrder(id)) {
+                renderTrackingView();
+                // scroll to details smoothly
+                document.getElementById('trackingDetailsSection').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- 6. CHECKOUT DRAWER AND CART RE-SYCN ---
+        const drawer = document.getElementById('checkoutDrawer');
+        const drawerContent = document.getElementById('drawerContent');
+
+        function toggleCheckoutDrawer() {
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    drawerContent.classList.remove('translate-x-full');
+                    drawerContent.classList.add('translate-x-0');
+                }, 50);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawerContent.classList.remove('translate-x-0');
+                drawerContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('pointer-events-none', 'opacity-0');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+        }
+
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                toggleCheckoutDrawer();
+            }
+        });
+
+        function loadCartItems() {
+            let cart = localStorage.getItem('cartItems');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function renderCartDrawer() {
+            const cart = loadCartItems();
+            const selectedItemsContainer = drawer.querySelector('.space-y-4.max-h-\\[50vh\\]');
+            const badge = document.getElementById('cartCountBadge');
+            const subtotalEl = document.getElementById('bagSubtotal');
+            const totalEl = document.getElementById('bagTotal');
+
+            if (badge) {
+                let count = 0;
+                cart.forEach(item => count += item.qty);
+                badge.innerText = count;
+            }
+
+            if (!selectedItemsContainer) return;
+
+            selectedItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                const newCartItem = document.createElement('div');
+                newCartItem.className = "flex gap-4 items-center p-3 bg-neutral-50 rounded-xl border border-neutral-100 relative";
+                newCartItem.innerHTML = `
+                    <div class="w-16 aspect-[3/4] rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-fashionBlack leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-neutral-400 font-semibold space-y-0.5">
+                            <p>Color: <span class="text-neutral-600 font-bold">${item.color || 'Standard'}</span></p>
+                            <p>Size: <span class="text-neutral-600 font-bold">${item.size || 'M'}</span></p>
+                        </div>
+                        <div class="flex justify-between items-center pt-1.5">
+                            <span class="font-extrabold text-sm text-fashionGold">$${item.price.toFixed(2)}</span>
+                            <span class="text-xs text-neutral-400 font-semibold">Qty: ${item.qty}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="absolute top-2 right-2 text-neutral-350 hover:text-rose-500 transition-colors" aria-label="Remove item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                selectedItemsContainer.appendChild(newCartItem);
+            });
+
+            if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+            if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = loadCartItems();
+            cart.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            renderCartDrawer();
+        }
+
+        // --- WISHLIST BADGE SYNC ---
+        function updateWishlistBadge() {
+            const wishlist = localStorage.getItem('wishlistItems');
+            const badge = document.getElementById('wishlistCountBadge');
+            if (badge) {
+                const count = wishlist ? JSON.parse(wishlist).length : 0;
+                badge.innerText = count;
+            }
+        }
+
+        // --- URL QUERY PARAM LOAD ---
+        function loadUrlQueryParam() {
+            const params = new URLSearchParams(window.location.search);
+            const orderId = params.get('orderId');
+            if (orderId) {
+                document.getElementById('orderIdInput').value = orderId;
+                if (searchOrder(orderId)) {
+                    renderTrackingView();
+                }
+            }
+        }
+
+        // --- DOM INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            checkUserAuthSession();
+            getOrders();
+            renderCartDrawer();
+            updateWishlistBadge();
+            loadUrlQueryParam();
+        });
+    </script>
+</body>
+</html>

@@ -143,6 +143,7 @@
                     </div>
                     <a href="profile.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">My Profile</a>
                     <a href="orders.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Order History</a>
+                    <a href="track-order.html" class="block px-4 py-2 hover:bg-neutral-50 hover:text-fashionBlack transition-colors">Track Order</a>
                     <button onclick="handleUserLogout()" class="w-full text-left block px-4 py-2 hover:bg-rose-50 hover:text-rose-600 transition-colors border-t border-neutral-100 mt-1.5 pt-2">
                         Log Out
                     </button>
@@ -509,7 +510,7 @@
                         <h4 class="font-extrabold text-[0.8rem] uppercase tracking-wider text-neutral-400">Company</h4>
                         <ul class="space-y-2 text-sm font-semibold text-neutral-600">
                             <li><a href="carrer.html" class="hover:text-fashionGold transition-all duration-200">Career</a></li>
-                            <li><a href="index.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
+                            <li><a href="about.html" class="hover:text-fashionGold transition-all duration-200">Our Story</a></li>
                         </ul>
                     </div>
 
@@ -620,7 +621,7 @@
     <!-- ==================== INTERACTIVE JAVASCRIPT FOR DYNAMIC DATA AND FILTERING ==================== -->
     <script>
         // --- 1. PRODUCT DATABASE ---
-        const ALL_PRODUCTS = [
+        const DEFAULT_PRODUCTS = [
             {
                 id: 1,
                 title: "Graffiti Boyfriend Oversized Hoodie",
@@ -779,6 +780,13 @@
             }
         ];
 
+        // Initialize and load products list from localStorage
+        let ALL_PRODUCTS = JSON.parse(localStorage.getItem('productsList'));
+        if (!ALL_PRODUCTS || ALL_PRODUCTS.length === 0) {
+            ALL_PRODUCTS = DEFAULT_PRODUCTS;
+            localStorage.setItem('productsList', JSON.stringify(ALL_PRODUCTS));
+        }
+
         let cartItemCount = 3;
 
         // --- Initialize Category Counts ---
@@ -890,12 +898,14 @@
                 card.className = "group flex flex-col space-y-4";
                 card.innerHTML = `
                     <div class="relative overflow-hidden aspect-[3/4] bg-neutral-100 rounded-sm">
-                        <img 
-                            src="${p.image}" 
-                            alt="${p.title}" 
-                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                            loading="lazy"
-                        >
+                        <a href="product.html?id=${p.id}" class="block w-full h-full">
+                            <img 
+                                src="${p.image}" 
+                                alt="${p.title}" 
+                                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                loading="lazy"
+                            >
+                        </a>
                         <!-- Discount Badge -->
                         ${p.badge ? `<span class="absolute top-4 left-4 z-10 px-2 py-1 bg-fashionGold text-white text-[10px] font-extrabold uppercase rounded shadow-sm">${p.badge}</span>` : ""}
                         
@@ -916,14 +926,14 @@
                                 </svg>
                             </button>
                             <!-- Quick View / Details -->
-                            <a href="product.html" class="w-10 h-10 bg-white hover:bg-fashionGold hover:text-white rounded-full flex items-center justify-center text-fashionBlack shadow-md transition-all active:scale-90" aria-label="View product detail">
+                            <a href="product.html?id=${p.id}" class="w-10 h-10 bg-white hover:bg-fashionGold hover:text-white rounded-full flex items-center justify-center text-fashionBlack shadow-md transition-all active:scale-90" aria-label="View product detail">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </a>
                         </div>
-
+ 
                         <!-- Main add to cart button -->
                         <button onclick="handleAddToCart('${p.title}', ${p.price}, '${p.image}')" class="absolute bottom-4 right-4 w-11 h-11 bg-fashionBlack rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:bg-fashionGold shadow-md ${!p.inStock ? 'opacity-50 cursor-not-allowed' : ''}" aria-label="Add ${p.title} to bag" ${!p.inStock ? 'disabled' : ''}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="w-5 h-5">
@@ -931,14 +941,14 @@
                             </svg>
                         </button>
                     </div>
-
+ 
                     <div class="flex justify-between items-start pt-1">
                         <div class="space-y-0.5">
                             <div class="flex items-center space-x-1">
-                                <span class="text-neutral-400 font-semibold text-xs uppercase tracking-wider block">${p.category}</span>
+                                <span class="text-neutral-450 font-semibold text-xs uppercase tracking-wider block">${p.category}</span>
                             </div>
                             <h3 class="font-extrabold text-base text-fashionBlack leading-tight tracking-tight max-w-[180px]">
-                                ${p.title}
+                                <a href="product.html?id=${p.id}" class="hover:text-fashionGold transition-colors">${p.title}</a>
                             </h3>
                         </div>
                         <div class="flex flex-col items-end space-y-1">

@@ -283,19 +283,23 @@
                 return;
             }
 
+            // Check if username/email contains "admin" to assign admin role
+            const isAdmin = username.toLowerCase().includes('admin');
+            
             // Simulate successful standard login credentials saving to localStorage
             const userSession = {
                 name: username.split('@')[0],
                 email: username.includes('@') ? username : `${username}@gmail.com`,
                 initials: username.substring(0, 2).toUpperCase(),
                 loggedIn: true,
-                type: "standard"
+                type: "standard",
+                role: isAdmin ? "admin" : "standard"
             };
 
             localStorage.setItem('userSession', JSON.stringify(userSession));
             
-            // Redirect
-            window.location.href = "index.html";
+            // Redirect: if admin, we can redirect directly to the admin dashboard, or just index.html (which will display the Admin Dashboard link)
+            window.location.href = isAdmin ? "admin.html" : "index.html";
         }
 
         // --- 3. GOOGLE AUTH POPUP SIMULATION ENGINE ---
